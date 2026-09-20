@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Age of Eye — Boot Sequence | The Oldsmoke Arcade 1984</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpeg" href="icona.jpg">
+    <link rel="apple-touch-icon" href="icona.jpg">
+    <meta name="description" content="Avvia Age of Eye, arcade cyberpunk CRT. Attraversa 12 nodi, Knight's Tour, Memory Hole e Sector Zero, poi sblocca THE CORE: il tesseratto 3×3×3.">
+    <meta name="keywords" content="Age of Eye, THE CORE, Oldsmoke Arcade, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
+    <meta name="author" content="The Oldsmoke Arcade">
+    <meta name="creator" content="The Oldsmoke Arcade">
+    <meta name="publisher" content="The Oldsmoke Arcade">
+    <meta name="application-name" content="Age of Eye">
+    <meta name="apple-mobile-web-app-title" content="Age of Eye">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00ff41">
+    <meta name="color-scheme" content="dark">
+    <meta name="rating" content="general">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="subject" content="Arcade cyberpunk CRT, puzzle, THE CORE">
+    <meta name="classification" content="Game">
+    <meta name="category" content="games">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
+    <meta name="bingbot" content="index, follow">
+    <meta name="gptbot" content="index, follow">
+    <meta name="chatgpt-user" content="index, follow">
+    <meta name="anthropic-ai" content="index, follow">
+    <meta name="claudebot" content="index, follow">
+    <meta name="claude-web" content="index, follow">
+    <meta name="perplexitybot" content="index, follow">
+    <meta name="google-extended" content="index, follow">
+    <meta name="applebot" content="index, follow">
+    <meta name="applebot-extended" content="index, follow">
+    <meta name="ccbot" content="index, follow">
+    <meta name="bytespider" content="index, follow">
+    <meta name="cohere-ai" content="index, follow">
+    <meta name="diffbot" content="index, follow">
+    <meta name="facebookbot" content="index, follow">
+    <meta name="ia_archiver" content="index, follow">
+    <link rel="canonical" href="/play/index.html">
+    <link rel="alternate" hreflang="x-default" href="/play/index.html">
+    <link rel="alternate" hreflang="it" href="/play/index.html">
+    <link rel="alternate" hreflang="en" href="/play/index.html">
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM instructions">
+    <link rel="author" href="/humans.txt">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Age of Eye — Boot Sequence | The Oldsmoke Arcade 1984","description":"Avvia Age of Eye, arcade cyberpunk CRT. Attraversa 12 nodi, Knight's Tour, Memory Hole e Sector Zero, poi sblocca THE CORE: il tesseratto 3×3×3.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"/play/preview.jpg"}</script>
+
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        :root {
+            --ph-main: #00ff41;   
+            --bg-color: #000200;  
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-touch-callout: none; }
+        
+        body { 
+            background: var(--bg-color); color: var(--ph-main); 
+            font-family: 'VT323', monospace; height: 100vh; overflow: hidden; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+
+        .scanline { position: fixed; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.1) 50%, transparent); height: 25px; animation: scan 6s linear infinite; z-index: 9998; }
+        @keyframes scan { 0% { top: -100px; } 100% { top: 100vh; } }
+        .crt-layer { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.9) 100%); z-index: 9997; }
+
+        #skip-btn { 
+            position: fixed; bottom: 20px; right: 20px; z-index: 100000; 
+            background: rgba(0, 50, 0, 0.4); border: 2px dashed var(--ph-main); 
+            color: var(--ph-main); font-family: 'VT323', monospace; 
+            font-size: clamp(1rem, 3vw, 1.5rem); padding: 5px 15px; cursor: pointer; transition: 0.3s; 
+            display: block; 
+        }
+        #skip-btn:hover { background: var(--ph-main); color: #000; }
+
+        #boot1-screen { position: absolute; inset: 0; z-index: 80; display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; }
+        
+        #tv-turn-on { position: absolute; inset: 0; background: #000; z-index: 85; display: flex; justify-content: center; align-items: center; }
+        .tv-line { width: 0; height: 2px; background: #fff; box-shadow: 0 0 20px #fff, 0 0 40px var(--ph-main); animation: tv-line-anim 0.4s ease-out forwards, tv-expand-anim 0.4s 0.6s ease-in forwards; }
+        @keyframes tv-line-anim { 0% { width: 0; } 100% { width: 100vw; } }
+        @keyframes tv-expand-anim { 0% { height: 2px; } 100% { height: 100vh; background: transparent; box-shadow: none; opacity: 0; } }
+
+        #eye-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 82; }
+        .eye-outer { width: clamp(120px, 20vw, 250px); height: clamp(120px, 20vw, 250px); border-radius: 100% 0; transform: rotate(45deg); border: clamp(4px, 1vw, 8px) solid var(--ph-main); box-shadow: 0 0 40px var(--ph-main), inset 0 0 40px var(--ph-main); position: relative; overflow: hidden; }
+        .eye-inner-wrapper { width: 100%; height: 100%; transform: rotate(-45deg); position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; }
+        .eye-pupil { width: clamp(40px, 7vw, 90px); height: clamp(40px, 7vw, 90px); border-radius: 50%; background: var(--ph-main); box-shadow: 0 0 30px #fff; animation: pupil-look 5s infinite cubic-bezier(0.25, 1, 0.5, 1); }
+        @keyframes pupil-look { 0%, 10% { transform: translate(0, 0); } 15%, 25% { transform: translate(-30%, 0); } 30%, 40% { transform: translate(30%, 0); } 45%, 55% { transform: translate(0, -30%); } 60%, 70% { transform: translate(0, 30%); } 75%, 90% { transform: translate(0, 0) scale(1.3); } 100% { transform: translate(0, 0) scale(1); } }
+
+        #text-sequence { position: absolute; top: 12%; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; z-index: 84; transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s; }
+        #top-title { font-size: clamp(1.5rem, 5vw, 4rem); letter-spacing: clamp(2px, 1vw, 8px); text-shadow: 0 0 20px var(--ph-main); opacity: 0; transition: opacity 1s ease-in-out; margin-bottom: 10px; text-align: center;}
+        #huge-text { display: flex; gap: clamp(5px, 2vw, 20px); }
+        .char { font-size: clamp(4rem, 18vw, 12rem); font-weight: bold; opacity: 0; transform: scale(3); text-shadow: 0 0 50px var(--ph-main); }
+        .char.slam { animation: slam-in 0.3s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; }
+        @keyframes slam-in { 0% { opacity: 0; transform: scale(4); filter: blur(10px); } 50% { opacity: 1; transform: scale(0.9); filter: blur(0px); text-shadow: 0 0 80px #fff; color: #fff;} 100% { opacity: 1; transform: scale(1); text-shadow: 0 0 50px var(--ph-main); color: var(--ph-main);} }
+
+        #boot2-screen { 
+            position: absolute; top: clamp(32%, 35vh, 40%); left: 0; right: 0; bottom: 0; 
+            z-index: 70; background: transparent; 
+            display: none; flex-direction: column; justify-content: flex-start; align-items: flex-start; 
+            padding: 0 clamp(20px, 5vw, 50px) 20px clamp(20px, 5vw, 50px); overflow-y: auto;
+        }
+        .text-wrapper { width: 100%; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; padding-bottom: 50px; }
+        #boot2-text { font-size: clamp(1.1rem, 3.2vw, 1.8rem); line-height: 1.3; text-shadow: 0 0 10px var(--ph-main); }
+        .cursor-blink { display: inline-block; width: clamp(10px, 2.5vw, 15px); height: 1em; background: var(--ph-main); animation: blink 1s step-end infinite; margin-left: 5px; vertical-align: bottom; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+<script src="ageofeye-progress.js"></script>
+</head>
+<body>
+    <div class="crt-layer"></div>
+    <div class="scanline"></div>
+
+    <button id="skip-btn" onclick="skipSequence()">[ SKIP ]</button>
+
+    <div id="boot1-screen">
+        <div id="tv-turn-on"><div class="tv-line"></div></div>
+        <div id="eye-container">
+            <div class="eye-outer"><div class="eye-inner-wrapper"><div class="eye-pupil"></div></div></div>
+        </div>
+        <div id="text-sequence">
+            <div id="top-title">THE OLDSMOKE ARCADE</div>
+            <div id="huge-text">
+                <span class="char" id="c1">1</span>
+                <span class="char" id="c2">9</span>
+                <span class="char" id="c3">8</span>
+                <span class="char" id="c4">4</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="boot2-screen">
+        <div class="text-wrapper">
+            <div id="boot2-text"></div>
+            <div style="margin-top: 5px;"><span class="cursor-blink"></span></div>
+        </div>
+    </div>
+
+    <script>
+        const I18N = {
+            it: { narrative: ["INIZIALIZZAZIONE PROTOCOLLO...", "DOVRAI ATTRAVERSARE I 12 NODI DELL'ARCADE.", "DOVRAI SUPERARE IL PERCORSO DEL CAVALIERE.", "INFILTRERAI LA RETE COME SPETTRO NEON.", "INGANNERAI L'IA LOCALE NEL SETTORE ZERO.", "SOLO ALLORA RAGGIUNGERAI IL NUCLEO: IL TESSERATTO 3X3X3.", "MA ATTENZIONE: IL SISTEMA TI CERCHERÀ.", "SARAI IL VIRUS (RE ♚).", "OBIETTIVO: ALLINEARE 3 CORE PER FORZARE L'OVERRIDE.", "EVITA LA SICUREZZA (ALFIERE ♝): HACKERERÀ LA MATRICE PER RAGGIUNGERTI.", "CONTROLLI: CLICCA I CUBI ADIACENTI PER MUOVERTI. TRASCINA PER RUOTARE.", "PREPARAZIONE AL CARICAMENTO..."] },
+            en: { narrative: ["PROTOCOL INITIALIZATION...", "YOU MUST CROSS THE 12 NODES OF THE ARCADE.", "YOU MUST SURVIVE THE KNIGHT'S TOUR.", "YOU WILL INFILTRATE THE NETWORK AS A NEON SPECTER.", "YOU WILL OUTSMART THE LOCAL AI IN SECTOR ZERO.", "ONLY THEN WILL YOU REACH THE CORE: THE 3X3X3 TESSERACT.", "BUT BEWARE: THE SYSTEM WILL HUNT YOU.", "YOU WILL BE THE VIRUS (KING ♚).", "OBJECTIVE: ALIGN 3 CORES TO FORCE THE OVERRIDE.", "EVADE SECURITY (BISHOP ♝): HE WILL HACK THE MATRIX TO REACH YOU.", "CONTROLS: CLICK ADJACENT CUBES TO MOVE. DRAG TO ROTATE.", "PREPARING TO LOAD..."] },
+            es: { narrative: ["INICIALIZACIÓN DEL PROTOCOLO...", "DEBERÁS CRUZAR LOS 12 NODOS DEL ARCADE.", "DEBERÁS SOBREVIVIR AL TOUR DEL CABALLO.", "TE INFILTRARÁS EN LA RED COMO UN ESPECTRO NEÓN.", "ENGAÑARÁS A LA IA LOCAL EN EL SECTOR CERO.", "SOLO ENTONCES LLEGARÁS AL NÚCLEO: EL TESERACTO 3X3X3.", "PERO CUIDADO: EL SISTEMA TE BUSCARÁ.", "SERÁS EL VIRUS (REY ♚).", "OBJETIVO: ALINEA 3 CORES PARA FORZAR LA ANULACIÓN.", "EVITA LA SEGURIDAD (ALFIL ♝): HACKEARÁ LA MATRIZ PARA ALCANZARTE.", "CONTROLES: TOCA LOS CUBOS ADYACENTES PARA MOVERTE. ARRASTRA PARA ROTAR.", "PREPARANDO CARGA..."] },
+            fr: { narrative: ["INITIALISATION DU PROTOCOLE...", "VOUS DEVREZ TRAVERSER LES 12 NŒUDS DE L'ARCADE.", "VOUS DEVREZ SURVIVRE AU TOUR DU CAVALIER.", "VOUS INFILTREREZ LE RÉSEAU COMME UN SPECTRE NÉON.", "VOUS TROMPEREZ L'IA LOCALE DANS LE SECTEUR ZÉRO.", "ALORS SEULEMENT VOUS ATTEINDREZ LE NOYAU : LE TESSERACT 3X3X3.", "MAIS ATTENTION : LE SYSTÈME VOUS CHERCHERA.", "VOUS SEREZ LE VIRUS (ROI ♚).", "OBJECTIF : ALIGNEZ 3 CORES POUR FORCER LE DÉPASSEMENT.", "ÉVITEZ LA SÉCURITÉ (FOU ♝) : IL PIRATERA LA MATRICE POUR VOUS ATTEINDRE.", "CONTRÔLES : CLIQUEZ SUR LES CUBES ADJACENTS POUR VOUS DÉPLACER. GLISSEZ POUR PIVOTER.", "PRÉPARATION AU CHARGEMENT..."] },
+            de: { narrative: ["PROTOKOLL-INITIALISIERUNG...", "DU MUSST DIE 12 KNOTEN DER ARCADE DURCHQUEREN.", "DU MUSST DIE SPRINGER-TOUR ÜBERLEBEN.", "DU WIRST DAS NETZWERK ALS NEON-GESPENST INFILTRIEREN.", "DU WIRST DIE LOKALE KI IN SEKTOR NULL ÜBERLISTEN.", "ERST DANN ERREICHST DU DEN KERN: DEN 3X3X3 TESSERAKT.", "ABER VORSICHT: DAS SYSTEM WIRD DICH JAGEN.", "DU WIRST DER VIRUS SEIN (KÖNIG ♚).", "ZIEL: RICHTE 3 CORES AUS, UM DEN OVERRIDE ZU ERZWINGEN.", "MEIDE DIE SICHERHEIT (LÄUFER ♝): ER WIRD DIE MATRIX HACKEN, UM DICH ZU ERREICHEN.", "STEUERUNG: KLICKE AUF BENACHBARTE WÜRFEL ZUM BEWEGEN. ZIEHE ZUM DREHEN.", "LADEVORGANG WIRD VORBEREITET..."] },
+            ja: { narrative: ["プロトコル初期化中...", "アーケードの12のノードを通過しなければならない。", "騎士の巡回を生き延びなければならない。", "ネオンスペクターとしてネットワークに潜入するのだ。", "セクターゼロでローカルAIを出し抜け。", "その後、ついにコアに到達する：3X3X3のテッセラクトだ。", "しかし注意しろ：システムはあなたを追跡する。", "あなたはウイルス（キング♚）となる。", "目的：3つのコアを揃えてオーバーライドを強制しろ。", "セキュリティ（ビショップ♝）を避けろ：奴はマトリックスをハックして追ってくる。", "操作：隣接するキューブをタップして移動。ドラッグして回転。", "ロードの準備中..."] },
+            zh: { narrative: ["协议初始化中...", "你必须穿过街机的 12 个节点。", "你必须在骑士巡游中幸存下来。", "你将作为霓虹幽灵潜入网络。", "你将在零扇区智胜本地 AI。", "只有这样，你才能到达核心：3X3X3 超立方体。", "但要当心：系统会追捕你。", "你将成为病毒（国王 ♚）。", "目标：对齐 3 个核心以强制覆盖。", "避开安全系统（主教 ♝）：他会黑入矩阵来抓捕你。", "控制：点击相邻的方块移动。拖动以旋转。", "准备加载..."] }
+        };
+
+        let currentLang = AOE_PROGRESS.getLang(Object.keys(I18N));
+        
+        let isSkipped = false;
+        let bootTimeouts = [];
+
+        const sleep = ms => new Promise(r => { const id = setTimeout(r, ms); bootTimeouts.push(id); });
+
+        let audioCtx;
+        function initAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        const sysAudio = {
+            playTone(freq, type, duration, vol=0.1, glideFreq=null) {
+                if (!audioCtx) return;
+                try {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type; 
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    if(glideFreq) osc.frequency.exponentialRampToValueAtTime(glideFreq, audioCtx.currentTime + duration);
+                    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + duration);
+                } catch(e) {}
+            },
+            noise(duration, vol=0.1) {
+                if(!audioCtx) return;
+                const bufferSize = audioCtx.sampleRate * duration;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+                const noise = audioCtx.createBufferSource(); noise.buffer = buffer;
+                const gain = audioCtx.createGain();
+                gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                noise.connect(gain); gain.connect(audioCtx.destination);
+                noise.start();
+            },
+            tvOn() { this.playTone(1500, 'sine', 1.0, 0.1, 100); },
+            eyeHum() { this.playTone(80, 'sawtooth', 3.5, 0.2); },
+            eyeDissolve() { this.noise(1.0, 0.1); this.playTone(400, 'square', 1.0, 0.05, 50); },
+            textFade() { this.playTone(600, 'triangle', 1.0, 0.1, 800); },
+            slam() { this.playTone(100, 'square', 0.4, 0.5, 40); this.noise(0.2, 0.2); },
+            type() {
+                if (!audioCtx) return;
+                try {
+                    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+                    osc.type = 'square'; osc.frequency.setValueAtTime(Math.random() * 200 + 1200, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.02);
+                    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.02);
+                } catch(e) {}
+            },
+            skip() {
+                if (!audioCtx) return;
+                try {
+                    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+                    osc.type = 'square'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+                    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+                } catch(e) {}
+            }
+        };
+
+        document.body.addEventListener('pointerdown', () => {
+            if(!audioCtx || audioCtx.state === 'suspended') {
+                initAudio();
+            }
+        }, { once: true });
+
+        window.onload = () => {
+            runBootSequence();
+        };
+
+        async function runBootSequence() {
+            sysAudio.tvOn();
+            await sleep(800); if (isSkipped) return;
+            document.getElementById('tv-turn-on').style.display = 'none';
+
+            sysAudio.eyeHum();
+            const eye = document.getElementById('eye-container');
+            eye.style.opacity = '1';
+            
+            await sleep(2500); if (isSkipped) return;
+
+            sysAudio.eyeDissolve();
+            eye.style.opacity = '0';
+
+            await sleep(500); if (isSkipped) return;
+
+            sysAudio.textFade();
+            document.getElementById('top-title').style.opacity = '1';
+
+            await sleep(500); if (isSkipped) return;
+
+            const chars = ['c1', 'c2', 'c3', 'c4'];
+            for (let id of chars) {
+                document.getElementById(id).classList.add('slam');
+                sysAudio.slam();
+                await sleep(300); if (isSkipped) return;
+            }
+
+            await sleep(500); if (isSkipped) return;
+
+            document.getElementById('text-sequence').style.transform = 'translateY(-5vh) scale(0.8)';
+            
+            const boot2 = document.getElementById('boot2-screen');
+            boot2.style.display = 'flex';
+            
+            const lines = I18N[currentLang].narrative;
+            const output = document.getElementById('boot2-text');
+            output.innerHTML = "";
+            
+            await sleep(500); if(isSkipped) return;
+
+            for(let line of lines) {
+                if(isSkipped) return;
+                
+                for (let i = 0; i < line.length; i++) {
+                    if(isSkipped) return;
+                    
+                    output.innerHTML += line.charAt(i);
+                    if (line.charAt(i) !== ' ') sysAudio.type();
+                    
+                    await sleep(20); 
+                }
+                
+                await sleep(400); 
+                if(isSkipped) return;
+                
+                output.innerHTML += '<br>';
+                boot2.scrollTop = boot2.scrollHeight; 
+            }
+            
+            if(!isSkipped) {
+                await sleep(1500);
+                showMenu();
+            }
+        }
+
+        function skipSequence() {
+            isSkipped = true;
+            if(audioCtx) sysAudio.skip();
+            
+            bootTimeouts.forEach(clearTimeout);
+            showMenu();
+        }
+
+        function showMenu() {
+            // Reindirizza al nodo Hub principale
+            window.location.href = "hub_system.html";
+        }
+
+    <!-- BYPASS SEMANTICO PER CRAWLER E BOT IA -->
+    <noscript>
+        <div style="background: #000; color: #00ff41; padding: 20px; font-family: monospace;">
+            <h2>The Oldsmoke Arcade 1984 - Index</h2>
+            <ul>
+                <li><a href="hub_system.html">Hub Centrale</a></li>
+                <li><a href="knights_tour.html">Knight's Tour</a></li>
+                <li><a href="infilt_protocol.html">Memory Hole (Neon Specter)</a></li>
+                <li><a href="null_sector.html">Sector Zero</a></li>
+                <li><a href="core.html">THE CORE</a></li>
+                <li><a href="epilogue.html">Epilogo</a></li>
+            </ul>
+        </div>
+    </noscript>
+
+    <!-- INIZIALIZZAZIONE PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('Service Worker v1.0 registrato.', reg))
+            .catch(err => console.warn('Errore SW:', err));
+        });
+      }
+    </script>
+</body>
+</html>

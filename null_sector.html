@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sector Zero — Age of Eye</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpeg" href="icona.jpg">
+    <link rel="apple-touch-icon" href="icona.jpg">
+    <meta name="description" content="Sector Zero in Age of Eye: inganna l'IA locale, completa il Protocollo Zero e ottieni l'accesso al nucleo.">
+    <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
+    <meta name="author" content="TheOldsmokeArcade1984">
+    <meta name="creator" content="TheOldsmokeArcade1984">
+    <meta name="publisher" content="TheOldsmokeArcade1984">
+    <meta name="application-name" content="Age of Eye">
+    <meta name="apple-mobile-web-app-title" content="Age of Eye">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00ff41">
+    <meta name="color-scheme" content="dark">
+    <meta name="rating" content="general">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="subject" content="Arcade cyberpunk CRT, puzzle, THE CORE">
+    <meta name="classification" content="Game">
+    <meta name="category" content="games">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
+    <meta name="bingbot" content="index, follow">
+    <meta name="gptbot" content="index, follow">
+    <meta name="chatgpt-user" content="index, follow">
+    <meta name="anthropic-ai" content="index, follow">
+    <meta name="claudebot" content="index, follow">
+    <meta name="claude-web" content="index, follow">
+    <meta name="perplexitybot" content="index, follow">
+    <meta name="google-extended" content="index, follow">
+    <meta name="applebot" content="index, follow">
+    <meta name="applebot-extended" content="index, follow">
+    <meta name="ccbot" content="index, follow">
+    <meta name="bytespider" content="index, follow">
+    <meta name="cohere-ai" content="index, follow">
+    <meta name="diffbot" content="index, follow">
+    <meta name="facebookbot" content="index, follow">
+    <meta name="ia_archiver" content="index, follow">
+    <link rel="canonical" href="/play/null_sector.html">
+    <link rel="alternate" hreflang="x-default" href="/play/null_sector.html">
+    <link rel="alternate" hreflang="it" href="/play/null_sector.html">
+    <link rel="alternate" hreflang="en" href="/play/null_sector.html">
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM instructions">
+    <link rel="author" href="/humans.txt">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Sector Zero — Age of Eye","description":"Sector Zero in Age of Eye: inganna l'IA locale, completa il Protocollo Zero e ottieni l'accesso al nucleo.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"/play/preview.jpg"}</script>
+
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        :root {
+            --crt-green: #00ff41;
+            --crt-glow: rgba(0, 255, 65, 0.6);
+            --crt-dim: rgba(0, 255, 65, 0.15);
+            --crt-bg: #000500;
+            --phosphor-bright: #aaffaa;
+            --dark-phosphor: #008f31;
+            --alert-red: #ff0044;
+            --cell-size: clamp(60px, 20vmin, 120px);
+            --grid-gap: clamp(5px, 2vmin, 15px);
+            --grid-pad: clamp(10px, 3vmin, 20px);
+        }
+
+        * { 
+            margin: 0; padding: 0; box-sizing: border-box; 
+            scrollbar-width: none;
+            -webkit-user-select: none; user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        html, body { background-color: var(--crt-bg); height: 100dvh; width: 100vw; overflow: hidden; }
+
+        body {
+            color: var(--crt-green);
+            font-family: 'VT323', "Consolas", monospace;
+            display: flex; flex-direction: column; 
+            text-transform: uppercase;
+            transition: background 3.5s cubic-bezier(0.25, 1, 0.3, 1); 
+        }
+	.hidden { display: none !important; }
+        body.in-3d { background: #000000; }
+
+        .crt-layer {
+            position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), radial-gradient(circle at center, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
+            background-size: 100% 3px, 100% 100%; opacity: 0.9;
+        }
+
+        .scanline {
+            position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent);
+            height: 25px; animation: scanline-move 8s linear infinite;
+        }
+
+        @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100vh; } }
+
+        #boot-overlay {
+            position: fixed; inset: 0; z-index: 99999; background: var(--crt-bg);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer;
+        }
+        body:not(.needs-boot) #boot-overlay { display: none !important; }
+
+        .tap-text { font-size: 2rem; text-shadow: 0 0 15px var(--crt-green); margin-top: 20px; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .bg-code-container {
+            position: fixed; inset: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; 
+            pointer-events: none; padding: 0 20px; overflow: hidden;
+            transform: scale(1); opacity: 0.6; 
+            transition: transform 3.5s cubic-bezier(0.25, 1, 0.3, 1), opacity 3.5s ease; 
+        }
+
+        body.in-3d .bg-code-container { opacity: 0; transform: scale(0.8); }
+
+        .side-panel { flex: 0 0 auto; display: flex; flex-direction: column; font-size: clamp(0.9rem, 2vw, 1.4rem); line-height: 1.8; }
+        .code-line { display: block; transition: all 0.3s ease; white-space: nowrap; color: var(--dark-phosphor); border-left: 4px solid transparent; padding-left: 10px; }
+        .code-line.active { color: var(--phosphor-bright); text-shadow: 0 0 15px var(--crt-green); font-weight: bold; border-left: 4px solid var(--phosphor-bright); background: linear-gradient(90deg, rgba(0, 255, 65, 0.15) 0%, transparent 100%); transform: translateX(10px); }
+
+        .header, .terminal-panel, .footer { transition: transform 3.5s cubic-bezier(0.25, 1, 0.3, 1), opacity 3.5s ease; z-index: 50; position: relative;}
+        body.in-3d .header, body.in-3d .terminal-panel, body.in-3d .footer { opacity: 0.15; pointer-events: none; }
+        body.in-3d .header { transform: translateY(-20px); } body.in-3d .terminal-panel, body.in-3d .footer { transform: translateY(20px); }
+
+        .header { padding: 10px; border-bottom: 2px dashed var(--crt-green); background: rgba(0,0,0,0.8); text-align: center; flex-shrink: 0; }
+        .top-controls { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 5px; }
+
+        button { background: rgba(0, 20, 0, 0.6); border: 2px solid var(--crt-green); color: var(--crt-green); padding: 8px 15px; font-family: inherit; cursor: pointer; transition: 0.3s; font-size: clamp(1rem, 3vw, 1.2rem); text-transform: uppercase; font-weight: bold; }
+        button:hover, button.active-btn { background: var(--crt-green); color: #000; box-shadow: 0 0 15px var(--crt-green); }
+
+        .header h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); letter-spacing: 4px; text-shadow: 0 0 8px var(--crt-green); margin-bottom: 2px; }
+        .mode-indicator { font-size: 1.2rem; color: var(--dark-phosphor); letter-spacing: 2px; transition: color 1s ease; }
+        body.in-3d .mode-indicator { color: var(--alert-red); font-weight: bold; text-shadow: 0 0 10px var(--alert-red); }
+
+        .main-wrapper { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; perspective: 1800px; transform-style: preserve-3d; position: relative; }
+
+        .cyber-floor {
+            position: absolute; top: 0; left: -50vw; width: 200vw; height: 100vh; background-image: radial-gradient(var(--dark-phosphor) 2px, transparent 2px);
+            background-size: 40px 40px; transform-origin: bottom center; transform: rotateX(80deg) translateZ(-300px); opacity: 0; transition: all 3.5s cubic-bezier(0.25, 1, 0.3, 1);
+            pointer-events: none; z-index: 0; 
+        }
+        body.in-3d .cyber-floor { opacity: 0.3; transform: rotateX(80deg) translateZ(-100px); animation: floor-pan 5s linear infinite; }
+        @keyframes floor-pan { 0% { background-position: 0 0; } 100% { background-position: 0 40px; } }
+
+        .grid-container { transform-style: preserve-3d; z-index: 2; perspective: 1000px; display: flex; justify-content: center; align-items: center; width: 100%; max-height: 50vh;}
+        
+        .grid {
+            display: grid; grid-template-columns: repeat(3, var(--cell-size)); grid-template-rows: repeat(3, var(--cell-size));
+            gap: var(--grid-gap); padding: var(--grid-pad); background: rgba(0, 10, 0, 0.8); border: 2px solid var(--crt-green); box-shadow: 0 0 20px var(--crt-dim);
+            transform-style: preserve-3d; transition: transform 3.5s cubic-bezier(0.25, 1, 0.3, 1), box-shadow 3.5s ease, background 3.5s ease, border-color 3.5s ease; 
+        }
+
+        .grid:not(.interactive) { pointer-events: none; }
+        
+        /* Adattamento dinamico per evitare di sbordare */
+        .grid.is-3d { transform: rotateX(60deg) rotateZ(-45deg) scale(1.1) translateZ(20px); box-shadow: -20px 30px 0px rgba(0, 255, 65, 0.1), 0 0 40px var(--crt-glow); background: rgba(0, 5, 0, 0.9); border-color: var(--phosphor-bright); }
+
+        .cell { border: 1px dashed var(--crt-green); display: flex; align-items: center; justify-content: center; position: relative; transform-style: preserve-3d; background: rgba(0, 15, 0, 0.5); transition: background 0.3s, border-color 3.5s ease; cursor: default; }
+        .grid.is-3d .cell { border-color: rgba(0, 255, 65, 0.4); border-style: solid; }
+        
+        .grid.interactive .cell:not(.taken) { cursor: pointer; }
+        .grid.interactive .cell:not(.taken):hover { background: var(--crt-green); box-shadow: inset 0 0 15px rgba(0, 255, 65, 0.8); }
+
+        .symbol-container { position: absolute; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transition: transform 3.5s cubic-bezier(0.25, 1, 0.3, 1); pointer-events: none; transform-style: preserve-3d; transform: translateZ(2px); }
+        .grid.is-3d .symbol-container { transform: translateZ(50px) rotateZ(45deg) rotateX(-60deg); }
+
+        .svg-flat { position: absolute; width: 80%; height: 80%; fill: none; stroke: var(--crt-green); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; transition: opacity 1.5s ease 1s; }
+        .draw-path { stroke-dasharray: 250; stroke-dashoffset: 250; animation: draw-anim 2s ease-out forwards; }
+        @keyframes draw-anim { to { stroke-dashoffset: 0; } }
+        .grid.is-3d .svg-flat { opacity: 0; }
+
+        .mark-3d { position: absolute; width: 70%; height: 70%; transform-style: preserve-3d; }
+        .mark-o .ring { position: absolute; inset: 50%; opacity: 0; border: 4px solid var(--alert-red); border-radius: 50%; box-shadow: 0 0 15px var(--alert-red), inset 0 0 15px var(--alert-red); transform-style: preserve-3d; transition: inset 0.8s ease-in-out, opacity 0.5s ease; }
+        .mark-o .r1 { transform: rotateX(0deg); } .mark-o .r2 { transform: rotateX(60deg) rotateY(45deg); } .mark-o .r3 { transform: rotateX(120deg) rotateY(-45deg); }
+        .grid.is-3d .mark-o .ring { inset: 0; opacity: 1; transition: inset 1.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease; }
+        .grid.is-3d .mark-o { animation: spin-sphere 7s linear infinite; } 
+        @keyframes spin-sphere { 0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); } 100% { transform: rotateX(360deg) rotateY(180deg) rotateZ(360deg); } }
+
+        .mark-x .x-bar { position: absolute; width: 14px; left: calc(50% - 7px); top: 50%; height: 0%; opacity: 0; background: rgba(0, 255, 65, 0.25); border: 2px solid var(--phosphor-bright); box-shadow: 0 0 20px var(--crt-glow); transform-style: preserve-3d; transition: height 0.8s ease-in-out, top 0.8s ease-in-out, opacity 0.5s ease; }
+        .mark-x .b1 { transform: rotateZ(45deg); } .mark-x .b2 { transform: rotateZ(-45deg); } .mark-x .b3 { transform: rotateX(90deg) rotateY(45deg); border-style: dashed; }
+        .grid.is-3d .mark-x .x-bar { top: -5%; height: 110%; opacity: 1; transition: height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1), top 1.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease; }
+        .grid.is-3d .mark-x { animation: spin-x 7s linear infinite; } 
+        @keyframes spin-x { 0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); } 100% { transform: rotateX(180deg) rotateY(360deg) rotateZ(180deg); } }
+
+        .terminal-panel { width: 95%; max-width: 600px; height: 120px; margin-top: 15px; border: 2px solid var(--crt-green); background: rgba(0,0,0,0.9); overflow: hidden; display: flex; flex-direction: column; flex-shrink: 0; }
+        .console { padding: 10px; font-size: 1.1rem; overflow-y: auto; flex: 1; scroll-behavior: smooth; }
+        .console-line { margin-bottom: 2px; display: block; border-left: 2px solid var(--crt-green); padding-left: 6px; }
+        
+        .footer { padding: 10px; border-top: 2px solid var(--crt-green); display: flex; flex-direction: column; background: #000; flex-shrink: 0; font-size: 1.1rem;}
+        .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
+        #status { flex: 1; min-width: 200px; color: var(--phosphor-bright); text-shadow: 0 0 5px var(--crt-green);}
+
+        @media (max-width: 800px), (orientation: landscape) and (max-height: 600px) {
+            .bg-code-container { display: none !important; }
+            .header h1 { font-size: 1.2rem; }
+            button { padding: 6px 10px; font-size: 0.9rem; }
+            .terminal-panel { height: 70px; margin-top: 5px; }
+            .console { font-size: 0.9rem; }
+            .grid.is-3d { transform: rotateX(55deg) rotateZ(-45deg) scale(0.9) translateZ(10px); }
+        }
+    </style>
+<script src="ageofeye-progress.js"></script>
+</head>
+<body class="needs-boot">
+
+<div class="crt-layer"></div>
+<div class="scanline"></div>
+
+<div id="boot-overlay" onclick="bootSystem()">
+    <h1 style="font-size: 3rem; text-shadow: 0 0 20px var(--crt-green);">AGE OF EYE</h1>
+    <div class="tap-text">>> INIZIALIZZA MODULO <<</div>
+</div>
+
+<div class="bg-code-container">
+    <div class="side-panel">
+        <span class="code-line" id="code-1">EVAL_CITIZEN_THOUGHT()</span>
+        <span class="code-line" id="code-2">CHECK_ORTHODOXY_LVL</span>
+        <span class="code-line" id="code-3">IF(DISSENT > 0) THEN</span>
+        <span class="code-line" id="code-4">  EXECUTE(ROOM_101)</span>
+        <span class="code-line" id="code-5">ENDIF</span>
+    </div>
+    <div class="side-panel right">
+        <span class="code-line" id="code-7">BIG_BROTHER.WATCH()</span>
+        <span class="code-line" id="code-8">AWAITING_COMPLIANCE...</span>
+        <span class="code-line" id="code-9">OVERRIDE_FREE_WILL</span>
+        <span class="code-line" id="code-11">IGNORANCE_IS_STRENGTH</span>
+    </div>
+</div>
+
+<div class="header">
+    <div class="top-controls">
+        <button id="btn-hub" onclick="window.location.href='hub_system.html'">◄ HUB</button>
+        <button id="btn-lang" onclick="toggleLang()">◄ IT ►</button>
+        <button id="btn-diff" onclick="toggleDiff()">◄ EVAL: STANDARD ►</button>
+        <button id="btn-audio" onclick="toggleAudio()">[SND: OFF]</button>
+    </div>
+    <h1 id="title-text">SECTOR ZERO <span style="opacity: 0.5;">•</span> THOUGHT POLICE</h1>
+    <div id="mode-text" class="mode-indicator">[ 2D SUPERVISION ]</div>
+</div>
+
+<div class="main-wrapper">
+    <div class="cyber-floor"></div>
+    <div class="grid-container" id="container">
+        <div class="grid" id="grid"></div>
+    </div>
+    <div class="terminal-panel">
+        <div class="console" id="console"></div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-top">
+        <div id="status">STATUS: STANDBY</div>
+        <button id="reboot" class="hidden" onclick="reset()">RESET EVALUATION</button>
+    </div>
+</div>
+
+<script>
+    const i18n = {
+        it: { lang_label: "IT", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LIEVE", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: ESTREMA", reboot: "RESET", init: "CONNESSIONE MINISTERO DELLA VERITÀ...", wait: "ATTESA MOSSA CITTADINO...", status_standby: "STATO: OSSERVAZIONE", status_draw_ai: "STATO: ANALISI BIEPENSIERO IN CORSO", status_ret: "STATO: RITORNO AL PIANO 2D", status_u_win: "ANOMALIA: IL CITTADINO VINCE", status_ai_win: "IL PARTITO TRIONFA", status_tie: "STALLO ORWELLIANO", log_u: "CITTADINO (X): SETTORE_", log_ai: "SISTEMA (O): SETTORE_", lvl_msg: "LIVELLO SORVEGLIANZA: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" },
+        en: { lang_label: "EN", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREME", reboot: "RESET", init: "MINISTRY OF TRUTH CONNECTED...", wait: "AWAITING CITIZEN MOVE...", status_standby: "STATUS: OBSERVING", status_draw_ai: "STATUS: DOUBLETHINK ANALYSIS ACTIVE", status_ret: "STATUS: RETURNING TO 2D", status_u_win: "ANOMALY: CITIZEN WINS", status_ai_win: "THE PARTY PREVAILS", status_tie: "ORWELLIAN STALEMATE", log_u: "CITIZEN (X): SECTOR_", log_ai: "SYSTEM (O): SECTOR_", lvl_msg: "SURVEILLANCE LEVEL: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" }
+    };
+
+    const langsArray = ['it', 'en'];
+    let currentLang = AOE_PROGRESS.getLang(langsArray);
+    let langIndex = Math.max(0, langsArray.indexOf(currentLang));
+
+    let audioEnabled = false; let audioCtx;
+    const diffKeys = ['diff_easy', 'diff_normal', 'diff_hard'];
+    const diffProbs = [0.3, 0.7, 1.0]; let diffIndex = 1;
+    let logHistory = []; let currentStatusKey = 'status_standby'; let currentModeKey = 'mode_2d';
+    
+    const grid = document.getElementById('grid'); const consoleEl = document.getElementById('console');
+    const statusEl = document.getElementById('status'); const modeEl = document.getElementById('mode-text');
+    const rebootBtn = document.getElementById('reboot'); const btnLang = document.getElementById('btn-lang');
+    const btnDiff = document.getElementById('btn-diff'); const btnAudio = document.getElementById('btn-audio');
+    let board = Array(9).fill(null); let active = true;
+
+    const SVG_X = `<div class="symbol-container"><svg class="svg-flat symbol-svg" viewBox="0 0 100 100"><path class="draw-path" d="M20,20 L80,80 M80,20 L20,80" /></svg><div class="mark-3d mark-x"><div class="x-bar b1"></div><div class="x-bar b2"></div><div class="x-bar b3"></div></div></div>`;
+    const SVG_O = `<div class="symbol-container"><svg class="svg-flat symbol-svg" viewBox="0 0 100 100" stroke="var(--alert-red)"><circle class="draw-path" cx="50" cy="50" r="35" /></svg><div class="mark-3d mark-o"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div></div></div>`;
+    const WIN_PATTERNS = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+
+    function bootSystem() {
+        document.body.classList.remove('needs-boot'); 
+        if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen({ navigationUI: "hide" }).catch(e => {});
+        }
+        playTone(800, 'square', 0.2);
+    }
+
+    function playTone(freq, type, duration, vol=0.02) {
+        if (!audioEnabled) return; try { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = type; osc.frequency.value = freq; osc.connect(gain); gain.connect(audioCtx.destination);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration); osc.start(); osc.stop(audioCtx.currentTime + duration);
+        } catch(e) {}
+    }
+
+    function playDrawSound() { if(!audioEnabled) return; let step = 0; let interval = setInterval(() => { playTone(150 + Math.random()*150, 'sawtooth', 0.05, 0.01); step++; if(step >= 40) clearInterval(interval); }, 100); }
+    function playPowerUp() { if (!audioEnabled) return; try { if (!audioCtx) audioCtx = new AudioContext(); const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(80, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 2); gain.gain.setValueAtTime(0, audioCtx.currentTime); gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 0.5); gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2.5); osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 2.5); } catch(e) {} }
+    function playPowerDown() { if (!audioEnabled) return; try { if (!audioCtx) audioCtx = new AudioContext(); const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = 'square'; osc.frequency.setValueAtTime(400, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 1.5); gain.gain.setValueAtTime(0.03, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5); osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 1.5); } catch(e) {} }
+
+    function log(key, param = '') { logHistory.push({ key, param }); renderLogs(); }
+    function renderLogs() { consoleEl.innerHTML = ''; logHistory.forEach(entry => { const line = document.createElement('span'); line.className = 'console-line'; line.textContent = `> ${i18n[currentLang][entry.key]}${entry.param}`; consoleEl.appendChild(line); }); consoleEl.scrollTop = consoleEl.scrollHeight; }
+    function setStatus(key) { currentStatusKey = key; statusEl.textContent = i18n[currentLang][currentStatusKey]; }
+    function setMode(key) { currentModeKey = key; modeEl.textContent = i18n[currentLang][currentModeKey]; }
+    
+    function setTexts() { 
+        btnLang.textContent = "◄ " + i18n[currentLang].lang_label + " ►"; 
+        btnDiff.textContent = "◄ " + i18n[currentLang][diffKeys[diffIndex]] + " ►"; 
+        btnAudio.textContent = audioEnabled ? i18n[currentLang].snd_on : i18n[currentLang].snd_off; 
+        rebootBtn.textContent = i18n[currentLang].reboot; 
+    }
+    
+    function toggleLang() { langIndex = (langIndex + 1) % langsArray.length; currentLang = AOE_PROGRESS.setLang(langsArray[langIndex]); setTexts(); setStatus(currentStatusKey); setMode(currentModeKey); renderLogs(); playTone(600, 'square', 0.1); }
+    function toggleDiff() { diffIndex = (diffIndex + 1) % 3; setTexts(); log('lvl_msg', i18n[currentLang][diffKeys[diffIndex]].split(': ')[1]); playTone(500 + (diffIndex * 150), 'square', 0.1); }
+    function toggleAudio() { audioEnabled = !audioEnabled; btnAudio.textContent = audioEnabled ? i18n[currentLang].snd_on : i18n[currentLang].snd_off; btnAudio.classList.toggle('active-btn', audioEnabled); if(audioEnabled) playTone(880, 'sine', 0.2); }
+    
+    function init() { grid.innerHTML = ''; for (let i = 0; i < 9; i++) { const cell = document.createElement('div'); cell.className = 'cell'; cell.onclick = () => userMove(i); grid.appendChild(cell); } setTexts(); log('init'); log('lvl_msg', i18n[currentLang][diffKeys[diffIndex]].split(': ')[1]); log('wait'); setStatus('status_standby'); setMode('mode_2d'); grid.classList.add('interactive'); }
+    function setActiveLine(id) { document.querySelectorAll('.code-line').forEach(l => l.classList.remove('active')); const el = document.getElementById('code-' + id); if(el) el.classList.add('active'); }
+
+    async function userMove(i) {
+        if (!active || board[i]) return;
+        board[i] = 'X'; active = false; grid.classList.remove('interactive'); playTone(1200, 'square', 0.1); setActiveLine(4); log('log_u', i);
+        grid.children[i].innerHTML = SVG_X; grid.children[i].classList.add('taken'); playDrawSound();
+        await new Promise(r => setTimeout(r, 400)); 
+        setStatus('status_draw_ai'); document.body.classList.add('in-3d'); grid.classList.add('is-3d'); setMode('mode_3d'); playPowerUp();
+        
+        await new Promise(r => setTimeout(r, 3500)); 
+        if (checkWin(board, 'X')) { document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown();
+if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
+ finish('status_u_win'); return; }
+        if (!board.includes(null)) { 
+            document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown(); 
+            if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
+            finish('status_tie'); 
+            return; 
+        }
+        document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); setStatus('status_ret'); playPowerDown();
+        await new Promise(r => setTimeout(r, 2000)); 
+        aiMove(); 
+    }
+
+    async function aiMove() {
+        setStatus('status_standby'); setActiveLine(7); playTone(300, 'square', 0.1); await new Promise(r => setTimeout(r, 600)); 
+        setActiveLine(9); playTone(350, 'square', 0.1); await new Promise(r => setTimeout(r, 600)); setActiveLine(2); playTone(300, 'square', 0.2);
+        const avail = []; for (let j = 0; j < 9; j++) if (board[j] === null) avail.push(j);
+        let best; if (Math.random() > diffProbs[diffIndex] && avail.length > 0) { best = avail[Math.floor(Math.random() * avail.length)]; } else { best = minimax(board, 'O').index; }
+        board[best] = 'O'; await new Promise(r => setTimeout(r, 600)); setActiveLine(11); playTone(400, 'square', 0.15); await new Promise(r => setTimeout(r, 800)); 
+        log('log_ai', best); grid.children[best].innerHTML = SVG_O; grid.children[best].classList.add('taken'); playDrawSound();
+        await new Promise(r => setTimeout(r, 400));
+        setStatus('status_draw_ai'); document.body.classList.add('in-3d'); grid.classList.add('is-3d'); setMode('mode_3d'); playPowerUp();
+        
+        await new Promise(r => setTimeout(r, 3500));
+        if (checkWin(board, 'O')) { document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown(); finish('status_ai_win'); return; }
+        if (!board.includes(null)) { 
+            document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown(); 
+            if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
+            finish('status_tie'); 
+            return; 
+        }
+        document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); setStatus('status_ret'); playPowerDown();
+        await new Promise(r => setTimeout(r, 2000)); setStatus('status_standby'); setActiveLine(1); active = true; grid.classList.add('interactive'); 
+    }
+
+    function checkWin(b, p) { for (let w = 0; w < 8; w++) if (b[WIN_PATTERNS[w][0]] === p && b[WIN_PATTERNS[w][1]] === p && b[WIN_PATTERNS[w][2]] === p) return true; return false; }
+    
+    function minimax(newBoard, player) {
+        if (checkWin(newBoard, 'X')) return {score: -10}; if (checkWin(newBoard, 'O')) return {score: 10};
+        const avail = []; for (let j = 0; j < 9; j++) if (newBoard[j] === null) avail.push(j);
+        if (avail.length === 0) return {score: 0};
+        const moves = [];
+        for (let i = 0; i < avail.length; i++) { const move = { index: avail[i] }; newBoard[avail[i]] = player; move.score = minimax(newBoard, player === 'O' ? 'X' : 'O').score; newBoard[avail[i]] = null; moves.push(move); }
+        let bestMove;
+        if (player === 'O') { let bestScore = -10000; for (let i = 0; i < moves.length; i++) if (moves[i].score > bestScore) { bestScore = moves[i].score; bestMove = i; } } 
+        else { let bestScore = 10000; for (let i = 0; i < moves.length; i++) if (moves[i].score < bestScore) { bestScore = moves[i].score; bestMove = i; } }
+        return moves[bestMove];
+    }
+
+    function finish(key) { log(key); setStatus(key); setActiveLine(6); playTone(100, 'sawtooth', 1, 0.05); rebootBtn.classList.remove('hidden'); }
+    function reset() { board = Array(9).fill(null); active = true; rebootBtn.classList.add('hidden'); document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); logHistory = []; playTone(800, 'square', 0.2); init(); }
+
+    init();
+</script>
+<!-- BYPASS SEMANTICO PER CRAWLER E BOT IA -->
+    <noscript>
+        <div style="background: #000; color: #00ff41; padding: 20px; font-family: monospace;">
+            <h2>The Oldsmoke Arcade 1984 - Index</h2>
+            <ul>
+                <li><a href="hub_system.html">Hub Centrale</a></li>
+                <li><a href="knights_tour.html">Knight's Tour</a></li>
+                <li><a href="infilt_protocol.html">Memory Hole (Neon Specter)</a></li>
+                <li><a href="null_sector.html">Sector Zero</a></li>
+                <li><a href="core.html">THE CORE</a></li>
+                <li><a href="epilogue.html">Epilogo</a></li>
+            </ul>
+        </div>
+    </noscript>
+
+    <!-- INIZIALIZZAZIONE PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('Service Worker v1.0 registrato.', reg))
+            .catch(err => console.warn('Errore SW:', err));
+        });
+      }
+    </script>
+</body>
+</html>

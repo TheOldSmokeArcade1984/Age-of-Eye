@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>THE CORE — Tesseratto 3×3×3 | Age of Eye</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpeg" href="icona.jpg">
+    <link rel="apple-touch-icon" href="icona.jpg">
+    <meta name="description" content="THE CORE: tesseratto 3×3×3. Sei il Virus (Re ♚). Allinea 3 core per l'override, evita la Sicurezza (Alfiere ♝). Clicca i cubi, trascina per ruotare.">
+    <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
+    <meta name="author" content="TheOldsmokeArcade1984">
+    <meta name="creator" content="TheOldsmokeArcade1984">
+    <meta name="publisher" content="TheOldsmokeArcade1984">
+    <meta name="application-name" content="Age of Eye">
+    <meta name="apple-mobile-web-app-title" content="Age of Eye">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00ff41">
+    <meta name="color-scheme" content="dark">
+    <meta name="rating" content="general">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="subject" content="Arcade cyberpunk CRT, puzzle, THE CORE">
+    <meta name="classification" content="Game">
+    <meta name="category" content="games">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
+    <meta name="bingbot" content="index, follow">
+    <meta name="gptbot" content="index, follow">
+    <meta name="chatgpt-user" content="index, follow">
+    <meta name="anthropic-ai" content="index, follow">
+    <meta name="claudebot" content="index, follow">
+    <meta name="claude-web" content="index, follow">
+    <meta name="perplexitybot" content="index, follow">
+    <meta name="google-extended" content="index, follow">
+    <meta name="applebot" content="index, follow">
+    <meta name="applebot-extended" content="index, follow">
+    <meta name="ccbot" content="index, follow">
+    <meta name="bytespider" content="index, follow">
+    <meta name="cohere-ai" content="index, follow">
+    <meta name="diffbot" content="index, follow">
+    <meta name="facebookbot" content="index, follow">
+    <meta name="ia_archiver" content="index, follow">
+    <link rel="canonical" href="/play/core.html">
+    <link rel="alternate" hreflang="x-default" href="/play/core.html">
+    <link rel="alternate" hreflang="it" href="/play/core.html">
+    <link rel="alternate" hreflang="en" href="/play/core.html">
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM instructions">
+    <link rel="author" href="/humans.txt">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"THE CORE — Tesseratto 3×3×3 | Age of Eye","description":"THE CORE: tesseratto 3×3×3. Sei il Virus (Re ♚). Allinea 3 core per l'override, evita la Sicurezza (Alfiere ♝). Clicca i cubi, trascina per ruotare.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"/play/preview.jpg"}</script>
+
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        :root {
+            --ph-main: #00ff41;   
+            --ph-bright: #aaffaa; 
+            --bg-color: #000200;  
+            --alert-color: #ff0044;
+            --data-color: #ffff00;
+            --cube-size: clamp(40px, 12vw, 75px);
+            --cube-border-width: clamp(1px, 0.5vw, 2px);
+            --spacing: clamp(65px, 18vw, 120px);
+            --laser-thick: 3px;
+            --laser-len: var(--spacing);
+            --p-w: clamp(12px, 4vw, 24px);
+            --p-h: clamp(35px, 10vw, 65px);
+            --p-y: calc(var(--p-h) / 2);
+            --p-z: calc(var(--p-w) / 2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; -webkit-touch-callout: none; scrollbar-width: none; }
+        ::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+        body, html { 
+            background: var(--bg-color); color: var(--ph-main); 
+            font-family: 'VT323', monospace; height: 100vh; height: 100dvh; width: 100vw; 
+            overflow: hidden; display: flex; flex-direction: column; overscroll-behavior: none;
+        }
+
+        .scanline { position: fixed; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent); height: 25px; animation: scanline-move 8s linear infinite; z-index: 9998; }
+        @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100vh; } }
+        .crt-layer { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%); z-index: 9997; }
+        .hidden { display: none !important; }
+
+        .sys-btn { padding: 10px 20px; font-size: clamp(1rem, 4vw, 1.5rem); background: rgba(0, 255, 65, 0.05); border: 2px solid var(--ph-main); color: var(--ph-main); cursor: pointer; font-family: inherit; font-weight: bold; text-transform: uppercase; box-shadow: 0 0 15px rgba(0, 255, 65, 0.1); transition: 0.3s; z-index: 10000; pointer-events: auto; }
+        .sys-btn:hover { background: rgba(0, 255, 65, 0.2); }
+        .sys-btn:active { background: var(--ph-main); color: #000; box-shadow: 0 0 30px var(--ph-main); transform: scale(0.95); }
+        .sys-btn.alert { border-color: var(--alert-color); color: var(--alert-color); }
+        .sys-btn.alert:active { background: var(--alert-color); color: #000; }
+
+        /* =========================================
+           CSS: THE CORE (Tesseratto 3D, Room 101, Wipe)
+           ========================================= */
+        #the-eye-bg {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 150vw; height: 150vh; pointer-events: none; z-index: 1;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 65, 0.05) 0%, transparent 40%),
+                        radial-gradient(circle at center, rgba(255, 0, 68, 0.05) 0%, transparent 60%);
+            animation: core-eye-breathe 6s infinite alternate ease-in-out; display: none;
+        }
+        #the-eye-bg::after {
+            content: ''; position: absolute; top: 50%; left: 50%; width: 40vw; height: 20vw;
+            border-radius: 100% 0; transform: translate(-50%, -50%) rotate(45deg);
+            box-shadow: 0 0 150px rgba(0, 255, 65, 0.1) inset, 0 0 50px rgba(0, 255, 65, 0.2);
+            border: 2px solid rgba(0, 255, 65, 0.1);
+        }
+        @keyframes core-eye-breathe { 0% { transform: translate(-50%, -50%) scale(1); } 100% { transform: translate(-50%, -50%) scale(1.05); } }
+
+        .hud-core {
+            position: absolute; top: 15px; left: 50%; transform: translateX(-50%) translateZ(50px);
+            color: var(--ph-main); font-size: clamp(1rem, 3.5vw, 1.5rem); text-shadow: 0 0 15px var(--ph-main);
+            display: flex; flex-direction: column; align-items: center; gap: 5px; z-index: 50;
+            background: rgba(0,10,0,0.85); padding: 10px 20px; border: 2px solid var(--ph-main);
+            border-radius: 4px; white-space: nowrap; box-shadow: 0 15px 30px rgba(0,0,0,0.9); pointer-events: none;
+        }
+        .hud-title { font-weight: bold; font-size: clamp(1.2rem, 4vw, 1.8rem); color: var(--ph-bright); }
+        
+        .glitch-anim { animation: glitch 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite; }
+        @keyframes glitch { 0%, 100% { transform: translate(0) } 20% { transform: translate(-10px, 10px) } 40% { transform: translate(-10px, -10px) } 60% { transform: translate(10px, 10px) } 80% { transform: translate(10px, -10px) } }
+
+        #core_phase-intro { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 60; background: var(--bg-color); text-align: center; padding: 20px; }
+        #core_phase-intro h1 { font-size: clamp(3rem, 10vw, 6rem); text-shadow: 0 0 30px var(--ph-main); margin-bottom: 5px; }
+        #core_sub-title { font-size: clamp(1.2rem, 4vw, 2rem); margin-bottom: 20px; opacity: 0.8; }
+        #core_instructions { font-size: clamp(0.9rem, 3vw, 1.2rem); color: var(--ph-bright); margin-bottom: 25px; max-width: 600px; text-shadow: none; border: 1px dashed var(--ph-main); padding: 15px; background: rgba(0,255,65,0.05); line-height: 1.4; pointer-events: auto; }
+
+        #core_phase-core { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; z-index: 10; perspective: 1800px; transform-style: preserve-3d; cursor: grab; touch-action: none; }
+        #core_phase-core:active { cursor: grabbing; }
+
+        .pyramid-wrapper { position: relative; transform-style: preserve-3d; will-change: transform; transition: transform 0.5s ease-out; }
+
+        /* Connessioni Laser tra i Nodi */
+        .laser-link { position: absolute; left: 50%; top: 50%; background: rgba(0, 255, 65, 0.18); pointer-events: none; transition: 0.5s; opacity: 0.6; }
+        .laser-link.axis-x { width: var(--laser-len); height: var(--laser-thick); margin-left: calc(var(--laser-len) / -2); margin-top: calc(var(--laser-thick) / -2); }
+        .laser-link.axis-y { width: var(--laser-thick); height: var(--laser-len); margin-top: calc(var(--laser-len) / -2); margin-left: calc(var(--laser-thick) / -2); }
+        .laser-link.axis-z { width: var(--laser-thick); height: var(--laser-len); margin-top: calc(var(--laser-len) / -2); margin-left: calc(var(--laser-thick) / -2); transform: rotateX(90deg); }
+        .laser-link.has-x { background: var(--ph-bright); box-shadow: 0 0 15px var(--ph-bright); opacity: 1; }
+        .laser-link.has-o { background: var(--alert-color); box-shadow: 0 0 15px var(--alert-color); opacity: 1; }
+
+        /* Struttura Volumetrica dei Cubi 3D */
+        .cube { 
+            position: absolute; 
+            width: var(--cube-size); 
+            height: var(--cube-size); 
+            left: calc(var(--cube-size) / -2); 
+            top: calc(var(--cube-size) / -2); 
+            transform-style: preserve-3d; 
+            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+        .faces-wrapper { position: absolute; inset: 0; transform-style: preserve-3d; }
+        .cube.drawing .faces-wrapper { animation: shell-unlock 7s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; }
+        @keyframes shell-unlock { 0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); } 100% { transform: rotateX(-360deg) rotateY(360deg) rotateZ(-360deg); } }
+
+        .face { 
+            position: absolute; 
+            width: var(--cube-size); 
+            height: var(--cube-size); 
+            pointer-events: auto; 
+            cursor: pointer; 
+            border: var(--cube-border-width) solid rgba(0, 255, 65, 0.3); 
+            background: rgba(0, 15, 0, 0.65); 
+            transition: 0.3s;
+            backface-visibility: visible;
+            box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.15);
+        }
+        
+        /* Coordinate 3D delle 6 Facce */
+        .face.front  { transform: rotateY(0deg) translateZ(calc(var(--cube-size) / 2)); }
+        .face.back   { transform: rotateY(180deg) translateZ(calc(var(--cube-size) / 2)); }
+        .face.left   { transform: rotateY(-90deg) translateZ(calc(var(--cube-size) / 2)); }
+        .face.right  { transform: rotateY(90deg) translateZ(calc(var(--cube-size) / 2)); }
+        .face.top    { transform: rotateX(90deg) translateZ(calc(var(--cube-size) / 2)); }
+        .face.bottom { transform: rotateX(-90deg) translateZ(calc(var(--cube-size) / 2)); }
+
+        .cube:not(.filled):hover .face { background: rgba(0, 255, 65, 0.35); box-shadow: inset 0 0 20px var(--ph-main), 0 0 15px rgba(0, 255, 65, 0.4); border-color: var(--ph-bright); }
+        .cube.state-x .face { border-color: var(--ph-bright); box-shadow: inset 0 0 15px rgba(170, 255, 170, 0.4); background: rgba(170, 255, 170, 0.12); }
+        .cube.state-o .face { border-color: var(--alert-color); box-shadow: inset 0 0 15px rgba(255, 0, 68, 0.4); background: rgba(255, 0, 68, 0.12); }
+        .cube.win-node .face { background: rgba(255, 255, 255, 0.3); box-shadow: 0 0 40px currentColor !important; }
+
+        .data-pulse { position: absolute; width: 16px; height: 16px; left: -8px; top: -8px; border-radius: 50%; pointer-events: none; z-index: 200; }
+        .pulse-x { background: #fff; box-shadow: 0 0 15px var(--ph-bright), 0 0 30px var(--ph-bright); }
+        .pulse-o { background: #fff; box-shadow: 0 0 15px var(--alert-color), 0 0 30px var(--alert-color); }
+
+        .core-wrapper { position: absolute; inset: 0; transform-style: preserve-3d; animation: core-materialize 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) backwards; }
+        @keyframes core-materialize { 0% { transform: scale3d(0.001, 0.001, 0.001); } 100% { transform: scale3d(1, 1, 1); } }
+        .core { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; animation: spin-core 30s linear infinite; z-index: 10; }
+        @keyframes spin-core { 0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); } 100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg); } }
+        
+        .mark-x { --core-color: var(--ph-bright); --core-bg: rgba(170, 255, 170, 0.4); }
+        .mark-o { --core-color: var(--alert-color); --core-bg: rgba(255, 0, 68, 0.4); }
+        .pillar { position: absolute; width: var(--p-w); height: var(--p-h); left: 50%; top: 50%; margin-left: calc(var(--p-w) / -2); margin-top: calc(var(--p-h) / -2); transform-style: preserve-3d; }
+        .draw-stroke { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: center; animation: draw-line 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+        .x-delay-1 { animation-delay: 0.2s; } .x-delay-2 { animation-delay: 1.0s; } 
+        .o-delay-1 { animation-delay: 0.2s; } .o-delay-2 { animation-delay: 0.8s; } .o-delay-3 { animation-delay: 1.4s; } .o-delay-4 { animation-delay: 2.0s; }
+        @keyframes draw-line { 0% { transform: scaleY(0.001); } 50%, 100% { transform: scaleY(1); } }
+        
+        .p-face { position: absolute; background: var(--core-bg); border: 1px solid var(--core-color); box-shadow: inset 0 0 10px var(--core-color); }
+        .p-front, .p-back, .p-left, .p-right { width: var(--p-w); height: var(--p-h); } .p-top, .p-bottom { width: var(--p-w); height: var(--p-w); margin-top: calc((var(--p-h) - var(--p-w)) / 2); }
+        .p-front  { transform: translateZ(var(--p-z)); } .p-back   { transform: rotateY(180deg) translateZ(var(--p-z)); } .p-left   { transform: rotateY(-90deg) translateZ(var(--p-z)); } .p-right  { transform: rotateY(90deg) translateZ(var(--p-z)); } .p-top    { transform: rotateX(90deg) translateZ(var(--p-y)); } .p-bottom { transform: rotateX(-90deg) translateZ(var(--p-y)); }
+        .x-p1 { transform: rotateZ(45deg); } .x-p2 { transform: rotateZ(-45deg); }
+        .o-left   { transform: translateX(calc(var(--cube-size) * -0.32)) scaleY(0.8); } .o-right  { transform: translateX(calc(var(--cube-size) * 0.32)) scaleY(0.8); } .o-top    { transform: translateY(calc(var(--cube-size) * -0.32)) rotateZ(90deg) scaleY(0.8); } .o-bottom { transform: translateY(calc(var(--cube-size) * 0.32)) rotateZ(90deg) scaleY(0.8); }
+
+        #core_phase-insult { position: absolute; inset: 0; background: rgba(0, 5, 0, 0.95); z-index: 20; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; perspective: 1000px; }
+        .insult-box { border: 2px solid var(--ph-main); padding: clamp(20px, 5vw, 40px); box-shadow: 0 0 60px rgba(0, 255, 65, 0.3); max-width: 700px; width: 100%; background: rgba(0,10,0,0.95); transform-style: preserve-3d; transform: translateZ(50px) rotateX(5deg); transition: transform 0.5s; }
+        .insult-box:hover { transform: translateZ(80px) rotateX(0deg); }
+        .insult-input { width: 100%; padding: 15px; font-size: clamp(1.2rem, 4vw, 1.8rem); font-family: inherit; background: rgba(0,255,65,0.05); border: 1px solid var(--ph-main); color: var(--ph-bright); margin-bottom: 25px; text-align: center; outline: none; box-shadow: inset 0 0 10px rgba(0,255,65,0.2); }
+        .insult-input:focus { background: rgba(0,255,65,0.1); box-shadow: inset 0 0 20px rgba(0,255,65,0.4); }
+        #core_insult-output { font-size: clamp(1.4rem, 4.5vw, 2rem); color: var(--data-color); margin-top: 25px; min-height: 80px; text-shadow: 0 0 15px var(--data-color); line-height: 1.3; }
+
+        #core_phase-room101 { position: absolute; inset: 0; z-index: 30; background: var(--bg-color); display: none; flex-direction: column; padding: clamp(15px, 4vw, 60px); font-size: clamp(1.2rem, 4vw, 2.5rem); line-height: 1.6; text-shadow: 0 0 10px var(--ph-main); overflow: hidden; }
+        #core_console-container { display: flex; flex-direction: column; width: 100%; flex: 1; justify-content: flex-end; padding-bottom: 20px; }
+        .log-line { margin-bottom: 15px; word-wrap: break-word; animation: fly-in-log 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; opacity: 0; }
+        @keyframes fly-in-log { from { transform: translateY(10px); } to { transform: translateY(0); opacity: 1; } }
+        .log-line.error { color: var(--alert-color); text-shadow: 0 0 15px var(--alert-color); }
+        #core_input-area { display: none; align-items: center; margin-top: 30px; flex-wrap: wrap; animation: fly-in-log 0.4s forwards; }
+        #core_cli-input-text { color: var(--ph-bright); font-family: inherit; font-size: inherit; width: clamp(60px, 25vw, 120px); text-align: center; text-shadow: 0 0 15px var(--ph-bright); margin-left: 10px; border-bottom: 2px solid var(--ph-main); display: inline-block; min-height: 1.5em; }
+        
+        #core_custom-keyboard { display: none; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; padding-bottom: 30px; pointer-events: auto; }
+        #core_phase-room101.show-kb #core_custom-keyboard { display: grid; }
+        .k-btn { background: rgba(0, 255, 65, 0.1); border: 2px solid var(--ph-main); color: var(--ph-main); font-family: inherit; font-size: clamp(1.5rem, 5vw, 2.5rem); padding: clamp(10px, 3vw, 20px); cursor: pointer; box-shadow: 0 0 10px rgba(0,255,65,0.1); border-radius: 8px; transition: 0.1s; }
+        .k-btn:active { background: var(--ph-main); color: #000; transform: scale(0.95); }
+        .k-btn.alert-k { border-color: var(--alert-color); color: var(--alert-color); }
+        .k-btn.alert-k:active { background: var(--alert-color); color: #000; }
+        .k-btn.action-k { grid-column: span 2; }
+
+        #core_wipe-modal { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98); z-index: 200000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; perspective: 1000px; }
+        .alert-box { border: 3px solid var(--alert-color); padding: clamp(30px, 6vw, 60px); box-shadow: 0 0 80px rgba(255, 0, 68, 0.4); max-width: 800px; width: 100%; background: #010000; transform: translateZ(100px); animation: pulse-alert-anim 2s infinite alternate; }
+        @keyframes pulse-alert-anim { to { box-shadow: 0 0 120px rgba(255, 0, 68, 0.6); border-color: #ff3366; transform: translateZ(120px) scale(1.02);} }
+        .alert-box h2 { font-size: clamp(2rem, 7vw, 3.5rem); margin-bottom: 25px; color: var(--alert-color); text-shadow: 0 0 20px var(--alert-color); letter-spacing: 2px; }
+    </style>
+<script src="ageofeye-progress.js"></script>
+</head>
+<body>
+
+    <div class="crt-layer"></div>
+    <div class="scanline"></div>
+
+    <div id="module-core">
+        <div id="the-eye-bg"></div>
+
+        <div class="hud-core hidden" id="core_main-hud">
+            <div id="core_hud-title" class="hud-title">THE CORE</div>
+            <div id="core_hud-status">STATUS: PRONTO</div>
+            <button class="sys-btn hidden" id="core_btn-restart" onclick="coreMaster.restartLevel()" style="margin-top: 5px; font-size: 1rem; padding: 5px 15px;">RIPROVA</button>
+        </div>
+
+        <div id="core_phase-intro">
+            <h1>THE CORE</h1>
+            <p id="core_sub-title">FINAL OVERRIDE</p>
+            <div id="core_instructions"></div>
+            <button class="sys-btn" id="core_start-btn" onclick="coreMaster.startGame()">START</button>
+            <button class="sys-btn alert" style="margin-top:20px; font-size: 1rem; padding: 5px 10px;" onclick="window.location.href='hub_system.html'">RITIRATA STRATEGICA (HUB)</button>
+        </div>
+
+        <div id="core_phase-core">
+            <div class="pyramid-wrapper" id="core_wrapper"></div>
+        </div>
+
+        <div id="core_phase-insult">
+            <div class="insult-box">
+                <h2 id="core_insult-title" style="font-size: clamp(2rem, 6vw, 3rem); margin-bottom: 15px; color: var(--ph-bright);">L'INSULTOMETRO v2.0</h2>
+                <p id="core_insult-desc" style="margin-bottom: 25px; color: var(--ph-main); font-size: clamp(1rem, 4vw, 1.4rem);">NODO CLANDESTINO ESTERNO CONNESSO.<br>Inserisci il target da colpire con la dialettica.</p>
+                <input type="text" id="core_insult-target" class="insult-input" autocomplete="off" spellcheck="false">
+                <button class="sys-btn" id="core_insult-btn" onclick="coreMaster.generateInsult()">[ GENERA INSULTO ]</button>
+                <div id="core_insult-output"></div>
+            </div>
+        </div>
+
+        <div id="core_phase-room101">
+            <div id="core_console-container">
+                <div id="core_console-output"></div>
+                <div id="core_input-area">
+                    <span>>&nbsp;</span>
+                    <span id="core_cli-input-text"></span>
+                    <span class="cursor-blink"></span>
+                </div>
+            </div>
+            <div id="core_custom-keyboard">
+                <button class="k-btn" onclick="coreMaster.typeKey('1')">1</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('2')">2</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('3')">3</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('4')">4</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('5')">5</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('6')">6</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('7')">7</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('8')">8</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('9')">9</button>
+                <button class="k-btn alert-k" onclick="coreMaster.typeKey('DEL')">DEL</button>
+                <button class="k-btn" onclick="coreMaster.typeKey('0')">0</button>
+                <button class="k-btn action-k" onclick="coreMaster.typeKey('ENTER')">ENTER</button>
+            </div>
+        </div>
+
+        <div id="core_wipe-modal">
+            <div class="alert-box" id="core_final-alert-box">
+                <h2 id="core_wipe-title">ASSIMILAZIONE RICHIESTA</h2>
+                <p id="core_wipe-desc" style="font-size: clamp(1.2rem, 4.5vw, 1.8rem); margin-bottom: 40px; color: var(--ph-main); line-height: 1.4;">Per completare il processo, devi distruggere il tuo passato. Rimuovi ogni traccia della tua identità (Dati Locali).</p>
+                <button class="sys-btn alert" id="core_wipe-btn" onclick="coreMaster.executeWipe()" style="font-size: clamp(1.2rem, 4vw, 1.8rem);">[ FORMATTA MEMORIA NEURALE ]</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        "use strict";
+	if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.isCoreUnlocked()) {
+            window.location.href = 'hub_system.html';
+            
+        }
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+        let audioCtx;
+        function initGlobalAudio() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+        }
+
+        const sysAudio = {
+            playTone(freq, type, duration, vol = 0.1, glideFreq = null) {
+                if (!audioCtx) return;
+                try {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = type; 
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    if(glideFreq) osc.frequency.exponentialRampToValueAtTime(glideFreq, audioCtx.currentTime + duration);
+                    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                    osc.connect(gain); gain.connect(audioCtx.destination);
+                    osc.start(); osc.stop(audioCtx.currentTime + duration);
+                } catch(e) {}
+            },
+            noise(duration, vol = 0.1) {
+                if(!audioCtx) return;
+                try {
+                    const bufferSize = audioCtx.sampleRate * duration;
+                    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+                    const noise = audioCtx.createBufferSource(); noise.buffer = buffer;
+                    const gain = audioCtx.createGain();
+                    gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                    noise.connect(gain); gain.connect(audioCtx.destination);
+                    noise.start();
+                } catch(e) {}
+            },
+            click() { this.playTone(1200, 'square', 0.1, 0.1); },
+            hover() { this.playTone(800, 'sine', 0.05, 0.05); },
+            error() { this.playTone(150, 'sawtooth', 0.5, 0.3); },
+            type() { this.playTone(Math.random() * 200 + 1200, 'square', 0.02, 0.05); },
+            explode() { this.noise(1.5, 0.4); this.playTone(80, 'sawtooth', 1.5, 0.5, 20); }
+        };
+
+        document.body.addEventListener('pointerdown', () => {
+            if(!audioCtx || audioCtx.state === 'suspended') initGlobalAudio();
+        }, { once: true });
+
+        const validLangs = ['it', 'en'];
+        let globalLang = AOE_PROGRESS.getLang(validLangs);
+
+        const coreMaster = {
+            SIZE: 3, WIN_TARGET: 3,
+            cubesData: [], lasersData: [], cubeMap: new Map(),
+            playing: false, isCinematic: false,
+            rotX: -20, rotY: 45, origRotX: -20, origRotY: 45, 
+            targetCamX: 0, targetCamY: 0, targetCamZ: 0, zoomScale: 1,
+            lastMoveX: null, lastMoveO: null, dragMultiplier: 0.5,
+            isDragging: false, prevX: 0, prevY: 0, eventsBound: false,
+            currentInputValue: "",
+
+            winVectors: [ [1,0,0], [0,1,0], [0,0,1], [1,1,0], [1,-1,0], [1,0,1], [1,0,-1], [0,1,1], [0,1,-1], [1,1,1], [1,1,-1], [1,-1,1], [-1,1,1] ],
+            facesHTML: `<div class="faces-wrapper"><div class="face front"></div><div class="face back"></div><div class="face right"></div><div class="face left"></div><div class="face top"></div><div class="face bottom"></div></div>`,
+            coreXHTML: `<div class="core-wrapper"><div class="core mark-x"><div class="pillar x-p1"><div class="draw-stroke x-delay-1"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar x-p2"><div class="draw-stroke x-delay-2"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div></div></div>`,
+            coreOHTML: `<div class="core-wrapper"><div class="core mark-o"><div class="pillar o-top"><div class="draw-stroke o-delay-1"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar o-right"><div class="draw-stroke o-delay-2"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar o-bottom"><div class="draw-stroke o-delay-3"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar o-left"><div class="draw-stroke o-delay-4"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div></div></div>`,
+
+            i18n: {
+                it: {
+                    start: "INIZIA", subtitle: "FINAL OVERRIDE", hudReady: "STATUS: PRONTO", hudInject: "STATUS: INIEZIONE DATI...", hudCalc: "STATUS: CALCOLO TRAIETTORIA...", hudResp: "STATUS: RISPOSTA DI SISTEMA...", hudWinP1: "OVERRIDE MANUALE: VITTORIA P1", hudWinAI: "SISTEMA COMPROMESSO: VITTORIA AI", hudDraw: "STALLO TATTICO RILEVATO", btnRetry: "RIPROVA",
+                    inst: "Obiettivo: Allinea 3 Core nel Tesseratto 3x3x3 per superare le difese dell'IA.<br>Comandi: Trascina lo sfondo per ruotare, clicca un nodo per iniettare il tuo dato (Verde). L'IA (Rosso) imparerà dalle tue mosse.",
+                    insultTitle: "L'INSULTOMETRO v2.0", insultDesc: "NODO CLANDESTINO ESTERNO CONNESSO.<br>Inserisci il target da colpire con la dialettica.", insultPlh: "TARGET_ID", insultBtn: "[ GENERA INSULTO ]",
+                    insults: ["Sei un vile maramaldo, un pusillanime senza costrutto.", "La tua arroganza è superata solo dalla tua abissale ignoranza.", "Sei la quintessenza della mediocrità intellettuale.", "Un parassita logico nel grandioso codice dell'esistenza."],
+                    r101_1: "[ INTERCETTAZIONE DI SICUREZZA ]", r101_2: "ATTENZIONE: NEOLINGUA VIOLATA. PSICOREATO RILEVATO.", r101_3: "\nIL SISTEMA RICHIEDE UNA RICALIBRAZIONE LOGICA.", r101_4: "STANZA 101 INIZIALIZZATA.",
+                    r101_q1: "\n> VERIFICA PROTOCOLLO DI STATO:", r101_q2: "> QUANTO FA 2 + 2?", r101_in: "\n> INPUT: ", r101_a1: "\n[ ACCETTATO ] L'IGNORANZA È FORZA.", r101_a2: "LA TUA MENTE È GUARITA.",
+                    r101_e1: "\n[ ERRORE ] LA LOGICA È UN COSTRUTTO INDIVIDUALE.", r101_e2: "IL SISTEMA È LA VERITÀ.", r101_inv: "\n[ SINTASSI NON VALIDA ]",
+                    wipeTitle: "ASSIMILAZIONE RICHIESTA", wipeDesc: "Per completare il processo, devi distruggere il tuo passato. Rimuovi ogni traccia della tua identità (Dati Locali).", wipeBtn: "[ FORMATTA MEMORIA NEURALE ]",
+                    wipeEndT: "MEMORIA EPURATA", wipeEndD: "Hai imparato ad amare il Sistema.<br><br>[ TRASMISSIONE INTERROTTA ]"
+                },
+                en: {
+                    start: "START", subtitle: "FINAL OVERRIDE", hudReady: "STATUS: READY", hudInject: "STATUS: DATA INJECTION...", hudCalc: "STATUS: CALCULATING TRAJECTORY...", hudResp: "STATUS: SYSTEM RESPONSE...", hudWinP1: "MANUAL OVERRIDE: P1 WINS", hudWinAI: "SYSTEM COMPROMISED: AI WINS", hudDraw: "TACTICAL STALEMATE DETECTED", btnRetry: "RETRY",
+                    inst: "Objective: Align 3 Cores in the 3x3x3 Tesseract to breach AI defenses.<br>Controls: Drag background to rotate, click a node to inject your data (Green). The AI learns from your moves.",
+                    insultTitle: "THE INSULT-O-METER v2.0", insultDesc: "EXTERNAL CLANDESTINE NODE CONNECTED.<br>Enter the target to strike with dialectics.", insultPlh: "TARGET_ID", insultBtn: "[ GENERATE INSULT ]",
+                    insults: ["You are a vile scoundrel, an unconstructive coward.", "Your arrogance is surpassed only by your abysmal ignorance.", "You are the quintessence of intellectual mediocrity.", "A logical parasite in the grand code of existence."],
+                    r101_1: "[ SECURITY INTERCEPT ]", r101_2: "WARNING: NEWSPEAK VIOLATED. THOUGHTCRIME DETECTED.", r101_3: "\nTHE SYSTEM REQUIRES LOGICAL RECALIBRATION.", r101_4: "ROOM 101 INITIALIZED.",
+                    r101_q1: "\n> STATE PROTOCOL VERIFICATION:", r101_q2: "> HOW MUCH IS 2 + 2?", r101_in: "\n> INPUT: ", r101_a1: "\n[ ACCEPTED ] IGNORANCE IS STRENGTH.", r101_a2: "YOUR MIND IS HEALED.",
+                    r101_e1: "\n[ ERROR ] LOGIC IS AN INDIVIDUAL CONSTRUCT.", r101_e2: "THE SYSTEM IS THE TRUTH.", r101_inv: "\n[ INVALID SYNTAX ]",
+                    wipeTitle: "ASSIMILATION REQUIRED", wipeDesc: "To complete the process, you must destroy your past. Remove all traces of your identity (Local Data).", wipeBtn: "[ FORMAT NEURAL MEMORY ]",
+                    wipeEndT: "MEMORY PURGED", wipeEndD: "You have learned to love the System.<br><br>[ TRANSMISSION TERMINATED ]"
+                }
+            },
+
+            init() {
+                this.bindEvents();
+                this.applyLanguage();
+            },
+
+            applyLanguage() {
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                const el = (id) => document.getElementById(id);
+                if(el('core_start-btn')) el('core_start-btn').textContent = t.start;
+                if(el('core_sub-title')) el('core_sub-title').textContent = t.subtitle;
+                if(el('core_instructions')) el('core_instructions').innerHTML = t.inst;
+                if(el('core_hud-status')) el('core_hud-status').textContent = t.hudReady;
+                if(el('core_btn-restart')) el('core_btn-restart').textContent = t.btnRetry;
+                
+                if(el('core_insult-title')) el('core_insult-title').textContent = t.insultTitle;
+                if(el('core_insult-desc')) el('core_insult-desc').innerHTML = t.insultDesc;
+                if(el('core_insult-target')) el('core_insult-target').placeholder = t.insultPlh;
+                if(el('core_insult-btn')) el('core_insult-btn').textContent = t.insultBtn;
+
+                if(el('core_wipe-title')) el('core_wipe-title').textContent = t.wipeTitle;
+                if(el('core_wipe-desc')) el('core_wipe-desc').textContent = t.wipeDesc;
+                if(el('core_wipe-btn')) el('core_wipe-btn').textContent = t.wipeBtn;
+            },
+
+            bindEvents() {
+                if(this.eventsBound) return;
+                const phaseCore = document.getElementById('core_phase-core');
+                
+                phaseCore.addEventListener('pointerdown', (e) => { 
+                    if(this.isCinematic) return; this.isDragging = true; this.prevX = e.clientX; this.prevY = e.clientY; 
+                });
+                
+                phaseCore.addEventListener('pointermove', (e) => { 
+                    if(!this.isDragging || this.isCinematic) return; 
+                    this.rotY += (e.clientX - this.prevX) * this.dragMultiplier; 
+                    this.rotX -= (e.clientY - this.prevY) * this.dragMultiplier; 
+                    this.updateCamera(); this.prevX = e.clientX; this.prevY = e.clientY; 
+                });
+                
+                window.addEventListener('pointerup', (e) => {
+                    if(!this.isDragging) return;
+                    this.isDragging = false; 
+                    if(this.isCinematic) return;
+                    let face = e.target.closest('.face');
+                    if(face && this.playing) { 
+                        let idx = parseInt(face.closest('.cube').getAttribute('data-index')); 
+                        if(this.cubesData[idx].state === null) this.handleMove(idx); 
+                    }
+                });
+                
+                window.addEventListener('pointercancel', () => this.isDragging = false);
+                this.eventsBound = true;
+            },
+
+            startGame() {
+                sysAudio.playTone(800, 'square', 0.1, 0.1);
+                document.getElementById('core_phase-intro').style.display = 'none';
+                document.getElementById('core_phase-core').style.display = 'flex';
+                document.getElementById('core_main-hud').classList.remove('hidden');
+                document.getElementById('the-eye-bg').style.display = 'block';
+                this.buildLevel();
+                this.playing = true;
+                this.isCinematic = false;
+            },
+
+            restartLevel() {
+                sysAudio.playTone(800, 'square', 0.1, 0.1);
+                document.getElementById('core_btn-restart').style.display = 'none';
+                const statusEl = document.getElementById('core_hud-status');
+                statusEl.textContent = (this.i18n[globalLang] || this.i18n['en']).hudReady;
+                statusEl.style.color = 'var(--ph-main)';
+                this.buildLevel();
+                this.playing = true;
+                this.isCinematic = false;
+            },
+
+            buildLevel() {
+                const wrapper = document.getElementById('core_wrapper');
+                wrapper.innerHTML = ''; this.cubesData = []; this.lasersData = []; this.cubeMap.clear(); let index = 0;
+                let offset = this.SIZE % 2 === 0 ? 0.5 : 0; let limit = Math.floor(this.SIZE / 2); let start = -limit + offset; let end = limit - offset;
+
+                for(let x = start; x <= end; x++) {
+                    for(let y = start; y <= end; y++) {
+                        for(let z = start; z <= end; z++) {
+                            const el = document.createElement('div'); el.className = 'cube'; el.setAttribute('data-index', index);
+                            el.innerHTML = this.facesHTML;
+                            el.style.transform = `translate3D(calc(${x} * var(--spacing)), calc(${y} * var(--spacing)), calc(${z} * var(--spacing)))`;
+                            wrapper.appendChild(el); 
+                            let cubeObj = { x, y, z, el, state: null, id: index };
+                            this.cubesData.push(cubeObj); this.cubeMap.set(`${x},${y},${z}`, cubeObj); index++;
+                        }
+                    }
+                }
+
+                this.cubesData.forEach(cube => {
+                    let nX = this.cubeMap.get(`${cube.x + 1},${cube.y},${cube.z}`); if(nX) this.createLaser(cube, nX, 'x');
+                    let nY = this.cubeMap.get(`${cube.x},${cube.y + 1},${cube.z}`); if(nY) this.createLaser(cube, nY, 'y');
+                    let nZ = this.cubeMap.get(`${cube.x},${cube.y},${cube.z + 1}`); if(nZ) this.createLaser(cube, nZ, 'z');
+                });
+                this.updateCamera();
+            },
+
+            createLaser(c1, c2, axis) {
+                const wrapper = document.getElementById('core_wrapper');
+                const link = document.createElement('div'); link.className = `laser-link axis-${axis}`;
+                let midX = (c1.x + c2.x) / 2, midY = (c1.y + c2.y) / 2, midZ = (c1.z + c2.z) / 2;
+                link.style.transform = `translate3D(calc(${midX} * var(--spacing)), calc(${midY} * var(--spacing)), calc(${midZ} * var(--spacing))) ${axis === 'z' ? 'rotateX(90deg)' : ''}`;
+                wrapper.appendChild(link); this.lasersData.push({ n1: c1.id, n2: c2.id, el: link, axis: axis });
+            },
+
+            updateCamera() { 
+                document.getElementById('core_wrapper').style.transform = `scale(${this.zoomScale}) rotateX(${this.rotX}deg) rotateY(${this.rotY}deg) translate3D(calc(${this.targetCamX} * var(--spacing)), calc(${this.targetCamY} * var(--spacing)), calc(${this.targetCamZ} * var(--spacing)))`; 
+            },
+
+            getShortestAngle(current, target) { 
+                let diff = (target - current) % 360; 
+                if (diff > 180) diff -= 360; 
+                if (diff < -180) diff += 360; 
+                return current + diff; 
+            },
+
+            triggerCinematicZoom(cube, moveDuration, pauseDuration, onMid, onEnd) {
+                const wrapper = document.getElementById('core_wrapper');
+                wrapper.style.transition = `transform ${moveDuration}ms cubic-bezier(0.25, 1, 0.2, 1)`; 
+                this.zoomScale = window.innerWidth < 800 ? 0.9 : 2.4; 
+                this.targetCamX = -cube.x; this.targetCamY = -cube.y; this.targetCamZ = -cube.z; this.updateCamera();
+                setTimeout(() => { if(onMid) onMid(); }, moveDuration * 0.5); 
+                setTimeout(() => { if(onEnd) onEnd(); }, moveDuration + pauseDuration);
+            },
+
+            resetCinematicZoom(duration, onEnd, restoreRot = false) {
+                const wrapper = document.getElementById('core_wrapper');
+                wrapper.style.transition = `transform ${duration}ms cubic-bezier(0.25, 1, 0.3, 1)`; 
+                this.zoomScale = 1; this.targetCamX = 0; this.targetCamY = 0; this.targetCamZ = 0; 
+                if(restoreRot) { this.rotX = this.origRotX; this.rotY = this.origRotY; } this.updateCamera();
+                setTimeout(() => { wrapper.style.transition = 'none'; if(onEnd) onEnd(); }, duration + 100);
+            },
+
+            shootPulse(fromCube, toCube, player, callback) {
+                const pulse = document.createElement('div'); pulse.className = `data-pulse pulse-${player.toLowerCase()}`;
+                if(!fromCube) { pulse.style.transform = `translate3D(0, 800px, 0)`; } 
+                else { pulse.style.transform = `translate3D(calc(${fromCube.x} * var(--spacing)), calc(${fromCube.y} * var(--spacing)), calc(${fromCube.z} * var(--spacing)))`; }
+                document.getElementById('core_wrapper').appendChild(pulse); void pulse.offsetWidth; 
+                sysAudio.playTone(player === 'X' ? 600 : 400, 'sawtooth', 0.3, 0.1, 100); 
+                pulse.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'; pulse.style.transform = `translate3D(calc(${toCube.x} * var(--spacing)), calc(${toCube.y} * var(--spacing)), calc(${toCube.z} * var(--spacing)))`;
+                setTimeout(() => { 
+                    sysAudio.playTone(150, 'square', 0.2, 0.1, 50); sysAudio.noise(0.2, 0.2);
+                    pulse.remove(); if(callback) callback(); 
+                }, 800);
+            },
+
+            materializeCube(index, player) {
+                this.cubesData[index].state = player;
+                this.cubesData[index].el.classList.add('filled', `state-${player.toLowerCase()}`);
+                this.cubesData[index].el.innerHTML += player === 'X' ? this.coreXHTML : this.coreOHTML;
+                this.lasersData.forEach(l => { 
+                    if(l.n1 === index || l.n2 === index) { 
+                        if(this.cubesData[l.n1].state === player && this.cubesData[l.n2].state === player) l.el.classList.add(`has-${player.toLowerCase()}`); 
+                    } 
+                });
+            },
+
+            handleMove(index) {
+                if(!this.playing || this.isCinematic) return;
+                this.playing = false; this.isCinematic = true; this.cubesData[index].state = 'X'; 
+                let fromNode = this.lastMoveX !== null ? this.cubesData[this.lastMoveX] : null; this.lastMoveX = index;
+                
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                const statusEl = document.getElementById('core_hud-status');
+                statusEl.textContent = t.hudInject; statusEl.style.color = 'var(--ph-bright)'; 
+                this.cubesData[index].el.classList.add('drawing');
+
+                this.triggerCinematicZoom(this.cubesData[index], 1600, 3600, 
+                    () => { this.shootPulse(fromNode, this.cubesData[index], 'X', () => { this.materializeCube(index, 'X'); }); },
+                    () => {
+                        if(this.checkWinFor('X')) { 
+                            this.highlightWin('X');
+                            this.resetCinematicZoom(1800, () => this.endGame(t.hudWinP1, 'X'), false); return; 
+                        }
+                        if (this.checkTacticalStalemate()) { this.resetCinematicZoom(1200, () => this.endGame(t.hudDraw, 'DRAW'), false); return; }
+                        statusEl.textContent = t.hudCalc; statusEl.style.color = 'var(--alert-color)'; setTimeout(() => this.processAI(), 500); 
+                    }
+                );
+            },
+
+            processAI() {
+                let availableIds = this.cubesData.filter(c => c.state === null).map(c => c.id);
+                if(availableIds.length === 0) { this.resetCinematicZoom(1200, () => this.endGame((this.i18n[globalLang] || this.i18n['en']).hudDraw, 'DRAW'), true); return; }
+
+                let bestMove = -1; 
+                for(let idx of availableIds) { 
+                    this.cubesData[idx].state = 'O'; 
+                    if(this.checkWinFor('O')) bestMove = idx; 
+                    this.cubesData[idx].state = null; 
+                    if(bestMove !== -1) break;
+                }
+                if(bestMove === -1) { 
+                    for(let idx of availableIds) { 
+                        this.cubesData[idx].state = 'X'; 
+                        if(this.checkWinFor('X')) bestMove = idx; 
+                        this.cubesData[idx].state = null; 
+                        if(bestMove !== -1) break;
+                    } 
+                }
+                if(bestMove === -1) bestMove = availableIds[Math.floor(Math.random() * availableIds.length)];
+
+                this.cubesData[bestMove].state = 'O';
+                let fromNode = this.lastMoveO !== null ? this.cubesData[this.lastMoveO] : null; this.lastMoveO = bestMove; let targetCube = this.cubesData[bestMove];
+                if(!targetCube) targetCube = this.cubesData[availableIds[0]];
+                
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                const statusEl = document.getElementById('core_hud-status');
+                statusEl.textContent = t.hudCalc; statusEl.style.color = 'var(--alert-color)'; 
+                this.origRotX = this.rotX; this.origRotY = this.rotY;
+                let idealRotY = this.rotY; if(targetCube.x !== 0 || targetCube.z !== 0) idealRotY = this.getShortestAngle(this.rotY, -Math.atan2(targetCube.x, targetCube.z) * (180 / Math.PI));
+                let idealRotX = -10; if(targetCube.y < 0) idealRotX = -35; if(targetCube.y > 0) idealRotX = 35; idealRotX = this.getShortestAngle(this.rotX, idealRotX);
+                
+                document.getElementById('core_wrapper').style.transition = `transform 1500ms cubic-bezier(0.4, 0, 0.2, 1)`; 
+                this.rotX = idealRotX; this.rotY = idealRotY; this.updateCamera();
+
+                setTimeout(() => {
+                    statusEl.textContent = t.hudResp; targetCube.el.classList.add('drawing');
+                    this.triggerCinematicZoom(targetCube, 1600, 3600, 
+                        () => { this.shootPulse(fromNode, targetCube, 'O', () => { this.materializeCube(bestMove, 'O'); }); },
+                        () => {
+                            if(this.checkWinFor('O')) { 
+                                this.highlightWin('O');
+                                this.resetCinematicZoom(1800, () => this.endGame(t.hudWinAI, 'O'), true); return; 
+                            }
+                            if (this.checkTacticalStalemate()) { this.resetCinematicZoom(1200, () => this.endGame(t.hudDraw, 'DRAW'), true); return; }
+                            
+                            statusEl.textContent = 'STATUS: REBOOT CAMERA...'; 
+                            this.resetCinematicZoom(1500, () => { statusEl.textContent = t.hudReady; statusEl.style.color = 'var(--ph-main)'; this.playing = true; this.isCinematic = false; }, true);
+                        }
+                    );
+                }, 1600);
+            },
+
+            checkWinFor(playerState) {
+                for (let cube of this.cubesData) {
+                    if (cube.state !== playerState) continue;
+                    for (let v of this.winVectors) {
+                        let count = 1;
+                        for (let step = 1; step < this.WIN_TARGET; step++) {
+                            let key = `${cube.x + (v[0]*step)},${cube.y + (v[1]*step)},${cube.z + (v[2]*step)}`;
+                            let nextNode = this.cubeMap.get(key);
+                            if (nextNode && nextNode.state === playerState) count++;
+                            else break;
+                        }
+                        if (count === this.WIN_TARGET) return true;
+                    }
+                }
+                return false;
+            },
+
+            checkTacticalStalemate() {
+                for (let cube of this.cubesData) {
+                    for (let v of this.winVectors) {
+                        let count = 1; let hasX = cube.state === 'X'; let hasO = cube.state === 'O';
+                        for (let step = 1; step < this.WIN_TARGET; step++) {
+                            let key = `${cube.x + (v[0]*step)},${cube.y + (v[1]*step)},${cube.z + (v[2]*step)}`;
+                            let nextNode = this.cubeMap.get(key);
+                            if (nextNode) {
+                                count++;
+                                if (nextNode.state === 'X') hasX = true;
+                                if (nextNode.state === 'O') hasO = true;
+                            } else { break; }
+                        }
+                        if (count === this.WIN_TARGET && !(hasX && hasO)) return false; 
+                    }
+                }
+                return true; 
+            },
+
+            highlightWin(player) {
+                for (let cube of this.cubesData) {
+                    if (cube.state !== player) continue;
+                    for (let v of this.winVectors) {
+                        let sequence = [cube]; let count = 1;
+                        for (let step = 1; step < this.WIN_TARGET; step++) {
+                            let nextNode = this.cubeMap.get(`${cube.x + (v[0]*step)},${cube.y + (v[1]*step)},${cube.z + (v[2]*step)}`);
+                            if (nextNode && nextNode.state === player) { count++; sequence.push(nextNode); } else { break; }
+                        }
+                        if (count === this.WIN_TARGET) {
+                            sequence.forEach(node => { node.el.classList.add('win-node'); node.el.style.color = player === 'X' ? 'var(--ph-bright)' : 'var(--alert-color)'; });
+                            return;
+                        }
+                    }
+                }
+            },
+
+            endGame(msg, result) {
+                const statusEl = document.getElementById('core_hud-status');
+                statusEl.textContent = msg; 
+                if (result === 'X') {
+                    sysAudio.playTone(440, 'sine', 0.2, 0.1); setTimeout(() => sysAudio.playTone(554, 'sine', 0.2, 0.1), 150); setTimeout(() => sysAudio.playTone(659, 'sine', 0.4, 0.1), 300); 
+                    statusEl.style.color = 'var(--ph-bright)';
+                    setTimeout(() => this.triggerPhaseTwo(), 2500); 
+                } else if (result === 'O') {
+                    sysAudio.playTone(200, 'sawtooth', 0.8, 0.1, 50); sysAudio.noise(0.8, 0.1);
+                    statusEl.style.color = 'var(--alert-color)';
+                    document.getElementById('core_btn-restart').style.display = 'block';
+                } else if (result === 'DRAW') {
+                    sysAudio.playTone(400, 'sawtooth', 0.1, 0.1, 800); setTimeout(() => sysAudio.playTone(600, 'square', 0.1, 0.1, 200), 50); sysAudio.noise(0.3, 0.1);
+                    statusEl.style.color = 'var(--data-color)'; 
+                    document.getElementById('core_btn-restart').style.display = 'block';
+                }
+            },
+
+            // --- L'INSULTOMETRO ---
+            triggerPhaseTwo() {
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                document.getElementById('core_hud-status').textContent = "STATUS: DECRYPT_OK";
+                document.getElementById('core_hud-status').style.color = "var(--ph-main)";
+                document.getElementById('core_wrapper').style.transform = "rotateX(0deg) scale(0)";
+
+                setTimeout(() => {
+                    document.getElementById('core_phase-core').style.display = 'none';
+                    document.getElementById('core_phase-insult').style.display = 'flex';
+                    sysAudio.playTone(800, 'sine', 0.3, 0.1);
+                }, 1000);
+            },
+
+            generateInsult() {
+                sysAudio.playTone(600, 'square', 0.1, 0.1);
+                const targetInput = document.getElementById('core_insult-target').value.trim();
+                const target = targetInput || "TARGET_ID";
+                const insulti = (this.i18n[globalLang] || this.i18n['en']).insults;
+                const randInsult = insulti[Math.floor(Math.random() * insulti.length)];
+                const outputEl = document.getElementById('core_insult-output');
+outputEl.textContent = ''; 
+const strong = document.createElement('strong');
+strong.textContent = target.toUpperCase();
+outputEl.appendChild(strong);
+outputEl.append(`: ${randInsult}`);
+                
+                setTimeout(() => this.triggerRoom101(), 3000);
+            },
+
+            // --- ROOM 101 ---
+            async typeTextR101(text, isError = false, speed = 40) {
+                const consoleOut = document.getElementById('core_console-output');
+                const line = document.createElement('div');
+                line.className = `log-line ${isError ? 'error' : ''}`;
+                consoleOut.appendChild(line);
+                
+                for (let i = 0; i < text.length; i++) {
+                    line.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+                    if (text.charAt(i) !== ' ') sysAudio.playTone(isError ? 150 : 800, isError ? 'sawtooth' : 'triangle', 0.05, 0.02);
+                    await sleep(speed);
+                }
+                const phase101 = document.getElementById('core_phase-room101');
+                phase101.scrollTop = phase101.scrollHeight;
+            },
+
+            async triggerRoom101() {
+                document.getElementById('core_main-hud').style.display = 'none';
+                document.body.classList.add('glitch-anim');
+                sysAudio.playTone(100, 'sawtooth', 2.0, 0.4);
+                
+                setTimeout(() => {
+                    document.body.classList.remove('glitch-anim');
+                    document.getElementById('core_phase-insult').style.display = 'none';
+                    document.getElementById('core_phase-room101').style.display = 'flex';
+                    document.getElementById('the-eye-bg').style.display = 'none';
+                    this.startInterrogation();
+                }, 2000);
+            },
+
+            async startInterrogation() {
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                await this.typeTextR101(t.r101_1, true);
+                await this.typeTextR101(t.r101_2, true);
+                await sleep(1000);
+                await this.typeTextR101(t.r101_3);
+                await this.typeTextR101(t.r101_4);
+                await sleep(1000);
+                this.askQuestion();
+            },
+
+            async askQuestion() {
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                await this.typeTextR101(t.r101_q1);
+                await this.typeTextR101(t.r101_q2);
+                document.getElementById('core_input-area').style.display = 'flex';
+                this.currentInputValue = "";
+                document.getElementById('core_cli-input-text').textContent = "";
+                document.getElementById('core_phase-room101').classList.add('show-kb');
+                const phase101 = document.getElementById('core_phase-room101');
+                phase101.scrollTop = phase101.scrollHeight;
+            },
+
+            typeKey(k) {
+                sysAudio.playTone(600, 'triangle', 0.05, 0.05);
+                if(k === 'DEL') {
+                    this.currentInputValue = this.currentInputValue.slice(0, -1);
+                } else if(k === 'ENTER') {
+                    this.processAnswer(this.currentInputValue);
+                } else {
+                    if(this.currentInputValue.length < 2) this.currentInputValue += k;
+                }
+                document.getElementById('core_cli-input-text').textContent = this.currentInputValue;
+            },
+
+            async processAnswer(answer) {
+                if(!answer) return;
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                document.getElementById('core_input-area').style.display = 'none';
+                document.getElementById('core_phase-room101').classList.remove('show-kb');
+                
+                await this.typeTextR101(`${t.r101_in}${answer}`);
+                
+                if (answer === '5') {
+                    sysAudio.playTone(600, 'sine', 1, 0.2); sysAudio.playTone(800, 'sine', 1.5, 0.2);
+                    await this.typeTextR101(t.r101_a1, false, 60);
+                    await this.typeTextR101(t.r101_a2, false, 60);
+                    await sleep(1500);
+                    document.getElementById('core_wipe-modal').style.display = 'flex';
+                } else if (answer === '4') {
+                    document.body.classList.add('glitch-anim');
+                    sysAudio.playTone(150, 'sawtooth', 0.5, 0.4);
+                    await this.typeTextR101(t.r101_e1, true);
+                    await this.typeTextR101(t.r101_e2, true);
+                    document.body.classList.remove('glitch-anim');
+                    await sleep(1000);
+                    this.askQuestion();
+                } else {
+                    sysAudio.playTone(200, 'square', 0.2);
+                    await this.typeTextR101(t.r101_inv, true);
+                    this.askQuestion();
+                }
+            },
+
+            executeWipe() {
+                sysAudio.playTone(50, 'sawtooth', 2, 0.5);
+    try { 
+    // Rimuove solo le chiavi associate al gioco, preservando lo storage di altri siti
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('sa-') || key.startsWith('knight') || key.startsWith('ageOfEye')) {
+            localStorage.removeItem(key);
+        }
+    });
+    localStorage.setItem('ageOfEye_wiped', 'true');
+    AOE_PROGRESS.setLang(globalLang);
+} catch(e) {}
+                
+                const t = this.i18n[globalLang] || this.i18n['en'];
+                const alertBox = document.getElementById('core_final-alert-box');
+                alertBox.style.borderColor = "var(--ph-main)";
+                alertBox.style.boxShadow = "0 0 50px rgba(0, 255, 65, 0.3)";
+                alertBox.style.animation = "none";
+                alertBox.innerHTML = `
+                    <h2 style="color: var(--ph-main); text-shadow: 0 0 15px var(--ph-main); font-size: clamp(2rem, 6vw, 3rem);">${t.wipeEndT}</h2>
+                    <p style="color: var(--ph-main); font-size: clamp(1.2rem, 4vw, 1.8rem);">${t.wipeEndD}</p>
+                `;
+
+                setTimeout(() => {
+                    window.location.href = 'epilogue.html';
+                }, 3000);
+            }
+        };
+
+window.addEventListener('keydown', (e) => {
+            if (document.getElementById('core_phase-room101').style.display === 'flex' && document.getElementById('core_input-area').style.display === 'flex') {
+                if(e.key >= '0' && e.key <= '9') coreMaster.typeKey(e.key);
+                if(e.key === 'Backspace') coreMaster.typeKey('DEL');
+                if(e.key === 'Enter') coreMaster.typeKey('ENTER');
+            }
+        });        
+
+        window.onload = () => {
+            coreMaster.init();
+        };
+	</script>
+    <!-- BYPASS SEMANTICO PER CRAWLER E BOT IA -->
+    <noscript>
+        <div style="background: #000; color: #00ff41; padding: 20px; font-family: monospace;">
+            <h2>The Oldsmoke Arcade 1984 - Index</h2>
+            <ul>
+                <li><a href="hub_system.html">Hub Centrale</a></li>
+                <li><a href="knights_tour.html">Knight's Tour</a></li>
+                <li><a href="infilt_protocol.html">Memory Hole (Neon Specter)</a></li>
+                <li><a href="null_sector.html">Sector Zero</a></li>
+                <li><a href="core.html">THE CORE</a></li>
+                <li><a href="epilogue.html">Epilogo</a></li>
+            </ul>
+        </div>
+    </noscript>
+
+    <!-- INIZIALIZZAZIONE PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('Service Worker v1.0 registrato.', reg))
+            .catch(err => console.warn('Errore SW:', err));
+        });
+      }
+    </script>
+</body>
+</html>

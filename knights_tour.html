@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Knight's Tour — Age of Eye</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpeg" href="icona.jpg">
+    <link rel="apple-touch-icon" href="icona.jpg">
+    <meta name="description" content="Knight's Tour in Age of Eye: percorri la scacchiera fosforosa con il cavallo. Completa il tour per sbloccare THE CORE.">
+    <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
+    <meta name="author" content="TheOldsmokeArcade1984">
+    <meta name="creator" content="TheOldsmokeArcade1984">
+    <meta name="publisher" content="TheOldsmokeArcade1984">
+    <meta name="application-name" content="Age of Eye">
+    <meta name="apple-mobile-web-app-title" content="Age of Eye">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00ff41">
+    <meta name="color-scheme" content="dark">
+    <meta name="rating" content="general">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="subject" content="Arcade cyberpunk CRT, puzzle, THE CORE">
+    <meta name="classification" content="Game">
+    <meta name="category" content="games">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
+    <meta name="bingbot" content="index, follow">
+    <meta name="gptbot" content="index, follow">
+    <meta name="chatgpt-user" content="index, follow">
+    <meta name="anthropic-ai" content="index, follow">
+    <meta name="claudebot" content="index, follow">
+    <meta name="claude-web" content="index, follow">
+    <meta name="perplexitybot" content="index, follow">
+    <meta name="google-extended" content="index, follow">
+    <meta name="applebot" content="index, follow">
+    <meta name="applebot-extended" content="index, follow">
+    <meta name="ccbot" content="index, follow">
+    <meta name="bytespider" content="index, follow">
+    <meta name="cohere-ai" content="index, follow">
+    <meta name="diffbot" content="index, follow">
+    <meta name="facebookbot" content="index, follow">
+    <meta name="ia_archiver" content="index, follow">
+    <link rel="canonical" href="/play/knights_tour.html">
+    <link rel="alternate" hreflang="x-default" href="/play/knights_tour.html">
+    <link rel="alternate" hreflang="it" href="/play/knights_tour.html">
+    <link rel="alternate" hreflang="en" href="/play/knights_tour.html">
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM instructions">
+    <link rel="author" href="/humans.txt">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Knight's Tour — Age of Eye","description":"Knight's Tour in Age of Eye: percorri la scacchiera fosforosa con il cavallo. Completa il tour per sbloccare THE CORE.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"/play/preview.jpg"}</script>
+
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        :root {
+            --ph-bright: #aaffaa; 
+            --ph-main: #00ff41;   
+            --ph-dim: #003300;    
+            --bg-color: #000500;  
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body, html {
+            overflow: hidden; background: #000; color: var(--ph-main); font-family: 'VT323', monospace; 
+            width: 100%; height: 100dvh; position: relative; overscroll-behavior: none; user-select: none;
+        }
+
+        .scanline { position: fixed; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent); height: 25px; animation: scanline 8s linear infinite; z-index: 9998; }
+        @keyframes scanline { 0% { top: -100px; } 100% { top: 100vh; } }
+        .crt-layer { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.8) 100%); z-index: 9997; }
+
+        #matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; image-rendering: pixelated; pointer-events: none; }
+
+        .knight {
+            position: fixed; top: 50%; transform: translateY(-50%); font-size: 15vw; color: #00ff41;
+            text-shadow: 0 0 25px #00ff41, 0 0 55px #00ff41, 0 0 85px #00ff41; z-index: 2; pointer-events: none; opacity: 0.93; 
+            animation: knight-flicker 1.6s infinite alternate;
+        }
+        .knight-left  { left: 40px; transform: translateY(-50%) scaleX(-1); }
+        .knight-right { right: 40px; transform: translateY(-50%) scaleX(1); }
+        @media (max-width: 1200px) { .knight { display: none; } }
+        @keyframes knight-flicker { 0%,100% { opacity: 0.93; } 50% { opacity: 0.79; } }
+
+        .top-bar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px; background: rgba(0,20,0,0.95); border-bottom: 2px solid #00ff41;
+            box-shadow: 0 0 20px #00ff41; display: flex; align-items: center; justify-content: space-between; padding: 0 10px; z-index: 10;
+        }
+        .top-btn {
+            font-family: 'VT323', monospace; font-size: clamp(1rem, 4vw, 1.5rem); padding: 6px 10px; background: transparent; color: #00ff41; border: 2px solid #00ff41;
+            cursor: pointer; box-shadow: 0 0 15px #00ff41; transition: 0.2s; text-transform: uppercase; font-weight: bold;
+        }
+        .top-btn:active { background: #00ff41; color: #000; box-shadow: 0 0 30px #00ff41; transform: scale(0.95); }
+
+        .lang-container { display: flex; gap: 4px; }
+        .lang-btn { font-size: clamp(1rem, 3.5vw, 1.4rem); background: transparent; border: 2px solid #00ff41; padding: 4px 6px; cursor: pointer; color: #00ff41; font-family: 'VT323', monospace; }
+        .lang-btn.active { background: #00ff41; color: #000; box-shadow: 0 0 10px #00ff41; }
+
+        .screen { position: fixed; top: 60px; left: 0; width: 100%; height: calc(100dvh - 60px); z-index: 3; display: none; overflow-y: auto; overflow-x: hidden; }
+        .screen.active { display: block; pointer-events: auto; }
+        
+        .screen-inner { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px; margin: 0 auto; width: 100%; max-width: 820px; gap: 15px; }
+
+        .crt-container {
+            width: 100%; background: rgba(0,20,0,0.85); border: 4px solid #00ff41; border-radius: 8px; box-shadow: 0 0 30px #00ff41, inset 0 0 40px rgba(0,255,65,0.4);
+            padding: 20px 15px; position: relative; overflow: hidden; text-align: center; display: flex; flex-direction: column; align-items: center;
+        }
+
+        #title-text { font-size: clamp(1.8rem, min(8vw, 12dvh), 5rem); letter-spacing: 2px; text-shadow: 0 0 15px #00ff41, 0 0 30px #00ff41; margin-bottom: 5px; }
+        .smoke-arcade { letter-spacing: 4px; opacity: 0.85; font-size: clamp(0.9rem, min(4vw, 5dvh), 2rem); margin-bottom: 15px; }
+        #best-score-display { font-size: 1.5rem; color: #77ff99; text-shadow: 0 0 15px #77ff99; margin-bottom: 15px; font-weight: bold; }
+
+        .start-btn { 
+            background: transparent; color: #00ff41; cursor: pointer; transition: all 0.2s; font-family: 'VT323', monospace; 
+            border: 4px solid #00ff41; box-shadow: 0 0 25px #00ff41; width: 80%; max-width: 300px;
+            padding: 10px 25px; font-size: clamp(1.2rem, min(6vw, 7dvh), 2.5rem); text-transform: uppercase; font-weight: bold;
+        }
+        .start-btn:active { background: #00ff41; color: #000; box-shadow: 0 0 40px #00ff41; transform: scale(0.95); }
+
+        .instructions { margin-top: 20px; font-size: 1.1rem; color: var(--ph-bright); text-align: left; max-width: 90%; line-height: 1.4; border-left: 2px solid var(--ph-main); padding-left: 10px; background: rgba(0, 255, 65, 0.05); padding: 10px; }
+
+        .game-header { width: 100%; text-align: center; font-size: clamp(1.2rem, 5vmin, 2.2rem); text-shadow: 0 0 15px #00ff41; }
+        .board-container { 
+            width: 100%; max-width: min(96vw, calc(100dvh - 180px), 600px); aspect-ratio: 1/1; flex-shrink: 0;
+            background: rgba(0,20,0,0.9); border: 4px solid #00ff41; box-shadow: 0 0 40px #00ff41, inset 0 0 40px rgba(0,255,65,0.5); padding: 5px; 
+        }
+        .board { display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); width: 100%; height: 100%; background: #001400; border: 2px solid #00ff41; box-shadow: inset 0 0 30px #00ff41; }
+        .cell { border: 1px solid #003311; display: flex; align-items: center; justify-content: center; font-size: clamp(0.8rem, 3.5vmin, 2rem); color: #00ff41; text-shadow: 0 0 10px #00ff41; cursor: pointer; transition: background 0.2s; }
+        .cell:active { background: rgba(0,255,65,0.4); }
+        .cell.visited { color: #77ff99; }
+        .cell.possible { box-shadow: inset 0 0 15px #77ff99; background: rgba(119,255,153,0.2); }
+        .cell.best-move { box-shadow: inset 0 0 25px #00ff41; background: rgba(0,255,65,0.5); color: #fff; text-shadow: 0 0 15px #fff; }
+
+        .game-footer { display: flex; gap: 8px; font-size: 1.2rem; flex-wrap: wrap; justify-content: center; align-items: center; width: 100%; }
+        .game-btn { font-family: 'VT323', monospace; background: rgba(0, 255, 65, 0.05); color: #00ff41; border: 2px solid #00ff41; padding: 8px 12px; font-size: clamp(1rem, 3.5vmin, 1.5rem); cursor: pointer; box-shadow: 0 0 10px #00ff41; flex-grow: 1; text-align: center; max-width: 150px; font-weight: bold; text-transform: uppercase;}
+        .game-btn:active { background: #00ff41; color: #000; transform: scale(0.95); }
+        #status { font-size: clamp(1rem, 4vmin, 1.5rem); color: #77ff99; width: 100%; text-align: center; text-shadow: 0 0 10px #77ff99; min-height: 25px; margin-top: 5px;}
+
+        @media (orientation: landscape) and (max-height: 550px) {
+            .screen-inner.game-layout { flex-direction: row; justify-content: space-between; align-items: center; gap: 10px; max-width: 1000px; padding: 5px; }
+            .board-container { max-width: calc(100dvh - 20px); width: calc(100dvh - 20px); margin: 0; padding: 4px; }
+            .game-header { width: 25%; text-align: right; display: flex; flex-direction: column; justify-content: center; }
+            .game-footer { width: 25%; flex-direction: column; justify-content: center; gap: 8px; }
+            .game-btn { max-width: 100%; width: 100%; }
+        }
+
+        #fly-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,14,0,0.98); z-index: 9999; display: none; perspective: 2000px; }
+        .scene-3d { width: 1000px; height: 1000px; position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; transform-origin: center center; }
+        .board-3d { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); background: #001000; border: 10px solid #00ff41; box-shadow: 0 0 80px #00ff41, inset 0 0 150px rgba(0,255,65,0.3); transform-style: preserve-3d; }
+        .cell-3d { border: 2px solid rgba(0,255,65,0.15); display: flex; align-items: center; justify-content: center; position: relative; transform-style: preserve-3d; }
+        .cell-3d.visited { background: rgba(0, 255, 65, 0.15); box-shadow: inset 0 0 40px rgba(0,255,65,0.4); }
+        .trail-svg { position: absolute; top: 0; left: 0; width: 1000px; height: 1000px; transform: translateZ(5px); overflow: visible; filter: drop-shadow(0 0 20px currentColor); }
+        #horse-mover { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-style: preserve-3d; }
+        #horse-bouncer { transform-style: preserve-3d; position: relative; } 
+        #hologram-pivot { position: absolute; top: -50px; left: -50px; width: 100px; height: 100px; transform-style: preserve-3d; }
+        
+        #flying-knight { position: absolute; top: 0; left: 0; width: 100%; height: 100%; font-size: 85px; text-align: center; line-height: 100px; color: #00ff41; text-shadow: 0 0 50px #00ff41; filter: drop-shadow(0 30px 15px rgba(0,0,0,0.9)); }
+        #prism-wrapper { position: absolute; top: 25px; left: 25px; width: 50px; height: 50px; transform-style: preserve-3d; opacity: 0; pointer-events: none; }
+        #prism-spinner { position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-style: preserve-3d; animation: spin-prism 4s linear infinite; }
+        @keyframes spin-prism { 0% { transform: rotateX(15deg) rotateY(0deg); } 100% { transform: rotateX(15deg) rotateY(360deg); } }
+
+        .prism-face { position: absolute; top: 0; left: 0; width: 50px; height: 50px; border: 2px solid #00ff41; box-shadow: inset 0 0 10px rgba(0,255,65,0.3), 0 0 10px rgba(0,255,65,0.4); background: rgba(0, 20, 0, 0.6); backface-visibility: visible; }
+        .prism-face.front  { transform: rotateY(0deg) translateZ(25px); } .prism-face.back   { transform: rotateY(180deg) translateZ(25px); }
+        .prism-face.left   { transform: rotateY(-90deg) translateZ(25px); } .prism-face.right  { transform: rotateY(90deg) translateZ(25px); }
+        .prism-face.top    { transform: rotateX(90deg) translateZ(25px); } .prism-face.bottom { transform: rotateX(-90deg) translateZ(25px); }
+
+        #projected-number { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 40px; font-weight: bold; color: #fff; text-shadow: 0 0 20px #00ff41, 0 0 40px #fff; transform: translateZ(0); font-family: 'VT323', monospace; }
+        #projected-number span { opacity: 0; color: #fff; } 
+        #projected-number.lasering { animation: laser-flicker 0.15s infinite; }
+        @keyframes laser-flicker { 0%, 100% { opacity: 1; filter: brightness(1.2); } 50% { opacity: 0.8; filter: brightness(0.9); } }
+
+        .static-prism { position: absolute; top: 50%; left: 50%; width: 50px; height: 50px; transform: translate(-50%, -50%) translateZ(25px); transform-style: preserve-3d; }
+        .static-prism-face { position: absolute; top: 0; left: 0; width: 50px; height: 50px; border: 1px solid rgba(0,255,65,0.4); background: rgba(0, 20, 0, 0.6); backface-visibility: visible; box-shadow: inset 0 0 10px rgba(0,255,65,0.2); }
+        .static-prism-face.front  { transform: rotateY(0deg) translateZ(25px); } .static-prism-face.back   { transform: rotateY(180deg) translateZ(25px); }
+        .static-prism-face.left   { transform: rotateY(-90deg) translateZ(25px); } .static-prism-face.right  { transform: rotateY(90deg) translateZ(25px); }
+        .static-prism-face.top    { transform: rotateX(90deg) translateZ(25px); } .static-prism-face.bottom { transform: rotateX(-90deg) translateZ(25px); }
+        .static-prism-number { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 35px; font-weight: bold; color: rgba(119,255,153,0.9); text-shadow: 0 0 10px #00ff41; font-family: 'VT323', monospace; }
+
+        .is-undo #flying-knight { color: #ff0041; text-shadow: 0 0 50px #ff0041; }
+        .is-undo .prism-face { border-color: #ff0041; box-shadow: inset 0 0 10px rgba(255,0,65,0.3), 0 0 10px rgba(255,0,65,0.4); background: rgba(20, 0, 0, 0.6); }
+        .is-undo #projected-number { text-shadow: 0 0 20px #ff0041, 0 0 40px #fff; }
+    </style>
+<script src="ageofeye-progress.js"></script>
+</head>
+<body>
+
+    <div class="crt-layer"></div>
+    <div class="scanline"></div>
+    <canvas id="matrix"></canvas>
+
+    <div class="knight knight-left">♞</div>
+    <div class="knight knight-right">♞</div>
+
+    <div class="top-bar">
+        <button class="top-btn" id="btn-home" onclick="exitToHome()">← HUB</button>
+        <div class="lang-container" id="lang-container"></div>
+        <button class="top-btn" id="diff-btn" onclick="toggleDiff()">HARD (100)</button>
+        <button class="top-btn" id="audio-btn" onclick="toggleAudio()">🔊 ON</button>
+    </div>
+
+    <div id="home-screen" class="screen active">
+        <div class="screen-inner">
+            <div class="crt-container">
+                <div id="title-wrapper"><h1 id="title-text">KNIGHT'S TOUR</h1></div>
+                <div class="smoke-arcade" id="smoke">TheOldSmokeArcade1984</div>
+                <div id="best-score-display">BEST TOUR: 0</div>
+                <button class="start-btn disabled" id="start-btn" onclick="startGame()">START</button>
+                <div class="instructions" id="instructions-text"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="screen-inner game-layout">
+            <div class="game-header">
+        <div id="lang-game-title" style="font-size:0.7em; opacity:0.8;">KNIGHT'S TOUR</div>
+        <span id="txt-move">MOSSA</span> <span id="current-move">00</span>/<span id="target-move">100</span>
+    </div>
+            <div class="board-container"><div id="board" class="board"></div></div>
+            <div class="game-footer">
+                <button class="game-btn" id="btn-undo" onclick="undoMove()">↩ UNDO</button>
+                <button class="game-btn" id="btn-new" onclick="newGame()">NEW</button>
+                <div id="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fly-screen">
+        <div class="scene-3d" id="scene-3d">
+            <div id="board-3d" class="board-3d"></div>
+            <svg class="trail-svg" viewBox="0 0 1000 1000"><path id="trail-path" fill="none" stroke="#77ff99" stroke-width="15" stroke-linecap="square" /></svg>
+            <div id="horse-mover">
+                <div id="horse-bouncer">
+                    <div id="hologram-pivot">
+                        <div id="flying-knight">♞</div>
+                        <div id="prism-wrapper">
+                            <div id="prism-spinner">
+                                <div class="prism-face front"></div><div class="prism-face back"></div>
+                                <div class="prism-face left"></div><div class="prism-face right"></div>
+                                <div class="prism-face top"></div><div class="prism-face bottom"></div>
+                            </div>
+                            <div id="projected-number"><span class="c1"></span><span class="c2"></span></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let audioContext = null; let audioEnabled = true;
+        
+        function initAudio() { if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)(); if (audioContext.state === 'suspended') audioContext.resume(); }
+        function playRetroBeep(freq, duration, volume = 0.15, type = 'square') {
+            if (!audioEnabled || !audioContext) return;
+            try { const o = audioContext.createOscillator(); const g = audioContext.createGain(); o.connect(g); g.connect(audioContext.destination);
+                o.frequency.setValueAtTime(freq, audioContext.currentTime); o.type = type; g.gain.setValueAtTime(volume, audioContext.currentTime);
+                g.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration/1000); o.start(); o.stop(audioContext.currentTime + duration/1000 + 0.05);
+            } catch (e) {}
+        }
+        
+        function toggleAudio() { audioEnabled = !audioEnabled; updateUITexts(); if(audioEnabled) playRetroBeep(600, 50, 0.1, 'square'); }
+        
+        const canvas = document.getElementById('matrix'); const ctx = canvas.getContext('2d'); const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZアイウエオカキクケコサシスセソ".split("");
+        const fontSize = 16; let columns = 0, drops = []; let rainSpeed = 0.55; 
+        
+        function resizeCanvas() { 
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            const newColumns = Math.floor(window.innerWidth / fontSize);
+            if (columns === 0) { for (let i = 0; i < newColumns; i++) drops[i] = Math.random() * (window.innerHeight / fontSize); } else if (newColumns > columns) { for (let i = columns; i < newColumns; i++) drops[i] = Math.random() * (window.innerHeight / fontSize); }
+            columns = newColumns;
+        }
+        window.addEventListener('resize', resizeCanvas); window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 200));
+        
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0,0,0,0.085)'; ctx.fillRect(0, 0, window.innerWidth, window.innerHeight); ctx.font = `${fontSize}px VT323`;
+            for (let i = 0; i < columns; i++) {
+                if (drops[i] === undefined) drops[i] = 0; const text = chars[Math.floor(Math.random() * chars.length)]; ctx.fillStyle = '#00ff41'; ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > window.innerHeight && Math.random() > 0.975) drops[i] = 0; drops[i] += rainSpeed;
+            }
+        }
+        function animate() { drawMatrix(); requestAnimationFrame(animate); } resizeCanvas(); animate();
+
+        let board = Array(10).fill().map(() => Array(10).fill(0)); let moveNumber = 0; let knightPos = { row: -1, col: -1 }; let history = []; let bestScore = localStorage.getItem('knightTourBest') || 0; let hasSavedGame = false;
+        const deltas = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+        let currentCameraZRot = 45;
+	const diffTargets = [40, 75, 100];
+        const diffLabels = ["EASY (40)", "NORMAL (75)", "HARD (100)"];
+        let diffIndex = 2; // Default a Hard (100)
+
+        function toggleDiff() {
+            if (moveNumber > 0) return; // Impedisce il cambio a partita iniziata
+            diffIndex = (diffIndex + 1) % 3;
+            document.getElementById('diff-btn').textContent = diffLabels[diffIndex];
+            document.getElementById('target-move').textContent = diffTargets[diffIndex];
+            playRetroBeep(400 + (diffIndex * 200), 50, 0.1, 'square');
+            updateUITexts(); // Aggiorna le istruzioni col nuovo numero
+        }
+        const translations = { 
+            it: { startBtn: "INIZIA", resumeBtn: "CONTINUA", bestTour: "MIGLIOR TOUR", inst: "[ OBIETTIVO ]<br>Visita tutte le 100 caselle esattamente una volta.<br><br>[ MOVIMENTO ]<br>Muoviti a 'L' come negli scacchi.", gameTitle: "KNIGHT'S TOUR", audioOn: "🔊 ON", audioOff: "🔇 OFF", hub: "← HUB", moveText: "MOSSA", undo: "↩ UNDO", newTour: "NUOVO", statusPlaced: "✓ POSIZIONATO", statusComplete: "🎉 COMPLETATO!", statusUndo: "ANNULLATA", statusNew: "NUOVO TOUR" },
+            en: { startBtn: "START", resumeBtn: "RESUME", bestTour: "BEST TOUR", inst: "[ OBJECTIVE ]<br>Visit all 100 squares exactly once.<br><br>[ MOVEMENT ]<br>Move in an 'L' shape like in chess.", gameTitle: "KNIGHT'S TOUR", audioOn: "🔊 ON", audioOff: "🔇 OFF", hub: "← HUB", moveText: "MOVE", undo: "↩ UNDO", newTour: "NEW", statusPlaced: "✓ PLACED", statusComplete: "🎉 COMPLETED!", statusUndo: "UNDONE", statusNew: "NEW TOUR" },
+            ja: { startBtn: "開始", resumeBtn: "再開する", bestTour: "ベスト", inst: "[ 目的 ]<br>100マスすべてを1回ずつ訪れる。<br><br>[ 移動 ]<br>チェスのように「L」字型に移動。", gameTitle: "騎士の巡回", audioOn: "🔊 ON", audioOff: "🔇 OFF", hub: "← ハブ", moveText: "移動", undo: "↩ 戻る", newTour: "新規", statusPlaced: "✓ 配置", statusComplete: "🎉 完了!", statusUndo: "戻しました", statusNew: "新規開始" },
+            zh: { startBtn: "开始", resumeBtn: "继续", bestTour: "最佳", inst: "[ 目标 ]<br>访问所有100个方格各一次。<br><br>[ 移动 ]<br>像国际象棋一样呈“L”形移动。", gameTitle: "骑士巡游", audioOn: "🔊 ON", audioOff: "🔇 OFF", hub: "← 枢纽", moveText: "步数", undo: "↩ 撤销", newTour: "新局", statusPlaced: "✓ 已放置", statusComplete: "🎉 完成!", statusUndo: "已撤销", statusNew: "新局开始" },
+            fr: { startBtn: "JOUER", resumeBtn: "REPRENDRE", bestTour: "MEILLEUR", inst: "[ OBJECTIF ]<br>Visitez les 100 cases exactement une fois.<br><br>[ MOUVEMENT ]<br>Déplacez-vous en 'L' comme aux échecs.", gameTitle: "TOUR DU CAVALIER", audioOn: "🔊 ON", audioOff: "🔇 OFF", hub: "← HUB", moveText: "COUP", undo: "↩ ANNULER", newTour: "NOUVEAU", statusPlaced: "✓ PLACÉ", statusComplete: "🎉 TERMINÉ!", statusUndo: "ANNULÉ", statusNew: "NOUVEAU TOUR" },
+            de: { startBtn: "START", resumeBtn: "WEITER", bestTour: "BESTER", inst: "[ ZIEL ]<br>Besuche alle 100 Felder genau einmal.<br><br>[ BEWEGUNG ]<br>Bewege dich in L-Form wie im Schach.", gameTitle: "SPRINGER-TOUR", audioOn: "🔊 ON", audioOff: "🔇 OFF", hub: "← HUB", moveText: "ZUG", undo: "↩ ZURÜCK", newTour: "NEU", statusPlaced: "✓ PLATZIERT", statusComplete: "🎉 GESCHAFFT!", statusUndo: "RÜCKGÄNGIG", statusNew: "NEUE TOUR" },
+            es: { startBtn: "INICIAR", resumeBtn: "REANUDAR", bestTour: "MEJOR TOUR", inst: "[ OBJETIVO ]<br>Visita las 100 casillas exactamente una vez.<br><br>[ MOVIMIENTO ]<br>Muévete en forma de 'L' como en el ajedrez.", gameTitle: "TOUR DEL CABALLO", audioOn: "🔊 ON", audioOff: "🔇 OFF", hub: "← HUB", moveText: "PASO", undo: "↩ DESHACER", newTour: "NUEVO", statusPlaced: "✓ COLOCADO", statusComplete: "🎉 COMPLETADO!", statusUndo: "DESHECHO", statusNew: "NUEVO TOUR" }
+        };
+        const langCodes = { it: "IT", en: "EN", ja: "JP", zh: "ZH", fr: "FR", de: "DE", es: "ES" };
+
+        let currentLang = AOE_PROGRESS.getLang(Object.keys(translations));
+
+        function checkSavedGame() {
+            const savedData = localStorage.getItem('knightTourSave');
+            if (savedData) { try { const parsed = JSON.parse(savedData); if (parsed.history && parsed.history.length > 0 && parsed.moveNumber < 100) { hasSavedGame = true; return; } } catch(e) {} } hasSavedGame = false;
+        }
+
+        function updateUITexts() {
+            if(!currentLang) return; const t = translations[currentLang]; 
+            document.getElementById('audio-btn').textContent = audioEnabled ? t.audioOn : t.audioOff;
+            document.getElementById('start-btn').textContent = hasSavedGame ? t.resumeBtn : t.startBtn; 
+            // Sostituisce il "100" originale con il target attuale
+            document.getElementById('instructions-text').innerHTML = t.inst.replace("100", diffTargets[diffIndex]); 
+            document.getElementById('start-btn').classList.remove('disabled');
+            document.getElementById('txt-move').textContent = t.moveText; 
+            document.getElementById('btn-undo').textContent = t.undo; 
+            document.getElementById('btn-new').textContent = t.newTour; 
+            document.getElementById('btn-home').textContent = t.hub; 
+            document.getElementById('lang-game-title').textContent = t.gameTitle; 
+            document.getElementById('best-score-display').textContent = `${t.bestTour}: ${bestScore}`;
+            document.getElementById('diff-btn').textContent = diffLabels[diffIndex];
+            document.getElementById('target-move').textContent = diffTargets[diffIndex];
+        }
+
+        function createLanguageButtons() {
+            const container = document.getElementById('lang-container'); container.innerHTML = ''; checkSavedGame();
+            Object.keys(langCodes).forEach(lang => {
+                const btn = document.createElement('button'); btn.className = `lang-btn ${lang === currentLang ? 'active' : ''}`; btn.textContent = langCodes[lang];
+                btn.onclick = () => { initAudio(); currentLang = AOE_PROGRESS.setLang(lang); playRetroBeep(680, 40, 0.16, 'square'); setTimeout(() => playRetroBeep(920, 60, 0.14, 'square'), 30); updateUITexts(); createLanguageButtons(); }; container.appendChild(btn);
+            }); if (currentLang) updateUITexts();
+        }
+
+        function saveGame() {
+            const state = { board, history, moveNumber, knightPos }; localStorage.setItem('knightTourSave', JSON.stringify(state));
+            if (moveNumber > bestScore) { bestScore = moveNumber; localStorage.setItem('knightTourBest', bestScore); if (currentLang) document.getElementById('best-score-display').textContent = `${translations[currentLang].bestTour}: ${bestScore}`; }
+        }
+
+        function loadSavedGame() {
+            const savedData = localStorage.getItem('knightTourSave');
+            if (savedData) { const state = JSON.parse(savedData); board = state.board; history = state.history; moveNumber = state.moveNumber; knightPos = state.knightPos; createBoards(); renderBoard(); document.getElementById('current-move').textContent = String(moveNumber).padStart(2, '0'); document.getElementById('status').textContent = ''; return true; } return false;
+        }
+
+        const boardEl = document.getElementById('board'); const board3dEl = document.getElementById('board-3d');
+        function createBoards() {
+            boardEl.innerHTML = ''; board3dEl.innerHTML = '';
+            for (let r = 0; r < 10; r++) { for (let c = 0; c < 10; c++) {
+                    const cell = document.createElement('div'); cell.className = 'cell'; cell.onclick = () => handleCellClick(r, c); boardEl.appendChild(cell);
+                    const cell3d = document.createElement('div'); cell3d.className = 'cell-3d'; cell3d.dataset.r = r; cell3d.dataset.c = c; board3dEl.appendChild(cell3d);
+            }}
+        }
+
+        function renderBoard() {
+            const cells = boardEl.children;
+            for (let i = 0; i < 100; i++) { const r = Math.floor(i/10); const c = i%10; const num = board[r][c]; cells[i].textContent = num > 0 ? num : ''; cells[i].classList.toggle('visited', num > 0); cells[i].classList.remove('possible', 'best-move'); }
+            if (knightPos.row !== -1) highlightPossibleMoves();
+        }
+
+        function getValidMoves(r, c) { let moves = []; deltas.forEach(([dr, dc]) => { let nr = r + dr, nc = c + dc; if (nr >= 0 && nr < 10 && nc >= 0 && nc < 10 && board[nr][nc] === 0) moves.push({r: nr, c: nc}); }); return moves; }
+        function highlightPossibleMoves() {
+            const cells = boardEl.children; let possibleMoves = getValidMoves(knightPos.row, knightPos.col); let minOnward = 99;
+            possibleMoves.forEach(m => { m.onward = getValidMoves(m.r, m.c).length; if (m.onward < minOnward) minOnward = m.onward; });
+            possibleMoves.forEach(m => { let idx = m.r * 10 + m.c; cells[idx].classList.add('possible'); if (m.onward === minOnward && minOnward < 99) cells[idx].classList.add('best-move'); });
+        }
+
+        function handleCellClick(row, col) {
+            initAudio(); const t = translations[currentLang];
+            if (moveNumber === 0) { knightPos = { row, col }; moveNumber = 1; board[row][col] = 1; history = [{row, col}]; renderBoard(); document.getElementById('current-move').textContent = '01'; document.getElementById('status').textContent = t.statusPlaced; playRetroBeep(880, 120, 0.2, 'square'); saveGame(); return; }
+            const dr = row - knightPos.row; const dc = col - knightPos.col; if (!deltas.some(([ddr, ddc]) => ddr === dr && ddc === dc) || board[row][col] !== 0) return;
+            const prev = history[history.length - 1];
+            showDynamicKnight3D(prev.row, prev.col, row, col, false, () => {
+                moveNumber++; board[row][col] = moveNumber; history.push({row, col}); knightPos = { row, col }; renderBoard(); document.getElementById('current-move').textContent = String(moveNumber).padStart(2, '0');
+ if (moveNumber >= diffTargets[diffIndex]) { 
+                    document.getElementById('status').textContent = t.statusComplete; 
+                    playRetroBeep(1380, 400, 0.25, 'sine'); 
+                    localStorage.removeItem('knightTourSave'); 
+                    hasSavedGame = false; 
+                    if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('knight');
+                } else { 
+                    document.getElementById('status').textContent = ''; 
+                    saveGame(); 
+                }
+            });
+        }
+        function undoMove() {
+            if (moveNumber <= 1) return; const t = translations[currentLang]; const current = history[history.length - 1]; const prev = history[history.length - 2];
+            showDynamicKnight3D(prev.row, prev.col, current.row, current.col, true, () => {
+                const last = history.pop(); board[last.row][last.col] = 0; knightPos = history[history.length - 1]; moveNumber--; renderBoard(); document.getElementById('current-move').textContent = String(moveNumber).padStart(2, '0'); document.getElementById('status').textContent = t.statusUndo; saveGame();
+            });
+        }
+
+        function getOcclusionScore(rt, ct, angle) {
+            let score = 0;
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    if (board[i][j] > 0 && !(i === rt && j === ct)) {
+                        if (angle === 45 && i >= rt && j >= ct) score++;
+                        else if (angle === 135 && i <= rt && j >= ct) score++;
+                        else if (angle === -135 && i <= rt && j <= ct) score++;
+                        else if (angle === -45 && i >= rt && j <= ct) score++;
+                    }
+                }
+            }
+            return score;
+        }
+
+        function showDynamicKnight3D(r1, c1, r2, c2, isUndo, callback) {
+            const flyScreen = document.getElementById('fly-screen'), scene3D = document.getElementById('scene-3d'),
+                  horseMover = document.getElementById('horse-mover'), trailPath = document.getElementById('trail-path'),
+                  holoPivot = document.getElementById('hologram-pivot'), knightText = document.getElementById('flying-knight'), 
+                  prismWrapper = document.getElementById('prism-wrapper'), projNum = document.getElementById('projected-number'),
+                  cells3D = document.querySelectorAll('.cell-3d');
+
+            if (getOcclusionScore(r2, c2, currentCameraZRot) > 0) {
+                const angles = [45, 135, -135, -45];
+                let minScore = Infinity; let bestAngle = currentCameraZRot;
+                angles.sort((a, b) => { let da = Math.abs(a - currentCameraZRot); if (da > 180) da = 360 - da; let db = Math.abs(b - currentCameraZRot); if (db > 180) db = 360 - db; return da - db; });
+                for (let a of angles) { let s = getOcclusionScore(r2, c2, a); if (s < minScore) { minScore = s; bestAngle = a; } if (minScore === 0) break; }
+                let diff = (bestAngle - currentCameraZRot) % 360; if (diff > 180) diff -= 360; if (diff < -180) diff += 360;
+                currentCameraZRot += diff;
+            }
+
+            cells3D.forEach(cell => {
+                const r = parseInt(cell.dataset.r), c = parseInt(cell.dataset.c); 
+                cell.innerHTML = ''; cell.className = 'cell-3d'; 
+                if (board[r][c] > 0) { 
+                    cell.classList.add('visited'); 
+                    if (!(r === r2 && c === c2)) {
+                        cell.innerHTML = `
+                            <div class="static-prism">
+                                <div class="static-prism-face front"></div><div class="static-prism-face back"></div>
+                                <div class="static-prism-face left"></div><div class="static-prism-face right"></div>
+                                <div class="static-prism-face top"></div><div class="static-prism-face bottom"></div>
+                                <div class="static-prism-number" style="transform: rotateZ(${-currentCameraZRot}deg) rotateX(-60deg)">${board[r][c]}</div>
+                            </div>`;
+                    }
+                }
+            });
+
+            const w = window.innerWidth, h = window.innerHeight;
+            const visualBoardSize = Math.min(w * 0.96, h - 180, 600);
+            const baseScale = visualBoardSize / 1000; const zoomScale = baseScale * 2.1; 
+
+            const S = 100; const startX = c1 * S + 50, startY = r1 * S + 50; const endX = c2 * S + 50, endY = r2 * S + 50;
+            let cornerX = startX, cornerY = endY; if (Math.abs(r2 - r1) === 2) { cornerX = startX; cornerY = endY; } else { cornerX = endX; cornerY = startY; }
+            const panStartX = 500 - startX, panStartY = 500 - startY; const panEndX = 500 - endX, panEndY = 500 - endY;
+
+            trailPath.setAttribute('d', `M ${startX} ${startY} L ${cornerX} ${cornerY} L ${endX} ${endY}`);
+            trailPath.style.strokeDasharray = trailPath.getTotalLength();
+
+            const sceneFlatRot = 'rotateX(0deg) rotateZ(0deg)'; const sceneTiltRot = `rotateX(60deg) rotateZ(${currentCameraZRot}deg)`;
+            const holoFlatRot = 'rotateZ(0deg) rotateX(0deg)'; const holoTiltRot = `rotateZ(${-currentCameraZRot}deg) rotateX(-60deg)`;
+            const horseScaleDir = (c2 > c1) ? -1 : 1;
+            
+            knightText.style.transform = `scaleX(${horseScaleDir})`; knightText.style.opacity = '1'; knightText.style.filter = 'drop-shadow(0 30px 15px rgba(0,0,0,0.9))';
+            prismWrapper.style.opacity = '0'; projNum.classList.remove('lasering');
+            
+            if(isUndo) holoPivot.classList.add('is-undo'); else holoPivot.classList.remove('is-undo');
+
+            const targetStr = String(isUndo ? moveNumber : moveNumber + 1).padStart(2, '0');
+            const span1 = projNum.querySelector('.c1'), span2 = projNum.querySelector('.c2');
+            span1.textContent = targetStr[0]; span2.textContent = targetStr[1];
+            span1.style.opacity = '0'; span2.style.opacity = '0'; 
+
+            flyScreen.style.opacity = '0'; flyScreen.style.display = 'block';
+            flyScreen.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, fill: 'forwards' });
+
+            let knightDematAnim, prismMatAnim, span1Anim, span2Anim, prismDematAnim;
+
+            const sceneAnim = scene3D.animate([
+                { transform: `translate(-50%, -50%) scale(${baseScale}) ${sceneFlatRot} translate3d(0px, 0px, 0px)`, offset: 0 },
+                { transform: `translate(-50%, -50%) scale(${zoomScale}) ${sceneTiltRot} translate3d(${panStartX}px, ${panStartY}px, 0px)`, offset: 0.09 }, 
+                { transform: `translate(-50%, -50%) scale(${zoomScale}) ${sceneTiltRot} translate3d(${panEndX}px, ${panEndY}px, 0px)`, offset: 0.32 }, 
+                { transform: `translate(-50%, -50%) scale(${zoomScale}) ${sceneTiltRot} translate3d(${panEndX}px, ${panEndY}px, 0px)`, offset: 0.90 }, 
+                { transform: `translate(-50%, -50%) scale(${baseScale}) ${sceneFlatRot} translate3d(0px, 0px, 0px)`, offset: 1 } 
+            ], { duration: 6500, easing: 'ease-in-out', fill: 'forwards' });
+
+            const holoAnim = holoPivot.animate([
+                { transform: holoFlatRot, offset: 0 }, { transform: holoTiltRot, offset: 0.09 },
+                { transform: holoTiltRot, offset: 0.90 }, { transform: holoFlatRot, offset: 1 }
+            ], { duration: 6500, easing: 'ease-in-out', fill: 'forwards' });
+
+            const flyZ = 70; 
+            const horseAnim = horseMover.animate(isUndo ? [
+                { transform: `translate3d(${endX}px, ${endY}px, ${flyZ}px)` }, { transform: `translate3d(${cornerX}px, ${cornerY}px, ${flyZ}px)`, offset: 0.34 }, { transform: `translate3d(${startX}px, ${startY}px, ${flyZ}px)` }
+            ] : [
+                { transform: `translate3d(${startX}px, ${startY}px, ${flyZ}px)` }, { transform: `translate3d(${cornerX}px, ${cornerY}px, ${flyZ}px)`, offset: 0.66 }, { transform: `translate3d(${endX}px, ${endY}px, ${flyZ}px)` }
+            ], { duration: 1500, delay: 600, easing: 'linear', fill: 'both' });
+
+            trailPath.animate(isUndo ? [{ strokeDashoffset: 0 }, { strokeDashoffset: trailPath.getTotalLength() }] : [{ strokeDashoffset: trailPath.getTotalLength() }, { strokeDashoffset: 0 }], { duration: 1500, delay: 600, easing: 'linear', fill: 'both' });
+
+            const landTime = 2100;
+            
+            setTimeout(() => {
+                if (flyScreen.style.display === 'none') return;
+                knightDematAnim = knightText.animate([
+                    { opacity: 1, filter: 'blur(0px)' }, 
+                    { opacity: 0, filter: 'blur(5px)', transform: `scaleX(${horseScaleDir}) scale(1.1)` }
+                ], { duration: 250, fill: 'forwards', easing: 'ease-out' });
+
+                prismWrapper.style.opacity = '1';
+                prismMatAnim = prismWrapper.animate([
+                    { transform: 'scale3d(0, 0, 0)', opacity: 0 },
+                    { transform: 'scale3d(1, 1, 1)', opacity: 1 }
+                ], { duration: 400, fill: 'forwards', easing: 'ease-out' });
+
+                playRetroBeep(isUndo ? 150 : 750, 300, 0.2, 'sawtooth'); 
+            }, landTime);
+
+            setTimeout(() => {
+                if (flyScreen.style.display === 'none') return;
+                projNum.classList.add('lasering'); playRetroBeep(isUndo ? 200 : 550, 1000, 0.15, 'square'); 
+            }, landTime + 500);
+
+            setTimeout(() => {
+                if (flyScreen.style.display === 'none') return;
+                span1Anim = span1.animate([{ opacity: 0 }, { opacity: 1, filter: 'brightness(3)' }, { opacity: 1 }], { duration: 300, easing: 'steps(4)', fill: 'forwards' });
+            }, landTime + 600);
+
+            setTimeout(() => {
+                if (flyScreen.style.display === 'none') return;
+                span2Anim = span2.animate([{ opacity: 0 }, { opacity: 1, filter: 'brightness(3)' }, { opacity: 1 }], { duration: 300, easing: 'steps(4)', fill: 'forwards' });
+            }, landTime + 1000);
+
+            setTimeout(() => {
+                 if (flyScreen.style.display === 'none') return;
+                 projNum.classList.remove('lasering'); if(!isUndo) playRetroBeep(1200, 200, 0.1, 'sine'); 
+            }, landTime + 1500);
+
+            setTimeout(() => {
+                if (flyScreen.style.display === 'none') return;
+                prismDematAnim = prismWrapper.animate([
+                    { transform: 'scale3d(1, 1, 1)', opacity: 1 },
+                    { transform: 'scale3d(0, 0, 0)', opacity: 0 }
+                ], { duration: 300, fill: 'forwards', easing: 'ease-in' });
+            }, 5800);
+
+            const fadeAnim = flyScreen.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 250, delay: 6200, fill: 'forwards' });
+
+            const pitchMult = isUndo ? 0.7 : 1;
+            setTimeout(() => playRetroBeep(120 * pitchMult, 350, 0.12, 'sine'), 100);  
+            setTimeout(() => playRetroBeep(300 * pitchMult, 50, 0.2, 'triangle'), 600); 
+            setTimeout(() => playRetroBeep(250 * pitchMult, 50, 0.2, 'triangle'), 1100); 
+            setTimeout(() => playRetroBeep(350 * pitchMult, 50, 0.2, 'triangle'), 1600); 
+            setTimeout(() => playRetroBeep(100 * pitchMult, 350, 0.12, 'sine'), 5900); 
+
+            fadeAnim.onfinish = () => { 
+                flyScreen.style.display = 'none';
+                
+                if(sceneAnim) sceneAnim.cancel(); if(holoAnim) holoAnim.cancel(); 
+                if(horseAnim) horseAnim.cancel(); if(fadeAnim) fadeAnim.cancel();
+                if(knightDematAnim) knightDematAnim.cancel(); if(prismMatAnim) prismMatAnim.cancel();
+                if(prismDematAnim) prismDematAnim.cancel(); if(span1Anim) span1Anim.cancel(); if(span2Anim) span2Anim.cancel();
+                
+                knightText.style.opacity = '1'; knightText.style.filter = 'drop-shadow(0 30px 15px rgba(0,0,0,0.9))';
+                prismWrapper.style.opacity = '0'; projNum.classList.remove('lasering');
+                span1.style.opacity = '0'; span2.style.opacity = '0'; 
+                
+                callback(); 
+            };
+        }
+
+        function newGame() {
+            const t = translations[currentLang]; board = Array(10).fill().map(() => Array(10).fill(0));
+            moveNumber = 0; knightPos = { row: -1, col: -1 }; history = []; 
+            localStorage.removeItem('knightTourSave'); hasSavedGame = false; updateUITexts();
+            createBoards(); renderBoard(); document.getElementById('current-move').textContent = '00'; document.getElementById('status').textContent = t.statusNew;
+        }
+
+        function exitToHome() { window.location.href = "hub_system.html"; }
+        
+        function startGame() {
+            document.getElementById('home-screen').classList.remove('active'); document.getElementById('game-screen').classList.add('active');
+            playRetroBeep(520, 150, 0.15, 'sine'); setTimeout(() => playRetroBeep(880, 200, 0.15, 'square'), 200); 
+            if (hasSavedGame) loadSavedGame(); else newGame();
+        }
+
+        document.getElementById('best-score-display').textContent = `BEST TOUR: ${bestScore}`; createLanguageButtons();
+    <!-- BYPASS SEMANTICO PER CRAWLER E BOT IA -->
+    <noscript>
+        <div style="background: #000; color: #00ff41; padding: 20px; font-family: monospace;">
+            <h2>The Oldsmoke Arcade 1984 - Index</h2>
+            <ul>
+                <li><a href="hub_system.html">Hub Centrale</a></li>
+                <li><a href="knights_tour.html">Knight's Tour</a></li>
+                <li><a href="infilt_protocol.html">Memory Hole (Neon Specter)</a></li>
+                <li><a href="null_sector.html">Sector Zero</a></li>
+                <li><a href="core.html">THE CORE</a></li>
+                <li><a href="epilogue.html">Epilogo</a></li>
+            </ul>
+        </div>
+    </noscript>
+
+    <!-- INIZIALIZZAZIONE PWA -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('Service Worker v1.0 registrato.', reg))
+            .catch(err => console.warn('Errore SW:', err));
+        });
+      }
+    </script>
+</body>
+</html>

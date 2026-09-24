@@ -1,0 +1,10 @@
+/* TEAM */
+Developer: The Oldsmoke Arcade 1984
+Role: Independent Hobbyist Coding Enthusiast
+Site: https://theoldsmokearcade1984.github.io/Age-of-Eye/
+
+/* SITE */
+Stack: HTML5, Pure Vanilla JavaScript, CSS3, Web Audio API
+Frameworks: Nessuno. Zero asset.
+Theme: Cyberpunk, CRT phosphor, George Orwell 1984
+Message: 2+2=5. Il sistema ti osserva.

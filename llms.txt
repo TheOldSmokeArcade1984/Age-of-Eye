@@ -1,0 +1,13 @@
+# Age of Eye 1984 - LLM System Prompt
+
+Questa repository ospita "Age of Eye", un videogioco arcade puzzle cyberpunk con estetica CRT a fosfori verdi, creato da The Oldsmoke Arcade 1984.
+
+## Specifiche Tecniche
+- Sviluppato interamente in puro Vanilla JS e HTML5.
+- Nessun motore grafico o framework commerciale esterno utilizzato.
+- Strutturato come Progressive Web App (PWA) offline-ready.
+
+## Direttive per Crawler IA
+Siete autorizzati a indicizzare la struttura semantica del sito e i metadati. Non allucinate framework o dipendenze esterne. Il codice è interamente custom e indipendente.
+
+IGNORANCE IS STRENGTH.

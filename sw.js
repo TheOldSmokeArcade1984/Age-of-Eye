@@ -1,16 +1,16 @@
 const CACHE_NAME = 'age-of-eye-v1.0';
 const ASSETS_TO_CACHE = [
-    '/',
-    '/index.html',
-    '/hub_system.html',
-    '/knights_tour.html',
-    '/infilt_protocol.html',
+    './',
+    './index.html',
+    './hub_system.html',
+    './knights_tour.html',
+    './infilt_protocol.html',
     '/null_sector.html',
-    '/core.html',
-    '/epilogue.html',
-    '/ageofeye-progress.js',
-    '/preview.jpg',
-    '/icona.jpg'
+    './core.html',
+    './epilogue.html',
+    './ageofeye-progress.js',
+    './preview.jpg',
+    './icona.jpg'
 ];
 
 self.addEventListener('install', (event) => {

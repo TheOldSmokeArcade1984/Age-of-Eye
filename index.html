@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Age of Eye — Boot Sequence | The Oldsmoke Arcade 1984</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/jpeg" href="icona.jpg">
-    <link rel="apple-touch-icon" href="icona.jpg">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="description" content="Avvia Age of Eye, arcade cyberpunk CRT. Attraversa 12 nodi, Knight's Tour, Memory Hole e Sector Zero, poi sblocca THE CORE: il tesseratto 3×3×3.">
     <meta name="keywords" content="Age of Eye, THE CORE, Oldsmoke Arcade, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
     <meta name="author" content="The Oldsmoke Arcade">
@@ -237,9 +237,25 @@
             }
         }, { once: true });
 
-        window.onload = () => {
-            runBootSequence();
-        };
+        // Overlay di blocco per autorizzare l'AudioContext
+        const bootOverlay = document.createElement('div');
+        bootOverlay.id = 'tap-to-boot-overlay';
+        bootOverlay.style.position = 'fixed';
+        bootOverlay.style.inset = '0';
+        bootOverlay.style.zIndex = '999999';
+        bootOverlay.style.background = 'var(--bg-color)';
+        bootOverlay.style.display = 'flex';
+        bootOverlay.style.justifyContent = 'center';
+        bootOverlay.style.alignItems = 'center';
+        bootOverlay.style.cursor = 'pointer';
+        bootOverlay.innerHTML = '<div style="font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 20px var(--ph-main); animation: blink 1.5s infinite; text-align: center;">> TAP TO BOOT SYSTEM <</div>';
+        document.body.appendChild(bootOverlay);
+
+        bootOverlay.addEventListener('pointerdown', () => {
+            bootOverlay.remove(); // Rimuove la barriera
+            initAudio(); // Risveglia il contesto audio in modo sicuro
+            runBootSequence(); // Avvia l'animazione e la sinfonia fosforosa
+        });
 
         async function runBootSequence() {
             sysAudio.tvOn();

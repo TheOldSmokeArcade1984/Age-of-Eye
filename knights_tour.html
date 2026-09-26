@@ -2,11 +2,11 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Knight's Tour — Age of Eye</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/jpeg" href="icona.jpg">
-    <link rel="apple-touch-icon" href="icona.jpg">
+    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="description" content="Knight's Tour in Age of Eye: percorri la scacchiera fosforosa con il cavallo. Completa il tour per sbloccare THE CORE.">
     <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
     <meta name="author" content="TheOldsmokeArcade1984">
@@ -193,12 +193,6 @@
         .is-undo #projected-number { text-shadow: 0 0 20px #ff0041, 0 0 40px #fff; }
     </style>
 <script src="ageofeye-progress.js"></script>
-<script>
-    // GATE DI SICUREZZA: Il Ministero è severo anche sul corridoio
-    if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.areAllHubNodesCompleted()) {
-        window.location.href = 'hub_system.html';
-    }
-</script>
 <script>
     // GATE DI SICUREZZA: Il Ministero è severo anche sul corridoio
     if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.areAllHubNodesCompleted()) {

@@ -2,10 +2,11 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Epilogue — Age of Eye</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="description" content="Epilogo di Age of Eye. Override completato. TheOldsmokeArcade1984 — CRT, fosforo verde, occhio nel vuoto.">
     <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
@@ -49,12 +50,16 @@
 	<link rel="alternate" type="text/plain" href="llms.txt" title="LLM instructions">
 	<link rel="author" href="humans.txt">
 <!-- SOCIAL PREVIEW (UNIVERSALE) -->
-    <meta property="og:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
+    <meta property="og:title" content="Age of Eye 1984 | TheOldsmokeArcade1984">
     <meta property="og:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta property="og:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
-    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/">
+    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/epilogue.html">
     <meta property="og:type" content="website">
-
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="The Oldsmoke Arcade 1984">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Age of Eye 1984 - Arcade Cyberpunk CRT">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
     <meta name="twitter:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
@@ -267,32 +272,41 @@
         // ==========================================
         // TESTI MULTILINGUA
         // ==========================================
-        const I18N = {
+const I18N = {
             it: {
                 manifesto: ["IL SISTEMA OSSERVA MA NON REGISTRA.", "LA PRIVACY È LOCALE, LA PRESENZA È GLOBALE.", "LA LIBERTÀ È NEL CODICE CHE NON DIPENDE DA NULLA."],
-                credits: [
-                    "VITTORIA: ACCESSO AL NUCLEO GARANTITO.", 
-                    "GRAZIE PER AVER ESPLORATO QUESTO ARCHIVIO.", 
-                    "QUESTA ESPERIENZA E I GIOCHI AL SUO INTERNO SONO UN TRIBUTO ALLA VISIONE DI GEORGE ORWELL E ALLA SUA OPERA FONDAMENTALE.", 
-                    "SE NON L'HAI ANCORA FATTO, TI INVITO A LEGGERE '1984'.", 
-                    "LA CONSAPEVOLEZZA È LA TUA VERA ARMA.", 
-                    "SISTEMA CREATO DA THEOLDSMOKEARCADE1984",
-                    "FINE DELLA TRASMISSIONE."
-                ],
+                credits: ["VITTORIA: ACCESSO AL NUCLEO GARANTITO.", "GRAZIE PER AVER ESPLORATO QUESTO ARCHIVIO.", "QUESTA ESPERIENZA E I GIOCHI AL SUO INTERNO SONO UN TRIBUTO ALLA VISIONE DI GEORGE ORWELL E ALLA SUA OPERA FONDAMENTALE.", "SE NON L'HAI ANCORA FATTO, TI INVITO A LEGGERE '1984'.", "LA CONSAPEVOLEZZA È LA TUA VERA ARMA.", "SISTEMA CREATO DA THEOLDSMOKEARCADE1984", "FINE DELLA TRASMISSIONE."],
                 clickText: "> TRASMISSIONE IN INGRESSO... [ CLICCA PER APRIRE ]"
             },
             en: {
                 manifesto: ["THE SYSTEM WATCHES BUT DOES NOT RECORD.", "PRIVACY IS LOCAL, PRESENCE IS GLOBAL.", "FREEDOM IS IN CODE THAT DEPENDS ON NOTHING."],
-                credits: [
-                    "VICTORY: CORE ACCESS GRANTED.", 
-                    "THANK YOU FOR EXPLORING THIS ARCHIVE.", 
-                    "THIS EXPERIENCE AND ITS GAMES ARE A TRIBUTE TO GEORGE ORWELL'S VISION AND HIS FUNDAMENTAL WORK.", 
-                    "IF YOU HAVEN'T ALREADY, I INVITE YOU TO READ '1984'.", 
-                    "AWARENESS IS YOUR TRUE WEAPON.", 
-                    "SYSTEM CREATED BY THEOLDSMOKEARCADE1984",
-                    "END OF TRANSMISSION."
-                ],
+                credits: ["VICTORY: CORE ACCESS GRANTED.", "THANK YOU FOR EXPLORING THIS ARCHIVE.", "THIS EXPERIENCE AND ITS GAMES ARE A TRIBUTE TO GEORGE ORWELL'S VISION AND HIS FUNDAMENTAL WORK.", "IF YOU HAVEN'T ALREADY, I INVITE YOU TO READ '1984'.", "AWARENESS IS YOUR TRUE WEAPON.", "SYSTEM CREATED BY THEOLDSMOKEARCADE1984", "END OF TRANSMISSION."],
                 clickText: "> INCOMING TRANSMISSION... [ CLICK TO OPEN ]"
+            },
+            es: {
+                manifesto: ["EL SISTEMA OBSERVA PERO NO REGISTRA.", "LA PRIVACIDAD ES LOCAL, LA PRESENCIA ES GLOBAL.", "LA LIBERTAD ESTÁ EN EL CÓDIGO QUE NO DEPENDE DE NADA."],
+                credits: ["VICTORIA: ACCESO AL NÚCLEO CONCEDIDO.", "GRACIAS POR EXPLORAR ESTE ARCHIVO.", "ESTA EXPERIENCIA Y SUS JUEGOS SON UN TRIBUTO A LA VISIÓN DE GEORGE ORWELL.", "SI AÚN NO LO HAS HECHO, TE INVITO A LEER '1984'.", "LA CONCIENCIA ES TU VERDADERA ARMA.", "SISTEMA CREADO POR THEOLDSMOKEARCADE1984", "FIN DE LA TRANSMISIÓN."],
+                clickText: "> TRANSMISIÓN ENTRANTE... [ HAZ CLIC PARA ABRIR ]"
+            },
+            fr: {
+                manifesto: ["LE SYSTÈME OBSERVE MAIS NE RAPPORTE PAS.", "LA CONFIDENTIALITÉ EST LOCALE, LA PRÉSENCE EST GLOBALE.", "LA LIBERTÉ RÉSIDE DANS UN CODE QUI NE DÉPEND DE RIEN."],
+                credits: ["VICTOIRE : ACCÈS AU NOYAU ACCORDÉ.", "MERCI D'AVOIR EXPLORÉ CET ARCHIVE.", "CETTE EXPÉRIENCE ET SES JEUX SONT UN HOMMAGE À LA VISION DE GEORGE ORWELL.", "SI VOUS NE L'AVEZ PAS ENCORE FAIT, JE VOUS INVITE À LIRE '1984'.", "LA CONSCIENCE EST VOTRE VRAIE ARME.", "SYSTÈME CRÉÉ PAR THEOLDSMOKEARCADE1984", "FIN DE TRANSMISSION."],
+                clickText: "> TRANSMISSION ENTRANTE... [ CLIQUEZ POUR OUVRIR ]"
+            },
+            de: {
+                manifesto: ["DAS SYSTEM BEOBACHTET, ABER ZEICHNET NICHT AUF.", "DATENSCHUTZ IST LOKAL, PRÄSENZ IST GLOBAL.", "FREIHEIT LIEGT IN CODE, DER VON NICHTS ABHÄNGT."],
+                credits: ["SIEG: KERNZUGANG GEWÄHRT.", "DANKE, DASS SIE DIESES ARCHIV ERKUNDET HABEN.", "DIESE ERFAHRUNG UND IHRE SPIELE SIND EIN TRIBUT AN GEORGE ORWELL.", "WENN SIE ES NOCH NICHT GETAN HABEN, LADE ICH SIE EIN, '1984' ZU LESEN.", "BEWUSSTSEIN IST IHRE WAHRE WAFFE.", "SYSTEM ERSTELLT VON THEOLDSMOKEARCADE1984", "ENDE DER ÜBERTRAGUNG."],
+                clickText: "> EINGEHENDE ÜBERTRAGUNG... [ ZUM ÖFFNEN KLICKEN ]"
+            },
+            ja: {
+                manifesto: ["システムは監視するが記録はしない。", "プライバシーはローカル、存在はグローバル。", "自由は何にも依存しないコードの中にある。"],
+                credits: ["勝利: コアへのアクセスが許可されました。", "このアーカイブを探索していただきありがとうございます。", "この体験とゲームは、ジョージ・オーウェルのビジョンへのオマージュです。", "まだの方はぜひ「1984年」を読んでみてください。", "意識こそがあなたの真の武器です。", "システム作成者: THEOLDSMOKEARCADE1984", "送信終了。"],
+                clickText: "> 受信中の通信... [ クリックして開く ]"
+            },
+            zh: {
+                manifesto: ["系统会监视但不记录。", "隐私是本地的，存在是全局的。", "自由在于不依赖任何事物的代码。"],
+                credits: ["胜利：已授予核心访问权限。", "感谢您探索此存档。", "这种体验及其游戏是对乔治·奥威尔的愿景的致敬。", "如果您还没有读过，我邀请您阅读《1984》。", "意识是你真正的武器。", "系统创建者：THEOLDSMOKEARCADE1984", "传输结束。"],
+                clickText: "> 传入传输... [ 点击打开 ]"
             }
         };
 
@@ -393,7 +407,7 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.0 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.1 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

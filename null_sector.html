@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Sector Zero — Age of Eye</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="description" content="Sector Zero in Age of Eye: inganna l'IA locale, completa il Protocollo Zero e ottieni l'accesso al nucleo.">
     <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
@@ -49,12 +50,16 @@
 	<link rel="alternate" type="text/plain" href="llms.txt" title="LLM instructions">
 	<link rel="author" href="humans.txt">
 <!-- SOCIAL PREVIEW (UNIVERSALE) -->
-    <meta property="og:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
+    <meta property="og:title" content="Age of Eye 1984 | TheOldsmokeArcade1984">
     <meta property="og:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta property="og:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
-    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/">
+    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/null_sector.html">
     <meta property="og:type" content="website">
-
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="The Oldsmoke Arcade 1984">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Age of Eye 1984 - Arcade Cyberpunk CRT">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
     <meta name="twitter:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
@@ -216,6 +221,12 @@
         }
     </style>
 <script src="ageofeye-progress.js"></script>
+<script>
+    // GATE DI SICUREZZA: Il Ministero è severo anche sul corridoio
+    if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.areAllHubNodesCompleted()) {
+        window.location.href = 'hub_system.html';
+    }
+</script>
 </head>
 <body class="needs-boot">
 
@@ -272,12 +283,17 @@
 </div>
 
 <script>
-    const i18n = {
+const i18n = {
         it: { lang_label: "IT", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LIEVE", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: ESTREMA", reboot: "RESET", init: "CONNESSIONE MINISTERO DELLA VERITÀ...", wait: "ATTESA MOSSA CITTADINO...", status_standby: "STATO: OSSERVAZIONE", status_draw_ai: "STATO: ANALISI BIEPENSIERO IN CORSO", status_ret: "STATO: RITORNO AL PIANO 2D", status_u_win: "ANOMALIA: IL CITTADINO VINCE", status_ai_win: "IL PARTITO TRIONFA", status_tie: "STALLO ORWELLIANO", log_u: "CITTADINO (X): SETTORE_", log_ai: "SISTEMA (O): SETTORE_", lvl_msg: "LIVELLO SORVEGLIANZA: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" },
-        en: { lang_label: "EN", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREME", reboot: "RESET", init: "MINISTRY OF TRUTH CONNECTED...", wait: "AWAITING CITIZEN MOVE...", status_standby: "STATUS: OBSERVING", status_draw_ai: "STATUS: DOUBLETHINK ANALYSIS ACTIVE", status_ret: "STATUS: RETURNING TO 2D", status_u_win: "ANOMALY: CITIZEN WINS", status_ai_win: "THE PARTY PREVAILS", status_tie: "ORWELLIAN STALEMATE", log_u: "CITIZEN (X): SECTOR_", log_ai: "SYSTEM (O): SECTOR_", lvl_msg: "SURVEILLANCE LEVEL: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" }
+        en: { lang_label: "EN", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREME", reboot: "RESET", init: "MINISTRY OF TRUTH CONNECTED...", wait: "AWAITING CITIZEN MOVE...", status_standby: "STATUS: OBSERVING", status_draw_ai: "STATUS: DOUBLETHINK ANALYSIS ACTIVE", status_ret: "STATUS: RETURNING TO 2D", status_u_win: "ANOMALY: CITIZEN WINS", status_ai_win: "THE PARTY PREVAILS", status_tie: "ORWELLIAN STALEMATE", log_u: "CITIZEN (X): SECTOR_", log_ai: "SYSTEM (O): SECTOR_", lvl_msg: "SURVEILLANCE LEVEL: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" },
+        es: { lang_label: "ES", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LEVE", diff_normal: "EVAL: ESTÁNDAR", diff_hard: "EVAL: EXTREMA", reboot: "REINICIO", init: "MINISTERIO DE LA VERDAD CONECTADO...", wait: "ESPERANDO MOVIMIENTO DEL CIUDADANO...", status_standby: "ESTADO: OBSERVANDO", status_draw_ai: "ESTADO: ANÁLISIS DOBLEPENSAR ACTIVO", status_ret: "ESTADO: REGRESANDO A 2D", status_u_win: "ANOMALÍA: EL CIUDADANO GANA", status_ai_win: "EL PARTIDO TRIUNFA", status_tie: "ESTANCAMIENTO ORWELLIANO", log_u: "CIUDADANO (X): SECTOR_", log_ai: "SISTEMA (O): SECTOR_", lvl_msg: "NIVEL DE VIGILANCIA: ", mode_2d: "[ SUPERVISIÓN 2D ]", mode_3d: "[ EXTRACCIÓN DE PENSAMIENTO 3D ]" },
+        fr: { lang_label: "FR", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LÉGER", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTRÊME", reboot: "RÉINITIALISER", init: "MINISTÈRE DE LA VÉRITÉ CONNECTÉ...", wait: "ATTENTE DU MOUVEMENT CITOYEN...", status_standby: "STATUT: OBSERVATION", status_draw_ai: "STATUT: ANALYSE DOUBLEPENSÉE ACTIVE", status_ret: "STATUT: RETOUR EN 2D", status_u_win: "ANOMALIE: LE CITOYEN GAGNE", status_ai_win: "LE PARTI TRIOMPHE", status_tie: "IMPASSE ORWELLIENNE", log_u: "CITOYEN (X): SECTEUR_", log_ai: "SYSTÈME (O): SECTEUR_", lvl_msg: "NIVEAU DE SURVEILLANCE: ", mode_2d: "[ SUPERVISION 2D ]", mode_3d: "[ EXTRACTION DE PENSÉE 3D ]" },
+        de: { lang_label: "DE", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREM", reboot: "NEUSTART", init: "MINISTERIUM FÜR WAHRHEIT VERBUNDEN...", wait: "WARTE AUF BÜRGERZUG...", status_standby: "STATUS: BEOBACHTUNG", status_draw_ai: "STATUS: ZWIEGEDANKEN-ANALYSE AKTIV", status_ret: "STATUS: RÜCKKEHR ZU 2D", status_u_win: "ANOMALIE: BÜRGER GEWINNT", status_ai_win: "DIE PARTEI TRIUMPHIERT", status_tie: "ORWELLSCHE PATT-SITUATION", log_u: "BÜRGER (X): SEKTOR_", log_ai: "SYSTEM (O): SEKTOR_", lvl_msg: "ÜBERWACHUNGSSTUFE: ", mode_2d: "[ 2D-ÜBERWACHUNG ]", mode_3d: "[ 3D-GEDANKENEXTRAKTION ]" },
+        ja: { lang_label: "JA", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "評価: 軽度", diff_normal: "評価: 標準", diff_hard: "評価: 極限", reboot: "リセット", init: "真理省接続完了...", wait: "市民の行動を待機中...", status_standby: "ステータス: 監視中", status_draw_ai: "ステータス: 二重思考分析アクティブ", status_ret: "ステータス: 2Dに復帰中", status_u_win: "異常: 市民の勝利", status_ai_win: "党の勝利", status_tie: "オーウェル的膠着状態", log_u: "市民 (X): セクター_", log_ai: "システム (O): セクター_", lvl_msg: "監視レベル: ", mode_2d: "[ 2D監視 ]", mode_3d: "[ 3D思考抽出 ]" },
+        zh: { lang_label: "ZH", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "评估: 轻度", diff_normal: "评估: 标准", diff_hard: "评估: 极端", reboot: "重置", init: "真理部已连接...", wait: "等待公民行动...", status_standby: "状态: 观察中", status_draw_ai: "状态: 双重思想分析激活", status_ret: "状态: 返回2D", status_u_win: "异常: 公民获胜", status_ai_win: "党获胜", status_tie: "奥威尔式僵局", log_u: "公民 (X): 扇区_", log_ai: "系统 (O): 扇区_", lvl_msg: "监视级别: ", mode_2d: "[ 2D监视 ]", mode_3d: "[ 3D思想提取 ]" }
     };
 
-    const langsArray = ['it', 'en'];
+    const langsArray = ['it', 'en', 'es', 'fr', 'de', 'ja', 'zh'];
     let currentLang = AOE_PROGRESS.getLang(langsArray);
     let langIndex = Math.max(0, langsArray.indexOf(currentLang));
 
@@ -342,12 +358,14 @@
         setStatus('status_draw_ai'); document.body.classList.add('in-3d'); grid.classList.add('is-3d'); setMode('mode_3d'); playPowerUp();
         
         await new Promise(r => setTimeout(r, 3500)); 
-        if (checkWin(board, 'X')) { document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown();
-if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
- finish('status_u_win'); return; }
+if (checkWin(board, 'X')) { 
+            document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown();
+            if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
+            finish('status_u_win'); 
+            return; 
+        }
         if (!board.includes(null)) { 
             document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown(); 
-            if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
             finish('status_tie'); 
             return; 
         }
@@ -370,7 +388,6 @@ if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
         if (checkWin(board, 'O')) { document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown(); finish('status_ai_win'); return; }
         if (!board.includes(null)) { 
             document.body.classList.remove('in-3d'); grid.classList.remove('is-3d'); setMode('mode_2d'); playPowerDown(); 
-            if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
             finish('status_tie'); 
             return; 
         }
@@ -418,7 +435,7 @@ if (typeof AOE_PROGRESS !== 'undefined') AOE_PROGRESS.markComplete('sector');
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.0 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.1 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'age-of-eye-v3.0';
+const CACHE_NAME = 'age-of-eye-v3.1';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -10,7 +10,9 @@ const ASSETS_TO_CACHE = [
     './epilogue.html',
     './ageofeye-progress.js',
     './SocialPre.jpg',
-    './icona.jpg'
+    './icon-192.png',
+    './icon-512.png',
+    './manifest.json'
 ];
 
 // Installa e forza l'aggiornamento immediato

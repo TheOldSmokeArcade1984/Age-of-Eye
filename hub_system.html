@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
     <title>Age of Eye — Neural Hub | 12 Nodi Arcade</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="description" content="Hub neurale di Age of Eye: 12 mini-giochi arcade, Knight's Tour, Neon Specter e Sector Zero. Completa i nodi per sbloccare THE CORE.">
     <meta name="keywords" content="Age of Eye, THE CORE, OldsmokeArcade1984, arcade, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
@@ -53,13 +54,18 @@
     <meta property="og:title" content="Age of Eye 1984 | TheOldsmokeArcade1984">
     <meta property="og:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta property="og:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
-    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/">
+    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/hub_system.html">
     <meta property="og:type" content="website">
-
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="The Oldsmoke Arcade 1984">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Age of Eye 1984 - Arcade Cyberpunk CRT">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
     <meta name="twitter:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta name="twitter:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
+
 
     <!-- JSON-LD CORRETTO -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Age of Eye — Neural Hub | 12 Nodi Arcade","description":"Hub neurale di Age of Eye: 12 mini-giochi arcade, Knight's Tour, Neon Specter e Sector Zero. Completa i nodi per sbloccare THE CORE.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
@@ -250,6 +256,7 @@
               <button class="btn secondary" id="goPrivacy" style="border-color: #ff0044; color: #ff0044;">Privacy Wipe</button>
             </div>
             <div class="status" id="systemStatus">Connessione Stabilita</div>
+	    <div class="status" id="progressStatus" style="color: var(--soft); margin-top: 4px;">NODI 0/12 - TATTICI 0/3 - CORE LOCKED</div>
           </div>
           
           <div class="panel">
@@ -538,6 +545,20 @@ function saveHi(k,v){
   hi[k] = Math.max(hi[k] || 0, Math.floor(v)); 
   try { localStorage.setItem(meta[k].key, String(hi[k])); } catch(e) {}
   renderGrid(); renderQuickList(); 
+  updateProgressStatus(); // <-- NUOVA RIGA
+}
+function updateProgressStatus() {
+  if (typeof AOE_PROGRESS === 'undefined') return;
+  let nodesDone = 0;
+  Object.keys(hi).forEach(k => { if (hi[k] > 0) nodesDone++; });
+  let modulesDone = 0;
+  ['knight', 'memory', 'sector'].forEach(m => { if (AOE_PROGRESS.get(m)) modulesDone++; });
+  const coreStatus = AOE_PROGRESS.isCoreUnlocked() ? "CORE UNLOCKED" : "CORE LOCKED";
+  const el = $("progressStatus");
+  if (el) {
+      el.textContent = `NODI ${nodesDone}/12 - TATTICI ${modulesDone}/3 - ${coreStatus}`;
+      if (AOE_PROGRESS.isCoreUnlocked()) el.style.color = '#ffff00';
+  }
 }
 
 function renderGrid(){
@@ -979,6 +1000,7 @@ if (typeof AOE_PROGRESS !== 'undefined' && AOE_PROGRESS.isCoreUnlocked()) {
         }
     }
 }
+updateProgressStatus();
 })();
 	 </script>
 
@@ -1003,7 +1025,7 @@ if (typeof AOE_PROGRESS !== 'undefined' && AOE_PROGRESS.isCoreUnlocked()) {
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.0 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.1 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

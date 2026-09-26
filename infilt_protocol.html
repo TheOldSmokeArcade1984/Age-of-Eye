@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Memory Hole — Neon Specter | Age of Eye</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="description" content="Infiltrati nella rete come spettro neon. Memory Hole: cancella i ricordi proibiti e supera il protocollo di infiltrazione in Age of Eye.">
     <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
@@ -49,12 +50,16 @@
 	<link rel="alternate" type="text/plain" href="llms.txt" title="LLM instructions">
 	<link rel="author" href="humans.txt">
 <!-- SOCIAL PREVIEW (UNIVERSALE) -->
-    <meta property="og:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
+    <meta property="og:title" content="Age of Eye 1984 | TheOldsmokeArcade1984">
     <meta property="og:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta property="og:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
-    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/">
+    <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/infilt_protocol.html">
     <meta property="og:type" content="website">
-
+    <meta property="og:locale" content="it_IT">
+    <meta property="og:site_name" content="The Oldsmoke Arcade 1984">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Age of Eye 1984 - Arcade Cyberpunk CRT">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
     <meta name="twitter:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
@@ -257,11 +262,36 @@
                 msgHit: "THOUGHT POLICE ALERT!\n\nTHE SYSTEM HAS LOCKED YOU OUT.\n\n>>> PRESS [ENTER] OR [ACT] TO RETRY.", msgComplete: "TRUTH EXTRACTED FROM THE MEMORY HOLE!\n\nINFILTRATION COMPLETED SUCCESSFULLY.\n\n>>> PRESS [ENTER] OR [ACT] TO CONTINUE.",
                 introText: "SYSTEM INITIALIZATION...\n\nOBJECTIVE: INFILTRATE NODES AND RECOVER THE TRUTH (YELLOW).\nWARNING: AVOID THE THOUGHT POLICE (RED).\nCONTROLS: VIRTUAL JOYSTICK OR W-A-S-D.\nACTION: ACT BUTTON OR ENTER KEY.\n\nBIG BROTHER IS WATCHING YOU.\n\n>>> PRESS [ENTER] OR TOUCH SCREEN.", 
                 msgBossLose: "WARNING!\n\nTHE ANOMALY HAS BEEN PURGED FROM THE SYSTEM.\n\n>>> PRESS [ENTER] OR [ACT] TO REBOOT THE CORE.", msgBossWin: "CRITICAL: MINISTRY OF TRUTH COMPROMISED.\nARCHIVE UNLOCKED.\nALL DATA HAS BEEN SECURED.\n\n[ END OF TRANSMISSION ]"
+            },
+            es: {
+                enter: "→ INFILTRARSE EN EL SISTEMA", subtitle: "PROTOCOLO DE INFILTRACIÓN v1.2", cityLabel: "SECTOR", dataLabel: "VERDAD", levelLabel: "NIVEL", statusMap: "PLANO", statusInfiltration: "RECUPERANDO VERDAD OCULTA", statusHit: "CRIMEN DE PENSAMIENTO DETECTADO", statusComplete: "VERDAD ADQUIRIDA", 
+                msgHit: "¡ALERTA DE LA POLICÍA DEL PENSAMIENTO!\n\nEL SISTEMA TE HA BLOQUEADO.\n\n>>> PRESIONA [ENTER] O [ACT] PARA REINTENTAR.", msgComplete: "¡VERDAD EXTRAÍDA DEL AGUJERO DE LA MEMORIA!\n\nINFILTRACIÓN COMPLETADA CON ÉXITO.\n\n>>> PRESIONA [ENTER] O [ACT] PARA CONTINUAR.",
+                introText: "INICIALIZANDO SISTEMA...\n\nOBJETIVO: INFILTRAR NODOS Y RECUPERAR LA VERDAD (AMARILLO).\nADVERTENCIA: EVITAR A LA POLICÍA DEL PENSAMIENTO (ROJO).\nCONTROLES: JOYSTICK VIRTUAL O W-A-S-D.\nACCIÓN: BOTÓN ACT O TECLA ENTER.\n\nEL GRAN HERMANO TE VIGILA.\n\n>>> PRESIONA [ENTER] O TOCA LA PANTALLA."
+            },
+            fr: {
+                enter: "→ INFILTRER LE SYSTÈME", subtitle: "PROTOCOLE D'INFILTRATION v1.2", cityLabel: "SECTEUR", dataLabel: "VÉRITÉ", levelLabel: "NIV", statusMap: "PLAN", statusInfiltration: "RÉCUPÉRATION DE LA VÉRITÉ", statusHit: "CRIME DE PENSÉE DÉTECTÉ", statusComplete: "VÉRITÉ ACQUISE", 
+                msgHit: "ALERTE POLICE DE LA PENSÉE!\n\nLE SYSTÈME VOUS A BLOQUÉ.\n\n>>> APPUYEZ SUR [ENTRÉE] OU [ACT] POUR RÉESSAYER.", msgComplete: "VÉRITÉ EXTRAITE DU TROU DE MÉMOIRE!\n\nINFILTRATION RÉUSSIE.\n\n>>> APPUYEZ SUR [ENTRÉE] OU [ACT] POUR CONTINUER.",
+                introText: "INITIALISATION DU SYSTÈME...\n\nOBJECTIF: INFILTRER LES NŒUDS ET RÉCUPÉRER LA VÉRITÉ (JAUNE).\nATTENTION: ÉVITER LA POLICE DE LA PENSÉE (ROUGE).\nCONTRÔLES: JOYSTICK VIRTUEL OU W-A-S-D.\nACTION: BOUTON ACT OU TOUCHE ENTRÉE.\n\nBIG BROTHER VOUS REGARDE.\n\n>>> APPUYEZ SUR [ENTRÉE] OU TOUCHEZ L'ÉCRAN."
+            },
+            de: {
+                enter: "→ SYSTEM INFILTRIEREN", subtitle: "INFILTRATIONSPROTOKOLL v1.2", cityLabel: "SEKTOR", dataLabel: "WAHRHEIT", levelLabel: "LVL", statusMap: "GRUNDRISS", statusInfiltration: "VERBORGENE WAHRHEIT RETTEN", statusHit: "GEDANKENVERBRECHEN ERKANNT", statusComplete: "WAHRHEIT ERWORBEN", 
+                msgHit: "GEDANKENPOLIZEI-ALARM!\n\nDAS SYSTEM HAT DICH GESPERRT.\n\n>>> [ENTER] ODER [ACT] DRÜCKEN, UM ES ERNEUT ZU VERSUCHEN.", msgComplete: "WAHRHEIT AUS DEM GEDÄCHTNISLOCH EXTRAHIERT!\n\nINFILTRATION ERFOLGREICH ABGESCHLOSSEN.\n\n>>> [ENTER] ODER [ACT] DRÜCKEN, UM FORTZUFAHREN.",
+                introText: "SYSTEMINITIALISIERUNG...\n\nZIEL: KNOTEN INFILTRIEREN UND DIE WAHRHEIT (GELB) BERGEN.\nWARNUNG: GEDANKENPOLIZEI (ROT) VERMEIDEN.\nSTEUERUNG: VIRTUELLER JOYSTICK ODER W-A-S-D.\nAKTION: ACT-TASTE ODER ENTER.\n\nDER GROSSE BRUDER BEOBACHTET DICH.\n\n>>> [ENTER] DRÜCKEN ODER BILDSCHIRM BERÜHREN."
+            },
+            ja: {
+                enter: "→ システムに潜入", subtitle: "潜入プロトコル v1.2", cityLabel: "セクター", dataLabel: "真実", levelLabel: "レベル", statusMap: "フロアプラン", statusInfiltration: "隠された真実を回収中", statusHit: "思想犯罪を検知", statusComplete: "真実を取得", 
+                msgHit: "思想警察警報！\n\nシステムがあなたをロックしました。\n\n>>> [ENTER] または [ACT] を押して再試行。", msgComplete: "記憶の穴から真実を抽出！\n\n潜入が正常に完了しました。\n\n>>> [ENTER] または [ACT] を押して続行。",
+                introText: "システム初期化...\n\n目標: ノードに潜入し、真実(黄)を回収せよ。\n警告: 思想警察(赤)を回避せよ。\n操作: 仮想ジョイスティック または W-A-S-D。\nアクション: ACTボタン または ENTERキー。\n\nビッグブラザーがあなたを見ている。\n\n>>> [ENTER] を押すか画面をタッチ。"
+            },
+            zh: {
+                enter: "→ 潜入系统", subtitle: "潜入协议 v1.2", cityLabel: "扇区", dataLabel: "真相", levelLabel: "等级", statusMap: "平面图", statusInfiltration: "恢复隐藏的真相", statusHit: "检测到思想犯罪", statusComplete: "获取真相", 
+                msgHit: "思想警察警报！\n\n系统已将您锁定。\n\n>>> 按 [ENTER] 或 [ACT] 重试。", msgComplete: "从记忆洞穴提取真相！\n\n潜入成功完成。\n\n>>> 按 [ENTER] 或 [ACT] 继续。",
+                introText: "系统初始化...\n\n目标：潜入节点并恢复真相（黄色）。\n警告：避开思想警察（红色）。\n控制：虚拟操纵杆或 W-A-S-D。\n操作：ACT 按钮或 ENTER 键。\n\n老大哥在看着你。\n\n>>> 按 [ENTER] 或触摸屏幕。"
             }
         };
 
         let currentLang = AOE_PROGRESS.getLang(Object.keys(LANG_TEXTS));
-        const langCodes = { it: "ITA", en: "ENG" };
+        const langCodes = { it: "ITA", en: "ENG", es: "ESP", fr: "FRA", de: "DEU", ja: "JPN", zh: "ZHO" };
 
         function createLangButtons() {
             const container = document.getElementById('lang-container');
@@ -1083,7 +1113,7 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.0 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.1 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

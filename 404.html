@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>404 - NODO INESISTENTE | Age of Eye</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+        :root {
+            --ph-main: #00ff41;
+            --bg-color: #000500;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--ph-main);
+            font-family: 'VT323', monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .crt-layer {
+            position: fixed; inset: 0; pointer-events: none;
+            background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%);
+            z-index: 9997;
+        }
+
+        .scanline {
+            position: fixed; inset: 0; pointer-events: none;
+            background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent);
+            height: 25px; 
+            animation: scanline-move 8s linear infinite; 
+            z-index: 9998;
+        }
+
+        @keyframes scanline-move { 
+            0% { top: -100px; } 
+            100% { top: 100vh; } 
+        }
+
+        h1 {
+            font-size: clamp(6rem, 15vw, 12rem);
+            text-shadow: 0 0 30px var(--ph-main), 0 0 60px var(--ph-main);
+            margin-bottom: 10px;
+            letter-spacing: 5px;
+        }
+
+        p {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            margin-bottom: 40px;
+            opacity: 0.9;
+            text-shadow: 0 0 10px var(--ph-main);
+            line-height: 1.4;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .sys-btn {
+            padding: 12px 24px;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid var(--ph-main);
+            color: var(--ph-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+            transition: 0.3s;
+        }
+
+        .sys-btn:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 20px var(--ph-main);
+        }
+
+        .sys-btn:active {
+            background: var(--ph-main);
+            color: #000;
+            box-shadow: 0 0 30px var(--ph-main);
+            transform: scale(0.95);
+        }
+
+        .glitch {
+            animation: glitch-anim 2s infinite;
+        }
+
+        @keyframes glitch-anim {
+            0%, 92%, 100% { transform: translate(0, 0); opacity: 1; }
+            93% { transform: translate(-3px, 3px); opacity: 0.8; }
+            95% { transform: translate(3px, -3px); opacity: 0.9; }
+            97% { transform: translate(-3px, -3px); opacity: 0.8; }
+            99% { transform: translate(3px, 3px); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="crt-layer"></div>
+    <div class="scanline"></div>
+
+    <h1 class="glitch">404</h1>
+    <p>ERRORE DI SISTEMA: NODO INESISTENTE<br>Il Ministero non ha memoria di questo percorso.</p>
+
+    <div class="btn-container">
+        <a href="index.html" class="sys-btn">Riavvia Terminale</a>
+        <a href="hub_system.html" class="sys-btn">Ritorna all'Hub</a>
+    </div>
+</body>
+</html>

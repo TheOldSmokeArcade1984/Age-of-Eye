@@ -465,6 +465,11 @@ function gameOver(){
   $("scoreTag").textContent = "SCORE: " + Math.floor(state.score) + " / GAME OVER";
 }
 
+function winNode(){
+  if(!state.running) return; state.running = false; playSfx('blip'); saveHi(state.gameKey, state.score);
+  $("scoreTag").textContent = "SCORE: " + Math.floor(state.score) + " / NODO CORROTTO";
+}
+
 function setActionLabel(k){
   const actionMap = { shooter:"FIRE", runner:"JUMP", flappy:"JUMP", stacker:"DROP", orbit:"TURN" };
   const actionBase = $("actionBase"), joyBase = $("joyBase");
@@ -655,7 +660,10 @@ function attemptModuleAccess(url) {
         it: `ANOMALIA COMPORTAMENTALE RILEVATA.<br>Il Ministero richiede il completamento di tutti i 12 Nodi Arcade (Punteggio > 0) prima di concedere l'autorizzazione di livello superiore.<br><br>Simulazioni mancanti: <span style="color:#fff">${missingCount}</span>`,
         en: `BEHAVIORAL ANOMALY DETECTED.<br>The Ministry requires completion of all 12 Arcade Nodes (Score > 0) before granting higher-level clearance.<br><br>Missing simulations: <span style="color:#fff">${missingCount}</span>`,
         es: `ANOMALÍA DE COMPORTAMIENTO DETECTADA.<br>El Ministerio requiere completar los 12 Nodos Arcade (Puntuación > 0) antes de otorgar autorización superior.<br><br>Simulaciones faltantes: <span style="color:#fff">${missingCount}</span>`,
-        fr: `ANOMALIE COMPORTEMENTALE DÉTECTÉE.<br>Le Ministère exige de terminer les 12 Nœuds Arcade (Score > 0) avant d'accorder une autorisation supérieure.<br><br>Simulations manquantes : <span style="color:#fff">${missingCount}</span>`
+        fr: `ANOMALIE COMPORTEMENTALE DÉTECTÉE.<br>Le Ministère exige de terminer les 12 Nœuds Arcade (Score > 0) avant d'accorder une autorisation supérieure.<br><br>Simulations manquantes : <span style="color:#fff">${missingCount}</span>`,
+        de: `VERHALTENSANOMALIE ERKANNT.<br>Das Ministerium verlangt den Abschluss aller 12 Arcade-Knoten (Punktzahl > 0), bevor eine höhere Freigabe erteilt wird.<br><br>Fehlende Simulationen: <span style="color:#fff">${missingCount}</span>`,
+        ja: `行動異常を検知。<br>上位クリアランスを許可する前に、省は全12のアーケードノード（スコア > 0）の完了を要求しています。<br><br>不足シミュレーション: <span style="color:#fff">${missingCount}</span>`,
+        zh: `检测到行为异常。<br>在授予高级权限之前，系统要求完成所有 12 个街机节点（分数 > 0）。<br><br>缺失的模拟: <span style="color:#fff">${missingCount}</span>`
     };
     $("lock-text").innerHTML = tLock[lang] || tLock['en'];
     $("lock-overlay").style.display = "flex";
@@ -810,7 +818,7 @@ const games = {
       if(b.y<b.r){ b.y=b.r; b.vy=Math.abs(b.vy); playSfx('blip'); } if(b.y>820) return gameOver();
       if(b.x>this.pad.x&&b.x<this.pad.x+this.pad.w&&b.y+b.r>this.pad.y&&b.y-b.r<this.pad.y+this.pad.h&&b.vy>0){ playSfx('blip'); const hit=(b.x-(this.pad.x+this.pad.w/2))/(this.pad.w/2); b.vx=340*hit; b.vy=-Math.abs(b.vy); b.y=this.pad.y-b.r; }
       for(const bl of this.blocks){ if(bl.a&&b.x+b.r>bl.x&&b.x-b.r<bl.x+bl.w&&b.y+b.r>bl.y&&b.y-b.r<bl.y+bl.h){ bl.a=false; b.vy*=-1; state.score+=5; playSfx('shoot'); break; } }
-      if(this.blocks.every(b=>!b.a)){ state.score+=50; gameOver(); }
+      if(this.blocks.every(b=>!b.a)){ state.score+=50; winNode(); }
     },
     draw(){ drawGameGrid(); ctx.fillStyle="rgba(0,255,102,.92)"; ctx.fillRect(this.pad.x,this.pad.y,this.pad.w,this.pad.h); ctx.fillStyle="rgba(180,255,210,.96)"; ctx.beginPath(); ctx.arc(this.ball.x,this.ball.y,this.ball.r,0,Math.PI*2); ctx.fill(); this.blocks.filter(b=>b.a).forEach(bl=>ctx.fillRect(bl.x,bl.y,bl.w,bl.h)); }
   },
@@ -880,7 +888,7 @@ const games = {
   },
   stacker:{
     name:"STACKER", setup(){ this.cols=8; this.rows=12; this.stack=[]; this.row=11; this.active={x:0,w:3,dir:1,stepTimer:0,speed:.11}; }, input(k){ if(k===" "||k==="ArrowUp"||k==="w"||k==="action"||k==="Enter") this.lock(); },
-    lock(){ const base=this.active.x; let blocks=[]; for(let i=0;i<this.active.w;i++) blocks.push(base+i); if(this.stack.length){ const prev=this.stack[this.stack.length-1].b; blocks=blocks.filter(b=>prev.includes(b)); } if(!blocks.length) return gameOver(); playSfx('shoot'); this.stack.push({y:this.row,b:[...blocks]}); state.score+=blocks.length; this.row--; if(this.row<0){ state.score+=50; return gameOver(); } this.active.w=blocks.length; this.active.x=Math.max(0,Math.min(this.cols-this.active.w,blocks[0])); this.active.dir*=-1; this.active.stepTimer=0; this.active.speed=Math.max(.05,this.active.speed-.004); },
+    lock(){ const base=this.active.x; let blocks=[]; for(let i=0;i<this.active.w;i++) blocks.push(base+i); if(this.stack.length){ const prev=this.stack[this.stack.length-1].b; blocks=blocks.filter(b=>prev.includes(b)); } if(!blocks.length) return gameOver(); playSfx('shoot'); this.stack.push({y:this.row,b:[...blocks]}); state.score+=blocks.length; this.row--; if(this.row<0){ state.score+=50; return winNode(); } this.active.w=blocks.length; this.active.x=Math.max(0,Math.min(this.cols-this.active.w,blocks[0])); this.active.dir*=-1; this.active.stepTimer=0; this.active.speed=Math.max(.05,this.active.speed-.004); },
     update(dt){ this.active.stepTimer+=dt; if(this.active.stepTimer<this.active.speed) return; this.active.stepTimer=0; this.active.x+=this.active.dir; if(this.active.x<=0){ this.active.x=0; this.active.dir=1; } if(this.active.x+this.active.w>=this.cols){ this.active.x=this.cols-this.active.w; this.active.dir=-1; } },
     draw(){ drawGameGrid(); const cw=800/this.cols, ch=800/this.rows; ctx.strokeStyle="rgba(0,255,102,.2)"; for(let r=0;r<this.rows;r++) for(let col=0;col<this.cols;col++) ctx.strokeRect(col*cw+2,r*ch+2,cw-4,ch-4); ctx.fillStyle="rgba(180,255,210,.96)"; this.stack.forEach(row=>row.b.forEach(b=>ctx.fillRect(b*cw+8,row.y*ch+8,cw-16,ch-16))); ctx.fillStyle="rgba(0,255,102,.92)"; for(let i=0;i<this.active.w;i++) ctx.fillRect((this.active.x+i)*cw+8,this.row*ch+8,cw-16,ch-16); }
   },

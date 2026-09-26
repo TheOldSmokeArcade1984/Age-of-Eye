@@ -189,6 +189,12 @@
 
     </style>
 <script src="ageofeye-progress.js"></script>
+<script>
+    // GATE DI SICUREZZA: Il Ministero è severo anche sul corridoio
+    if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.areAllHubNodesCompleted()) {
+        window.location.href = 'hub_system.html';
+    }
+</script>
 </head>
 <body>
 

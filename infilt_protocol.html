@@ -1077,7 +1077,7 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v1.0 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.0 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

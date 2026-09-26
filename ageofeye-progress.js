@@ -1,12 +1,18 @@
 /**
  * AGE OF EYE 1984 - GLOBAL PROGRESSION + LANGUAGE
- * Stato unificato di moduli e lingua su tutte le schermate.
+ * Stato unificato di moduli, 12 nodi e lingua su tutte le schermate.
+ * Hardened Storage & Unified Wipe.
  */
 const AOE_PROGRESS = {
     STORAGE_KEY: 'ageOfEye_progress',
     LANG_KEY: 'ageOfEye_lang',
     LANG_LEGACY_KEY: 'sa-lang',
     LANGS: ['it', 'en', 'es', 'fr', 'de', 'ja', 'zh'],
+    HUB_NODES: [
+        'snake', 'pong', 'runner', 'dodge', 
+        'breakout', 'racer', 'shooter', 'flappy', 
+        'miner', 'orbit', 'stacker', 'memory'
+    ],
 
     get: function() {
         try {
@@ -15,14 +21,7 @@ const AOE_PROGRESS = {
         } catch (e) {
             console.warn("Errore di lettura storage:", e);
         }
-        return {
-            version: 1,
-            knight: false,
-            memory: false,
-            sector: false,
-            coreUnlocked: false,
-            epilogueSeen: false
-        };
+        return { version: 1, knight: false, memory: false, sector: false, coreUnlocked: false, epilogueSeen: false };
     },
 
     save: function(data) {
@@ -39,27 +38,51 @@ const AOE_PROGRESS = {
             data[moduleKey] = true;
             if (data.knight && data.memory && data.sector) {
                 data.coreUnlocked = true;
-                console.log("CRITICAL: THE CORE IS NOW UNLOCKED.");
+                console.log("CRITICAL: MODULES COMPLETED. AWAITING HUB NODES VERIFICATION.");
             }
             this.save(data);
         }
     },
 
+    areAllHubNodesCompleted: function() {
+        try {
+            for (let node of this.HUB_NODES) {
+                let score = parseInt(localStorage.getItem('sa-hi-' + node) || '0', 10);
+                if (isNaN(score) || score <= 0) return false;
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
+
     isCoreUnlocked: function() {
-        return this.get().coreUnlocked;
+        const data = this.get();
+        // Il nucleo richiede rigorosamente SIA i 3 moduli che i 12 nodi dell'hub
+        return data.coreUnlocked && this.areAllHubNodesCompleted();
+    },
+
+    wipeAll: function() {
+        try {
+            // Salva la lingua prima del wipe totale per non tradire l'esperienza utente
+            const currentLang = this.getLang(this.LANGS);
+            
+            // Pulisce radicalmente tutto il localStorage (cancella progressi, record e cache corrotta)
+            localStorage.clear();
+            
+            // Ripristina la preferenza linguistica
+            this.setLang(currentLang);
+            console.log("SISTEMA FORMATTATO. LINGUA MANTENUTA.");
+        } catch (e) {
+            console.warn("Errore durante il wipe totale:", e);
+        }
     },
 
     browserLang: function() {
-        const sys = String(navigator.language || navigator.userLanguage || 'en')
-            .substring(0, 2)
-            .toLowerCase();
+        const sys = String(navigator.language || navigator.userLanguage || 'en').substring(0, 2).toLowerCase();
         return this.LANGS.includes(sys) ? sys : 'en';
     },
 
-    /**
-     * Lingua globale. Se la pagina non ha i testi per il codice salvato,
-     * restituisce un fallback di display senza sovrascrivere la scelta.
-     */
     getLang: function(supported) {
         const allowed = Array.isArray(supported) && supported.length ? supported : this.LANGS;
         let saved = null;

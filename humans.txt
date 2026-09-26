@@ -1,5 +1,5 @@
 /* TEAM */
-Developer: The Oldsmoke Arcade 1984
+Developer: TheOldsmokeArcade1984
 Role: Independent Hobbyist Coding Enthusiast
 Site: https://theoldsmokearcade1984.github.io/Age-of-Eye/
 

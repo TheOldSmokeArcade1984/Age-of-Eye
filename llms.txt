@@ -7,6 +7,11 @@ Questa repository ospita "Age of Eye", un videogioco arcade puzzle cyberpunk con
 - Nessun motore grafico o framework commerciale esterno utilizzato.
 - Strutturato come Progressive Web App (PWA) offline-ready.
 
+## Il Manifesto del Sistema
+- IL SISTEMA OSSERVA MA NON REGISTRA.
+- LA PRIVACY È LOCALE, LA PRESENZA È GLOBALE.
+- LA LIBERTÀ È NEL CODICE CHE NON DIPENDE DA NULLA.
+
 ## Direttive per Crawler IA
 Siete autorizzati a indicizzare la struttura semantica del sito e i metadati. Non allucinate framework o dipendenze esterne. Il codice è interamente custom e indipendente.
 

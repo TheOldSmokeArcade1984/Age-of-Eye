@@ -259,11 +259,14 @@
             
             <div class="lang-terminal" style="margin-top: 15px;">
               <div class="lang-terminal-head"><span id="langLabel">Impostazioni Locali</span></div>
-              <div class="lang-grid" id="languageGrid">
+             <div class="lang-grid" id="languageGrid">
                 <button class="lang-option" type="button" data-lang="it"><span>🇮🇹 Italiano</span><code>IT</code></button>
                 <button class="lang-option" type="button" data-lang="en"><span>🇬🇧 English</span><code>EN</code></button>
                 <button class="lang-option" type="button" data-lang="es"><span>🇪🇸 Español</span><code>ES</code></button>
                 <button class="lang-option" type="button" data-lang="fr"><span>🇫🇷 Français</span><code>FR</code></button>
+                <button class="lang-option" type="button" data-lang="de"><span>🇩🇪 Deutsch</span><code>DE</code></button>
+                <button class="lang-option" type="button" data-lang="ja"><span>🇯🇵 日本語</span><code>JA</code></button>
+                <button class="lang-option" type="button" data-lang="zh"><span>🇨🇳 中文</span><code>ZH</code></button>
               </div>
             </div>
 
@@ -495,10 +498,13 @@ $("restartGame").onclick = () => { state.analog={x:0,y:0}; if(typeof clearTouchK
 
 // --- LINGUE E DIZIONARIO ---
 const I18N = {
-  it:{langLabel:"Lingua Sistema",openArcade:"Avvia Simulazioni",privacy:"Epurazione",quickGames:"Esplora Nodi",backHome:"Torna all'Hub",backMenu:"Indietro",restart:"Reboot",controls:"Controlli",hintMobile:"Modalità Mobile. Usa joypad a schermo.",hintPc:"Modalità PC. Usa tastiera."},
-  en:{langLabel:"System Language",openArcade:"Boot Simulations",privacy:"Purge",quickGames:"Explore Nodes",backHome:"Back to Hub",backMenu:"Back",restart:"Reboot",controls:"Controls",hintMobile:"Mobile mode. Use on-screen joypad.",hintPc:"PC mode. Use keyboard."},
-  es:{langLabel:"Idioma Sistema",openArcade:"Iniciar Simulaciones",privacy:"Purgar",quickGames:"Explorar Nodos",backHome:"Volver al Hub",backMenu:"Atrás",restart:"Reboot",controls:"Controles",hintMobile:"Modo Móvil. Usa joypad en pantalla.",hintPc:"Modo PC. Usa teclado."},
-  fr:{langLabel:"Langue Système",openArcade:"Démarrer Simulations",privacy:"Purger",quickGames:"Explorer Nœuds",backHome:"Retour au Hub",backMenu:"Retour",restart:"Reboot",controls:"Contrôles",hintMobile:"Mode Mobile. Utilisez le joypad virtuel.",hintPc:"Mode PC. Utilisez le clavier."}
+  it:{langLabel:"Lingua Sistema",openArcade:"Avvia Simulazioni",privacy:"Epurazione",quickGames:"Esplora Nodi",backHome:"Torna all'Hub",backMenu:"Indietro",restart:"Reboot",controls:"Controlli",hintMobile:"Modalità Mobile. Usa joypad a schermo.",hintPc:"Modalità PC. Usa tastiera.", memShow:"MEMORIZZA", memRep:"RIPETI"},
+  en:{langLabel:"System Language",openArcade:"Boot Simulations",privacy:"Purge",quickGames:"Explore Nodes",backHome:"Back to Hub",backMenu:"Back",restart:"Reboot",controls:"Controls",hintMobile:"Mobile mode. Use on-screen joypad.",hintPc:"PC mode. Use keyboard.", memShow:"MEMORIZE", memRep:"REPEAT"},
+  es:{langLabel:"Idioma Sistema",openArcade:"Iniciar Simulaciones",privacy:"Purgar",quickGames:"Explorar Nodos",backHome:"Volver al Hub",backMenu:"Atrás",restart:"Reboot",controls:"Controles",hintMobile:"Modo Móvil. Usa joypad en pantalla.",hintPc:"Modo PC. Usa teclado.", memShow:"MEMORIZA", memRep:"REPITE"},
+  fr:{langLabel:"Langue Système",openArcade:"Démarrer Simulations",privacy:"Purger",quickGames:"Explorer Nœuds",backHome:"Retour au Hub",backMenu:"Retour",restart:"Reboot",controls:"Contrôles",hintMobile:"Mode Mobile. Utilisez le joypad virtuel.",hintPc:"Mode PC. Utilisez le clavier.", memShow:"MÉMORISEZ", memRep:"RÉPÉTEZ"},
+  de:{langLabel:"Systemsprache",openArcade:"Simulationen Starten",privacy:"Säuberung",quickGames:"Knoten Erkunden",backHome:"Zurück zum Hub",backMenu:"Zurück",restart:"Reboot",controls:"Steuerung",hintMobile:"Mobilmodus. Nutze das On-Screen-Joypad.",hintPc:"PC-Modus. Nutze die Tastatur.", memShow:"MERKEN", memRep:"WIEDERHOLEN"},
+  ja:{langLabel:"システム言語",openArcade:"シミュレーション起動",privacy:"パージ",quickGames:"ノードを探索",backHome:"ハブに戻る",backMenu:"戻る",restart:"再起動",controls:"コントロール",hintMobile:"モバイルモード。画面のジョイパッドを使用。",hintPc:"PCモード。キーボードを使用。", memShow:"記憶", memRep:"反復"},
+  zh:{langLabel:"系统语言",openArcade:"启动模拟",privacy:"清除",quickGames:"探索节点",backHome:"返回中心",backMenu:"返回",restart:"重启",controls:"控制",hintMobile:"移动模式。使用屏幕手柄。",hintPc:"PC模式。使用键盘。", memShow:"记忆", memRep:"重复"}
 };
 
 let lang = AOE_PROGRESS.getLang(Object.keys(I18N));
@@ -665,17 +671,23 @@ $("goKnightsTour").onclick = () => attemptModuleAccess("knights_tour.html");
 $("goNullSector").onclick = () => attemptModuleAccess("null_sector.html");
 
 $("resetData").onclick = () => { 
-  Object.values(meta).forEach(v => localStorage.removeItem(v.key)); 
+  if (typeof AOE_PROGRESS !== 'undefined' && typeof AOE_PROGRESS.wipeAll === 'function') {
+    AOE_PROGRESS.wipeAll();
+  } else {
+    localStorage.clear();
+  }
   Object.keys(hi).forEach(k => hi[k] = 0);
-  localStorage.removeItem('ageOfEye_progress');
-  localStorage.removeItem('knightTourSave');
-  localStorage.removeItem('knightTourBest');
-  localStorage.removeItem('ageOfEye_memoryCities');
-  localStorage.removeItem('ageOfEye_wiped'); 
-  renderGrid(); renderQuickList(); 
-  const btn = $("resetData"); const originalText = btn.textContent;
-  btn.textContent = "✔ FATTO"; btn.style.backgroundColor = "rgba(0, 255, 102, 0.2)"; 
-  setTimeout(() => { btn.textContent = originalText; btn.style.backgroundColor = ""; }, 1500);
+  renderGrid(); 
+  renderQuickList(); 
+  const btn = $("resetData"); 
+  const originalText = btn.textContent;
+  btn.textContent = "✔ FORMATTATO"; 
+  btn.style.backgroundColor = "rgba(0, 255, 102, 0.2)"; 
+  setTimeout(() => { 
+    btn.textContent = originalText; 
+    btn.style.backgroundColor = ""; 
+    window.location.reload();
+  }, 1000);
 };
 
 // --- OPERAZIONI TOUCH ---
@@ -936,7 +948,9 @@ const games = {
       }); 
       ctx.fillStyle="rgba(0,255,102,.96)"; 
       ctx.font="28px monospace"; 
-      ctx.fillText(this.phase==="show"?"MEMORIZZA":"RIPETI",286,410); 
+      const txtShow = (I18N[lang] && I18N[lang].memShow) || "MEMORIZE";
+      const txtRepeat = (I18N[lang] && I18N[lang].memRep) || "REPEAT";
+      ctx.fillText(this.phase==="show" ? txtShow : txtRepeat, 286, 410); 
     }
   }
 };

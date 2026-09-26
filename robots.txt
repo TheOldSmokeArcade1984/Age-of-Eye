@@ -1,0 +1,7 @@
+# Age of Eye 1984 - Protocollo di indicizzazione
+# 2+2=5. Il sistema ti osserva.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://theoldsmokearcade1984.github.io/Age-of-Eye/sitemap.xml

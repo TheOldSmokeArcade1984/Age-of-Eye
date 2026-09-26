@@ -13,8 +13,9 @@
 * Codice & Generazione Procedurale:
   Nessun motore grafico (Unity, Godot) o libreria esterna (React, Vue).
   L'audio in-game è interamente sintetizzato in tempo reale tramite Web Audio API e le grafiche sono generate via CSS/HTML5 Canvas.
-  Gli unici due file d'immagine presenti nell'intero progetto fungono esclusivamente da icone di sistema (PWA) e anteprime per i social network.
-* **PWA (Progressive Web App):** Service Worker v1.0 integrato. Il gioco è installabile nativamente su smartphone e desktop e giocabile completamente offline.
+  Icone PNG presenti nell'intero progetto fungono esclusivamente da icone di sistema (PWA) e anteprime per i social network.
+* **PWA (Progressive Web App):** Service Worker v3.1 integrato. Il gioco è installabile nativamente su smartphone e desktop e giocabile completamente offline.
 * **Motore Multilingua Custom:** Sistema di traduzione integrato con supporto a 7 lingue (IT, EN, ES, FR, DE, JA, ZH), rilevamento automatico del browser e fallback.
 * **Memoria & Privacy Wipe:** Salvataggio della progressione dei moduli su `localStorage`, affiancato da un protocollo diegetico di "Formattazione Neurale" (Stanza 101) per epurare ogni traccia utente.
 * **SEO & AI-Bot Friendly:** Meta-dati completi per condivisioni social e bypass semantico `<noscript>` per garantire l'indicizzazione totale da parte di crawler (Googlebot) e intelligenze artificiali (GPTBot, ClaudeBot).
+     Licenza: All Rights Reserved (Tutti i diritti riservati).

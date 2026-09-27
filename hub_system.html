@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Age of Eye — Neural Hub | 12 Nodi Arcade</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -59,7 +59,7 @@
     <meta property="og:locale" content="it_IT">
     <meta property="og:site_name" content="The Oldsmoke Arcade 1984">
     <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image:height" content="600">
     <meta property="og:image:alt" content="Age of Eye 1984 - Arcade Cyberpunk CRT">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Age of Eye 1984 | The Oldsmoke Arcade">
@@ -548,19 +548,21 @@ function saveHi(k,v){
   updateProgressStatus(); // <-- NUOVA RIGA
 }
 function updateProgressStatus() {
-  if (typeof AOE_PROGRESS === 'undefined') return;
-  let nodesDone = 0;
-  Object.keys(hi).forEach(k => { if (hi[k] > 0) nodesDone++; });
-  let modulesDone = 0;
-  ['knight', 'memory', 'sector'].forEach(m => { if (AOE_PROGRESS.get(m)) modulesDone++; });
-  const coreStatus = AOE_PROGRESS.isCoreUnlocked() ? "CORE UNLOCKED" : "CORE LOCKED";
-  const el = $("progressStatus");
-  if (el) {
-      el.textContent = `NODI ${nodesDone}/12 - TATTICI ${modulesDone}/3 - ${coreStatus}`;
-      if (AOE_PROGRESS.isCoreUnlocked()) el.style.color = '#ffff00';
-  }
-}
+    if (typeof AOE_PROGRESS === 'undefined') return;
+    let nodesDone = 0;
+    Object.keys(hi).forEach(k => { if (hi[k] > 0) nodesDone++; });
 
+    let modulesDone = 0;
+    const data = AOE_PROGRESS.get(); // Estrazione corretta dei dati
+    ['knight', 'memory', 'sector'].forEach(m => { if (data[m]) modulesDone++; });
+
+    const coreStatus = AOE_PROGRESS.isCoreUnlocked() ? "CORE UNLOCKED" : "CORE LOCKED";
+    const el = $("progressStatus");
+    if (el) {
+        el.textContent = `NODI ${nodesDone}/12 - TATTICI ${modulesDone}/3 - ${coreStatus}`;
+        if (AOE_PROGRESS.isCoreUnlocked()) el.style.color = '#ffff00';
+    }
+}
 function renderGrid(){
   $("gameGrid").innerHTML = Object.entries(meta).map(([k,v]) => `
     <button class="card focusable" data-game="${k}">

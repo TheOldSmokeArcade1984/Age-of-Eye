@@ -12,7 +12,8 @@ const ASSETS_TO_CACHE = [
     './SocialPre.jpg',
     './icon-192.png',
     './icon-512.png',
-    './manifest.json'
+    './manifest.json',
+    './404.html'
 ];
 
 // Installa e forza l'aggiornamento immediato

@@ -84,21 +84,25 @@
         }
 
         * { 
-            margin: 0; padding: 0; box-sizing: border-box; 
-            scrollbar-width: none;
-            -webkit-user-select: none; user-select: none;
-            -webkit-touch-callout: none;
-        }
+        margin: 0; padding: 0; box-sizing: border-box; 
+        scrollbar-width: none; -ms-overflow-style: none;
+        -webkit-user-select: none; user-select: none;
+        -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+    }
 
         html, body { background-color: var(--crt-bg); height: 100dvh; width: 100vw; overflow: hidden; }
 
-        body {
-            color: var(--crt-green);
-            font-family: 'VT323', "Consolas", monospace;
-            display: flex; flex-direction: column; 
-            text-transform: uppercase;
-            transition: background 3.5s cubic-bezier(0.25, 1, 0.3, 1); 
-        }
+	body {
+        color: var(--crt-green);
+        font-family: 'VT323', "Consolas", monospace;
+        display: flex; flex-direction: column; 
+        text-transform: uppercase;
+        transition: background 3.5s cubic-bezier(0.25, 1, 0.3, 1); 
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
 	.hidden { display: none !important; }
         body.in-3d { background: #000000; }
 
@@ -241,7 +245,7 @@
 
 <div id="boot-overlay" onclick="bootSystem()">
     <h1 style="font-size: 3rem; text-shadow: 0 0 20px var(--crt-green);">AGE OF EYE</h1>
-    <div class="tap-text">>> INIZIALIZZA MODULO <<</div>
+    <div class="tap-text" id="boot-tap-label">>> INIZIALIZZA MODULO <<</div>
 </div>
 
 <div class="bg-code-container">
@@ -262,7 +266,7 @@
 
 <div class="header">
     <div class="top-controls">
-        <button id="btn-hub" aria-label="Torna all'Hub Centrale" onclick="window.location.href='hub_system.html'">◄ HUB</button>
+        <button id="btn-hub" aria-label="Torna all'Hub Centrale" onclick="if(document.fullscreenElement) document.exitFullscreen().catch(()=>{}); window.location.href='hub_system.html'">◄ HUB</button>
 	<button id="btn-lang" aria-label="Cambia Lingua" onclick="toggleLang()">◄ IT ►</button>
 	<button id="btn-diff" onclick="toggleDiff()">◄ EVAL: STANDARD ►</button>
 	<button id="btn-audio" aria-label="Attiva o disattiva audio" onclick="toggleAudio()">[SND: OFF]</button>
@@ -289,15 +293,16 @@
 </div>
 
 <script>
+
 const i18n = {
-        it: { lang_label: "IT", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LIEVE", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: ESTREMA", reboot: "RESET", init: "CONNESSIONE MINISTERO DELLA VERITÀ...", wait: "ATTESA MOSSA CITTADINO...", status_standby: "STATO: OSSERVAZIONE", status_draw_ai: "STATO: ANALISI BIEPENSIERO IN CORSO", status_ret: "STATO: RITORNO AL PIANO 2D", status_u_win: "ANOMALIA: IL CITTADINO VINCE", status_ai_win: "IL PARTITO TRIONFA", status_tie: "STALLO ORWELLIANO", log_u: "CITTADINO (X): SETTORE_", log_ai: "SISTEMA (O): SETTORE_", lvl_msg: "LIVELLO SORVEGLIANZA: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" },
-        en: { lang_label: "EN", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREME", reboot: "RESET", init: "MINISTRY OF TRUTH CONNECTED...", wait: "AWAITING CITIZEN MOVE...", status_standby: "STATUS: OBSERVING", status_draw_ai: "STATUS: DOUBLETHINK ANALYSIS ACTIVE", status_ret: "STATUS: RETURNING TO 2D", status_u_win: "ANOMALY: CITIZEN WINS", status_ai_win: "THE PARTY PREVAILS", status_tie: "ORWELLIAN STALEMATE", log_u: "CITIZEN (X): SECTOR_", log_ai: "SYSTEM (O): SECTOR_", lvl_msg: "SURVEILLANCE LEVEL: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" },
-        es: { lang_label: "ES", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LEVE", diff_normal: "EVAL: ESTÁNDAR", diff_hard: "EVAL: EXTREMA", reboot: "REINICIO", init: "MINISTERIO DE LA VERDAD CONECTADO...", wait: "ESPERANDO MOVIMIENTO DEL CIUDADANO...", status_standby: "ESTADO: OBSERVANDO", status_draw_ai: "ESTADO: ANÁLISIS DOBLEPENSAR ACTIVO", status_ret: "ESTADO: REGRESANDO A 2D", status_u_win: "ANOMALÍA: EL CIUDADANO GANA", status_ai_win: "EL PARTIDO TRIUNFA", status_tie: "ESTANCAMIENTO ORWELLIANO", log_u: "CIUDADANO (X): SECTOR_", log_ai: "SISTEMA (O): SECTOR_", lvl_msg: "NIVEL DE VIGILANCIA: ", mode_2d: "[ SUPERVISIÓN 2D ]", mode_3d: "[ EXTRACCIÓN DE PENSAMIENTO 3D ]" },
-        fr: { lang_label: "FR", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LÉGER", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTRÊME", reboot: "RÉINITIALISER", init: "MINISTÈRE DE LA VÉRITÉ CONNECTÉ...", wait: "ATTENTE DU MOUVEMENT CITOYEN...", status_standby: "STATUT: OBSERVATION", status_draw_ai: "STATUT: ANALYSE DOUBLEPENSÉE ACTIVE", status_ret: "STATUT: RETOUR EN 2D", status_u_win: "ANOMALIE: LE CITOYEN GAGNE", status_ai_win: "LE PARTI TRIOMPHE", status_tie: "IMPASSE ORWELLIENNE", log_u: "CITOYEN (X): SECTEUR_", log_ai: "SYSTÈME (O): SECTEUR_", lvl_msg: "NIVEAU DE SURVEILLANCE: ", mode_2d: "[ SUPERVISION 2D ]", mode_3d: "[ EXTRACTION DE PENSÉE 3D ]" },
-        de: { lang_label: "DE", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREM", reboot: "NEUSTART", init: "MINISTERIUM FÜR WAHRHEIT VERBUNDEN...", wait: "WARTE AUF BÜRGERZUG...", status_standby: "STATUS: BEOBACHTUNG", status_draw_ai: "STATUS: ZWIEGEDANKEN-ANALYSE AKTIV", status_ret: "STATUS: RÜCKKEHR ZU 2D", status_u_win: "ANOMALIE: BÜRGER GEWINNT", status_ai_win: "DIE PARTEI TRIUMPHIERT", status_tie: "ORWELLSCHE PATT-SITUATION", log_u: "BÜRGER (X): SEKTOR_", log_ai: "SYSTEM (O): SEKTOR_", lvl_msg: "ÜBERWACHUNGSSTUFE: ", mode_2d: "[ 2D-ÜBERWACHUNG ]", mode_3d: "[ 3D-GEDANKENEXTRAKTION ]" },
-        ja: { lang_label: "JA", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "評価: 軽度", diff_normal: "評価: 標準", diff_hard: "評価: 極限", reboot: "リセット", init: "真理省接続完了...", wait: "市民の行動を待機中...", status_standby: "ステータス: 監視中", status_draw_ai: "ステータス: 二重思考分析アクティブ", status_ret: "ステータス: 2Dに復帰中", status_u_win: "異常: 市民の勝利", status_ai_win: "党の勝利", status_tie: "オーウェル的膠着状態", log_u: "市民 (X): セクター_", log_ai: "システム (O): セクター_", lvl_msg: "監視レベル: ", mode_2d: "[ 2D監視 ]", mode_3d: "[ 3D思考抽出 ]" },
-        zh: { lang_label: "ZH", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "评估: 轻度", diff_normal: "评估: 标准", diff_hard: "评估: 极端", reboot: "重置", init: "真理部已连接...", wait: "等待公民行动...", status_standby: "状态: 观察中", status_draw_ai: "状态: 双重思想分析激活", status_ret: "状态: 返回2D", status_u_win: "异常: 公民获胜", status_ai_win: "党获胜", status_tie: "奥威尔式僵局", log_u: "公民 (X): 扇区_", log_ai: "系统 (O): 扇区_", lvl_msg: "监视级别: ", mode_2d: "[ 2D监视 ]", mode_3d: "[ 3D思想提取 ]" }
-    };
+      it: { boot_tap: ">> INIZIALIZZA MODULO <<", lang_label: "IT", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LIEVE", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: ESTREMA", reboot: "RESET", init: "CONNESSIONE MINISTERO DELLA VERITÀ...", wait: "ATTESA MOSSA CITTADINO...", status_standby: "STATO: OSSERVAZIONE", status_draw_ai: "STATO: ANALISI BIEPENSIERO IN CORSO", status_ret: "STATO: RITORNO AL PIANO 2D", status_u_win: "ANOMALIA: IL CITTADINO VINCE", status_ai_win: "IL PARTITO TRIONFA", status_tie: "STALLO ORWELLIANO", log_u: "CITTADINO (X): SETTORE_", log_ai: "SISTEMA (O): SETTORE_", lvl_msg: "LIVELLO SORVEGLIANZA: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" },
+      en: { boot_tap: ">> INITIALIZE MODULE <<", lang_label: "EN", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREME", reboot: "RESET", init: "MINISTRY OF TRUTH CONNECTED...", wait: "AWAITING CITIZEN MOVE...", status_standby: "STATUS: OBSERVING", status_draw_ai: "STATUS: DOUBLETHINK ANALYSIS ACTIVE", status_ret: "STATUS: RETURNING TO 2D", status_u_win: "ANOMALY: CITIZEN WINS", status_ai_win: "THE PARTY PREVAILS", status_tie: "ORWELLIAN STALEMATE", log_u: "CITIZEN (X): SECTOR_", log_ai: "SYSTEM (O): SECTOR_", lvl_msg: "SURVEILLANCE LEVEL: ", mode_2d: "[ 2D SUPERVISION ]", mode_3d: "[ 3D THOUGHT EXTRACTION ]" },
+      es: { boot_tap: ">> INICIALIZAR MÓDULO <<", lang_label: "ES", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LEVE", diff_normal: "EVAL: ESTÁNDAR", diff_hard: "EVAL: EXTREMA", reboot: "REINICIO", init: "MINISTERIO DE LA VERDAD CONECTADO...", wait: "ESPERANDO MOVIMIENTO DEL CIUDADANO...", status_standby: "ESTADO: OBSERVANDO", status_draw_ai: "ESTADO: ANÁLISIS DOBLEPENSAR ACTIVO", status_ret: "ESTADO: REGRESANDO A 2D", status_u_win: "ANOMALÍA: EL CIUDADANO GANA", status_ai_win: "EL PARTIDO TRIUNFA", status_tie: "ESTANCAMIENTO ORWELLIANO", log_u: "CIUDADANO (X): SECTOR_", log_ai: "SISTEMA (O): SECTOR_", lvl_msg: "NIVEL DE VIGILANCIA: ", mode_2d: "[ SUPERVISIÓN 2D ]", mode_3d: "[ EXTRACCIÓN DE PENSAMIENTO 3D ]" },
+      fr: { boot_tap: ">> INITIALISER LE MODULE <<", lang_label: "FR", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: LÉGER", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTRÊME", reboot: "RÉINITIALISER", init: "MINISTÈRE DE LA VÉRITÉ CONNECTÉ...", wait: "ATTENTE DU MOUVEMENT CITOYEN...", status_standby: "STATUT: OBSERVATION", status_draw_ai: "STATUT: ANALYSE DOUBLEPENSÉE ACTIVE", status_ret: "STATUT: RETOUR EN 2D", status_u_win: "ANOMALIE: LE CITOYEN GAGNE", status_ai_win: "LE PARTI TRIOMPHE", status_tie: "IMPASSE ORWELLIENNE", log_u: "CITOYEN (X): SECTEUR_", log_ai: "SYSTÈME (O): SECTEUR_", lvl_msg: "NIVEAU DE SURVEILLANCE: ", mode_2d: "[ SUPERVISION 2D ]", mode_3d: "[ EXTRACTION DE PENSÉE 3D ]" },
+      de: { boot_tap: ">> MODUL INITIALISIEREN <<", lang_label: "DE", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "EVAL: MILD", diff_normal: "EVAL: STANDARD", diff_hard: "EVAL: EXTREM", reboot: "NEUSTART", init: "MINISTERIUM FÜR WAHRHEIT VERBUNDEN...", wait: "WARTE AUF BÜRGERZUG...", status_standby: "STATUS: BEOBACHTUNG", status_draw_ai: "STATUS: ZWIEGEDANKEN-ANALYSE AKTIV", status_ret: "STATUS: RÜCKKEHR ZU 2D", status_u_win: "ANOMALIE: BÜRGER GEWINNT", status_ai_win: "DIE PARTEI TRIUMPHIERT", status_tie: "ORWELLSCHE PATT-SITUATION", log_u: "BÜRGER (X): SEKTOR_", log_ai: "SYSTEM (O): SEKTOR_", lvl_msg: "ÜBERWACHUNGSSTUFE: ", mode_2d: "[ 2D-ÜBERWACHUNG ]", mode_3d: "[ 3D-GEDANKENEXTRAKTION ]" },
+      ja: { boot_tap: ">> モジュールの初期化 <<", lang_label: "JA", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "評価: 軽度", diff_normal: "評価: 標準", diff_hard: "評価: 極限", reboot: "リセット", init: "真理省接続完了...", wait: "市民の行動を待機中...", status_standby: "ステータス: 監視中", status_draw_ai: "ステータス: 二重思考分析アクティブ", status_ret: "ステータス: 2Dに復帰中", status_u_win: "異常: 市民の勝利", status_ai_win: "党の勝利", status_tie: "オーウェル的膠着状態", log_u: "市民 (X): セクター_", log_ai: "システム (O): セクター_", lvl_msg: "監視レベル: ", mode_2d: "[ 2D監視 ]", mode_3d: "[ 3D思考抽出 ]" },
+      zh: { boot_tap: ">> 初始化模块 <<", lang_label: "ZH", snd_on: "[SND: ON]", snd_off: "[SND: OFF]", diff_easy: "评估: 轻度", diff_normal: "评估: 标准", diff_hard: "评估: 极端", reboot: "重置", init: "真理部已连接...", wait: "等待公民行动...", status_standby: "状态: 观察中", status_draw_ai: "状态: 双重思想分析激活", status_ret: "状态: 返回2D", status_u_win: "异常: 公民获胜", status_ai_win: "党获胜", status_tie: "奥威尔式僵局", log_u: "公民 (X): 扇区_", log_ai: "系统 (O): 扇区_", lvl_msg: "监视级别: ", mode_2d: "[ 2D监视 ]", mode_3d: "[ 3D思想提取 ]" }
+};
 
     const langsArray = ['it', 'en', 'es', 'fr', 'de', 'ja', 'zh'];
     let currentLang = AOE_PROGRESS.getLang(langsArray);
@@ -343,6 +348,7 @@ const i18n = {
     function setMode(key) { currentModeKey = key; modeEl.textContent = i18n[currentLang][currentModeKey]; }
     
     function setTexts() { 
+	document.getElementById('boot-tap-label').textContent = i18n[currentLang].boot_tap || i18n['en'].boot_tap;
         btnLang.textContent = "◄ " + i18n[currentLang].lang_label + " ►"; 
         btnDiff.textContent = "◄ " + i18n[currentLang][diffKeys[diffIndex]] + " ►"; 
         btnAudio.textContent = audioEnabled ? i18n[currentLang].snd_on : i18n[currentLang].snd_off; 

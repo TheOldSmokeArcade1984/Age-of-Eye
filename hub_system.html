@@ -77,14 +77,22 @@
     }
     
     ::-webkit-scrollbar { display: none; width: 0; height: 0; }
-    * { box-sizing:border-box; scrollbar-width: none; -ms-overflow-style: none; }
+    * { 
+    box-sizing:border-box; scrollbar-width: none; -ms-overflow-style: none; 
+    -webkit-user-select: none; user-select: none;
+    -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+}
     
     html,body{height:100%}
     body{
       margin:0; font-family:var(--font); color:var(--text); overflow: hidden;
       background: radial-gradient(circle at top, rgba(0,255,102,.10), transparent 24%), linear-gradient(180deg,#031003,#020802);
       text-shadow:0 0 8px rgba(0,255,102,.10);
-    }
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
     
     button:focus, select:focus, .card:focus, .quick-item:focus {
       outline: 3px solid var(--green) !important; outline-offset: 2px;
@@ -205,11 +213,12 @@
     body.mobile-game-active #screen-game .hud{ padding:8px; gap:8px; border-radius:0 0 14px 14px; display:grid; grid-template-columns:1fr 1fr; align-items:center; }
     body.mobile-game-active #screen-game .hud .btnrow{ grid-column:1 / -1; width:100%; display:grid !important; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px; margin-top:0; }
     body.mobile-game-active #screen-game .hud .btnrow .btn{ width:100%; min-width:0; padding:10px 12px; }
-    body.mobile-game-active #screen-game .canvas-wrap{ padding:6px !important; border-radius:14px; margin-top:8px; }
+    body.mobile-game-active #screen-game .canvas-wrap{ padding:6px 6px 130px 6px !important; border-radius:14px; margin-top:8px; }
     body.mobile-game-active #screen-game #gameCanvas{ max-width: 100% !important; max-height: calc(100dvh - 160px) !important; }
     body.mobile-game-active #touchControls{ display:block !important; }
 
     @media (max-width: 900px) and (orientation: landscape){
+    body.mobile-game-active #screen-game .canvas-wrap{ padding:6px 120px !important; border:none; background:transparent; }
       .app { padding: 2px; } .terminal { border-radius: 8px; } .head { padding: 4px 10px; } .content { padding: 4px 8px; }
       #introCanvas, #homeDesc, #securityNote, #systemStatus, #homeBadge, #cabinetBadge { display: none !important; }
       h1 { font-size: 1.1rem; margin-bottom: 2px; margin-top: 0; } h2 { font-size: 0.9rem; margin-bottom: 2px; margin-top: 0; }

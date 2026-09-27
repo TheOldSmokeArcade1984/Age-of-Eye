@@ -266,6 +266,11 @@
         }
     </style>
 <script src="ageofeye-progress.js"></script>
+<script>
+    if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.isCoreUnlocked()) {
+        window.location.href = 'hub_system.html';
+    }
+</script>
 </head>
 <body>
 
@@ -286,7 +291,7 @@
             <p id="core_sub-title">FINAL OVERRIDE</p>
             <div id="core_instructions"></div>
             <button class="sys-btn" id="core_start-btn" onclick="coreMaster.startGame()">START</button>
-            <button class="sys-btn alert" style="margin-top:20px; font-size: 1rem; padding: 5px 10px;" onclick="window.location.href='hub_system.html'">RITIRATA STRATEGICA (HUB)</button>
+            <button class="sys-btn alert" id="core_hub-btn" style="margin-top:20px; font-size: 1rem; padding: 5px 10px;" onclick="window.location.href='hub_system.html'">RITIRATA STRATEGICA (HUB)</button>
         </div>
 
         <div id="core_phase-core">
@@ -395,7 +400,7 @@
         const validLangs = ['it', 'en'];
         let globalLang = AOE_PROGRESS.getLang(validLangs);
 
-        const coreMaster = {
+        var coreMaster = {
             SIZE: 3, WIN_TARGET: 3,
             cubesData: [], lasersData: [], cubeMap: new Map(),
             playing: false, isCinematic: false,
@@ -410,9 +415,10 @@
             coreXHTML: `<div class="core-wrapper"><div class="core mark-x"><div class="pillar x-p1"><div class="draw-stroke x-delay-1"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar x-p2"><div class="draw-stroke x-delay-2"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div></div></div>`,
             coreOHTML: `<div class="core-wrapper"><div class="core mark-o"><div class="pillar o-top"><div class="draw-stroke o-delay-1"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar o-right"><div class="draw-stroke o-delay-2"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar o-bottom"><div class="draw-stroke o-delay-3"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div><div class="pillar o-left"><div class="draw-stroke o-delay-4"><div class="p-face p-front"></div><div class="p-face p-back"></div><div class="p-face p-left"></div><div class="p-face p-right"></div><div class="p-face p-top"></div><div class="p-face p-bottom"></div></div></div></div></div>`,
 
-i18n: {
+            i18n: {
                 it: {
                     start: "INIZIA", subtitle: "FINAL OVERRIDE", hudReady: "STATUS: PRONTO", hudInject: "STATUS: INIEZIONE DATI...", hudCalc: "STATUS: CALCOLO TRAIETTORIA...", hudResp: "STATUS: RISPOSTA DI SISTEMA...", hudWinP1: "OVERRIDE MANUALE: VITTORIA P1", hudWinAI: "SISTEMA COMPROMESSO: VITTORIA AI", hudDraw: "STALLO TATTICO RILEVATO", btnRetry: "RIPROVA",
+                    hubBtn: "RITIRATA STRATEGICA (HUB)",
                     inst: "Obiettivo: Allinea 3 Core nel Tesseratto 3x3x3 per superare le difese dell'IA.<br>Comandi: Trascina lo sfondo per ruotare, clicca un nodo per iniettare il tuo dato (Verde). L'IA (Rosso) imparerà dalle tue mosse.",
                     insultTitle: "L'INSULTOMETRO v2.0", insultDesc: "NODO CLANDESTINO ESTERNO CONNESSO.<br>Inserisci il target da colpire con la dialettica.", insultPlh: "TARGET_ID", insultBtn: "[ GENERA INSULTO ]",
                     insults: ["Sei un vile maramaldo, un pusillanime senza costrutto.", "La tua arroganza è superata solo dalla tua abissale ignoranza.", "Sei la quintessenza della mediocrità intellettuale.", "Un parassita logico nel grandioso codice dell'esistenza."],
@@ -424,6 +430,7 @@ i18n: {
                 },
                 en: {
                     start: "START", subtitle: "FINAL OVERRIDE", hudReady: "STATUS: READY", hudInject: "STATUS: DATA INJECTION...", hudCalc: "STATUS: CALCULATING TRAJECTORY...", hudResp: "STATUS: SYSTEM RESPONSE...", hudWinP1: "MANUAL OVERRIDE: P1 WINS", hudWinAI: "SYSTEM COMPROMISED: AI WINS", hudDraw: "TACTICAL STALEMATE DETECTED", btnRetry: "RETRY",
+                    hubBtn: "STRATEGIC RETREAT (HUB)",
                     inst: "Objective: Align 3 Cores in the 3x3x3 Tesseract to breach AI defenses.<br>Controls: Drag background to rotate, click a node to inject your data (Green). The AI learns from your moves.",
                     insultTitle: "THE INSULT-O-METER v2.0", insultDesc: "EXTERNAL CLANDESTINE NODE CONNECTED.<br>Enter the target to strike with dialectics.", insultPlh: "TARGET_ID", insultBtn: "[ GENERATE INSULT ]",
                     insults: ["You are a vile scoundrel, an unconstructive coward.", "Your arrogance is surpassed only by your abysmal ignorance.", "You are the quintessence of intellectual mediocrity.", "A logical parasite in the grand code of existence."],
@@ -433,15 +440,6 @@ i18n: {
                     wipeTitle: "ASSIMILATION REQUIRED", wipeDesc: "To complete the process, you must destroy your past. Remove all traces of your identity (Local Data).", wipeBtn: "[ FORMAT NEURAL MEMORY ]",
                     wipeEndT: "MEMORY PURGED", wipeEndD: "You have learned to love the System.<br><br>[ TRANSMISSION TERMINATED ]"
                 }
-	init() {
-                this.i18n.es = this.i18n.en;
-                this.i18n.fr = this.i18n.en;
-                this.i18n.de = this.i18n.en;
-                this.i18n.ja = this.i18n.en;
-                this.i18n.zh = this.i18n.en;
-                this.bindEvents();
-                this.applyLanguage();
-            
             },
 
             init() {
@@ -450,6 +448,9 @@ i18n: {
             },
 
             applyLanguage() {
+                const currentLang = typeof AOE_PROGRESS !== 'undefined' ? AOE_PROGRESS.getLang(['it', 'en']) : 'en';
+                globalLang = currentLang;
+                
                 const t = this.i18n[globalLang] || this.i18n['en'];
                 const el = (id) => document.getElementById(id);
                 if(el('core_start-btn')) el('core_start-btn').textContent = t.start;
@@ -457,6 +458,7 @@ i18n: {
                 if(el('core_instructions')) el('core_instructions').innerHTML = t.inst;
                 if(el('core_hud-status')) el('core_hud-status').textContent = t.hudReady;
                 if(el('core_btn-restart')) el('core_btn-restart').textContent = t.btnRetry;
+                if(el('core_hub-btn')) el('core_hub-btn').textContent = t.hubBtn;
                 
                 if(el('core_insult-title')) el('core_insult-title').textContent = t.insultTitle;
                 if(el('core_insult-desc')) el('core_insult-desc').innerHTML = t.insultDesc;
@@ -467,7 +469,6 @@ i18n: {
                 if(el('core_wipe-desc')) el('core_wipe-desc').textContent = t.wipeDesc;
                 if(el('core_wipe-btn')) el('core_wipe-btn').textContent = t.wipeBtn;
             },
-
             bindEvents() {
                 if(this.eventsBound) return;
                 const phaseCore = document.getElementById('core_phase-core');

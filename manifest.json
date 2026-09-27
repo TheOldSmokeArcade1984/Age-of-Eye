@@ -2,7 +2,7 @@
   "name": "Age of Eye 1984",
   "short_name": "AgeOfEye",
   "description": "Arcade cyberpunk in puro fosforo verde. Hackera il sistema dall'interno.",
-  "start_url": "./",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
   "background_color": "#000200",

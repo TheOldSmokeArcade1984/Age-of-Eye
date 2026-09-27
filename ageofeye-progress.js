@@ -62,17 +62,19 @@ const AOE_PROGRESS = {
         return data.coreUnlocked && this.areAllHubNodesCompleted();
     },
 
-    wipeAll: function() {
+wipeAll: function() {
         try {
-            // Salva la lingua prima del wipe totale per non tradire l'esperienza utente
             const currentLang = this.getLang(this.LANGS);
             
-            // Pulisce radicalmente tutto il localStorage (cancella progressi, record e cache corrotta)
-            localStorage.clear();
+            // Rimuove solo le chiavi associate ad Age of Eye, preservando il resto del dominio
+            Object.keys(localStorage).forEach(key => {
+                if (key.startsWith('sa-') || key.startsWith('knight') || key.startsWith('ageOfEye')) {
+                    localStorage.removeItem(key);
+                }
+            });
             
-            // Ripristina la preferenza linguistica
             this.setLang(currentLang);
-            console.log("SISTEMA FORMATTATO. LINGUA MANTENUTA.");
+            console.log("SISTEMA FORMATTATO (ISOLATO). LINGUA MANTENUTA.");
         } catch (e) {
             console.warn("Errore durante il wipe totale:", e);
         }

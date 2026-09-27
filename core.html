@@ -69,7 +69,7 @@
 
 
     <!-- JSON-LD CORRETTO (Specifico per Core) -->
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"THE CORE — Tesseratto 3×3×3 | Age of Eye","description":"THE CORE: tesseratto 3×3×3. Sei il Virus (Re ♚). Allinea 3 core per l'override, evita la Sicurezza (Alfiere ♝). Clicca i cubi, trascina per ruotare.","inLanguage":["it","en"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"THE CORE — Tesseratto 3×3×3 | Age of Eye","description":"THE CORE: tesseratto 3×3×3. Sei il Virus (Re ♚). Allinea 3 core per l'override, evita la Sicurezza (Alfiere ♝). Clicca i cubi, trascina per ruotare.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
 <style>
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
@@ -109,7 +109,7 @@
         }
 
         .scanline { position: fixed; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent); height: 25px; animation: scanline-move 8s linear infinite; z-index: 9998; }
-        @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100vh; } }
+        @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100dvh; } }
         .crt-layer { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%); z-index: 9997; }
         .hidden { display: none !important; }
 
@@ -262,6 +262,7 @@
             .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
             .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
             .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+            #the-eye-bg, .cube.drawing .faces-wrapper, .core, .draw-stroke, .alert-box { animation: none !important; }
         }
     </style>
 <script src="ageofeye-progress.js"></script>

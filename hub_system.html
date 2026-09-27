@@ -101,7 +101,7 @@
     }
 
     .scanline { position: fixed; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent); height: 25px; animation: scanline-move 8s linear infinite; z-index: 9998; }
-    @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100vh; } }
+    @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100dvh; } }
     .crt-layer { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%); z-index: 9997; }
 
     #rain{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.24}
@@ -720,7 +720,11 @@ $("resetData").onclick = () => {
   if (typeof AOE_PROGRESS !== 'undefined' && typeof AOE_PROGRESS.wipeAll === 'function') {
     AOE_PROGRESS.wipeAll();
   } else {
-    localStorage.clear();
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('sa-') || key.startsWith('knight') || key.startsWith('ageOfEye')) {
+            localStorage.removeItem(key);
+        }
+    });
   }
   Object.keys(hi).forEach(k => hi[k] = 0);
   renderGrid(); 

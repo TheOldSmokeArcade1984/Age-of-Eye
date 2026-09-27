@@ -95,7 +95,7 @@
         }
 
         .scanline { position: fixed; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent); height: 25px; animation: scanline-move 8s linear infinite; z-index: 9998; }
-        @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100vh; } }
+        @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100dvh; } }
         .crt-layer { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%); z-index: 9997; }
 
         #start-overlay {
@@ -191,8 +191,24 @@
     <div class="scanline"></div>
 
     <div id="start-overlay" onclick="startEpilogue()">
-        <div class="blink-text">> TRASMISSIONE IN INGRESSO... [ CLICCA PER APRIRE ]</div>
+        <div class="blink-text" id="epilog-blink-text">> LOADING...</div>
     </div>
+    <script>
+        (function() {
+            const currentLang = typeof AOE_PROGRESS !== 'undefined' ? AOE_PROGRESS.getLang(['it', 'en', 'es', 'fr', 'de', 'ja', 'zh']) : 'en';
+            const clickTexts = {
+                it: "> TRASMISSIONE IN INGRESSO... [ CLICCA PER APRIRE ]",
+                en: "> INCOMING TRANSMISSION... [ CLICK TO OPEN ]",
+                es: "> TRANSMISIÓN ENTRANTE... [ HAZ CLIC PARA ABRIR ]",
+                fr: "> TRANSMISSION ENTRANTE... [ CLIQUEZ POUR OUVRIR ]",
+                de: "> EINGEHENDE ÜBERTRAGUNG... [ ZUM ÖFFNEN KLICKEN ]",
+                ja: "> 受信中の通信... [ クリックして開く ]",
+                zh: "> 传入传输... [ 点击打开 ]"
+            };
+            const el = document.getElementById('epilog-blink-text');
+            if (el) el.textContent = clickTexts[currentLang] || clickTexts['en'];
+        })();
+    </script>
 
     <!-- Scena Iniziale -->
     <div id="fin_center-stage" style="display: none;">

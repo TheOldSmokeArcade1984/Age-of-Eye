@@ -1,4 +1,4 @@
-const CACHE_NAME = 'age-of-eye-v3.1';
+const CACHE_NAME = 'age-of-eye-v3.2';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',

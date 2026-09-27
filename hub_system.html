@@ -365,10 +365,10 @@
       <div style="border:2px solid #ff0044; padding:30px; background:#010000; text-align:center; box-shadow: 0 0 40px rgba(255,0,68,0.3); max-width: 600px;">
           <h2 style="color:#ff0044; font-size: clamp(1.5rem, 5vw, 2.5rem); margin-bottom: 15px; text-shadow: 0 0 10px #ff0044;">[ ACCESSO NEGATO ]</h2>
           <p id="lock-text" style="color:#ff0044; font-size: clamp(1rem, 3vw, 1.3rem); line-height: 1.5; margin-bottom: 25px;">
-              Il Sistema rileva un'anomalia comportamentale.<br>
-              Devi completare almeno un ciclo di prova in tutti i 12 Nodi Arcade (Punteggio > 0) per sbloccare i Moduli Tattici.<br><br>
-              Nodi rimanenti: <span id="lock-count" style="font-weight: bold; color: #fff;">12</span>
-          </p>
+          Il Sistema rileva un'anomalia comportamentale.<br>
+          Devi completare almeno un ciclo di prova in tutti i 12 Nodi Arcade (Punteggio ≥ 10) per sbloccare i Moduli Tattici.<br><br>
+          Nodi rimanenti: <span id="lock-count" style="font-weight: bold; color: #fff;">12</span>
+      </p>
           <button class="btn" style="border-color:#ff0044; color:#ff0044;" onclick="document.getElementById('lock-overlay').style.display='none'">RITORNA ALL'HUB</button>
       </div>
   </div>
@@ -550,7 +550,7 @@ function saveHi(k,v){
 function updateProgressStatus() {
     if (typeof AOE_PROGRESS === 'undefined') return;
     let nodesDone = 0;
-    Object.keys(hi).forEach(k => { if (hi[k] > 0) nodesDone++; });
+    Object.keys(hi).forEach(k => { if (hi[k] >= 10) nodesDone++; });
 
     let modulesDone = 0;
     const data = AOE_PROGRESS.get(); // Estrazione corretta dei dati
@@ -673,21 +673,21 @@ $("backHome2").onclick = () => show("home");
 // Nuovo sistema di progressione obbligata
 function attemptModuleAccess(url) {
   let missingCount = 0;
-  Object.keys(hi).forEach(k => { if (hi[k] <= 0) missingCount++; });
+  Object.keys(hi).forEach(k => { if (hi[k] < 10) missingCount++; });
   
   if (missingCount > 0) {
     if(audioCtx.state === 'suspended') audioCtx.resume();
     playSfx('crash');
     
     const tLock = {
-        it: `ANOMALIA COMPORTAMENTALE RILEVATA.<br>Il Ministero richiede il completamento di tutti i 12 Nodi Arcade (Punteggio > 0) prima di concedere l'autorizzazione di livello superiore.<br><br>Simulazioni mancanti: <span style="color:#fff">${missingCount}</span>`,
-        en: `BEHAVIORAL ANOMALY DETECTED.<br>The Ministry requires completion of all 12 Arcade Nodes (Score > 0) before granting higher-level clearance.<br><br>Missing simulations: <span style="color:#fff">${missingCount}</span>`,
-        es: `ANOMALÍA DE COMPORTAMIENTO DETECTADA.<br>El Ministerio requiere completar los 12 Nodos Arcade (Puntuación > 0) antes de otorgar autorización superior.<br><br>Simulaciones faltantes: <span style="color:#fff">${missingCount}</span>`,
-        fr: `ANOMALIE COMPORTEMENTALE DÉTECTÉE.<br>Le Ministère exige de terminer les 12 Nœuds Arcade (Score > 0) avant d'accorder une autorisation supérieure.<br><br>Simulations manquantes : <span style="color:#fff">${missingCount}</span>`,
-        de: `VERHALTENSANOMALIE ERKANNT.<br>Das Ministerium verlangt den Abschluss aller 12 Arcade-Knoten (Punktzahl > 0), bevor eine höhere Freigabe erteilt wird.<br><br>Fehlende Simulationen: <span style="color:#fff">${missingCount}</span>`,
-        ja: `行動異常を検知。<br>上位クリアランスを許可する前に、省は全12のアーケードノード（スコア > 0）の完了を要求しています。<br><br>不足シミュレーション: <span style="color:#fff">${missingCount}</span>`,
-        zh: `检测到行为异常。<br>在授予高级权限之前，系统要求完成所有 12 个街机节点（分数 > 0）。<br><br>缺失的模拟: <span style="color:#fff">${missingCount}</span>`
-    };
+    it: `ANOMALIA COMPORTAMENTALE RILEVATA.<br>Il Ministero richiede il completamento di tutti i 12 Nodi Arcade (Punteggio ≥ 10) prima di concedere l'autorizzazione di livello superiore.<br><br>Simulazioni mancanti: <span style="color:#fff">${missingCount}</span>`,
+    en: `BEHAVIORAL ANOMALY DETECTED.<br>The Ministry requires completion of all 12 Arcade Nodes (Score ≥ 10) before granting higher-level clearance.<br><br>Missing simulations: <span style="color:#fff">${missingCount}</span>`,
+    es: `ANOMALÍA DE COMPORTAMIENTO DETECTADA.<br>El Ministerio requiere completar los 12 Nodos Arcade (Puntuación ≥ 10) antes de otorgar autorización superior.<br><br>Simulaciones faltantes: <span style="color:#fff">${missingCount}</span>`,
+    fr: `ANOMALIE COMPORTEMENTALE DÉTECTÉE.<br>Le Ministère exige de terminer les 12 Nœuds Arcade (Score ≥ 10) avant d'accorder une autorisation supérieure.<br><br>Simulations manquantes : <span style="color:#fff">${missingCount}</span>`,
+    de: `VERHALTENSANOMALIE ERKANNT.<br>Das Ministerium verlangt den Abschluss aller 12 Arcade-Knoten (Punktzahl ≥ 10), bevor eine höhere Freigabe erteilt wird.<br><br>Fehlende Simulationen: <span style="color:#fff">${missingCount}</span>`,
+    ja: `行動異常を検知。<br>上位クリアランスを許可する前に、省は全12のアーケードノード（スコア ≥ 10）の完了を要求しています。<br><br>不足シミュレーション: <span style="color:#fff">${missingCount}</span>`,
+    zh: `检测到行为异常。<br>在授予高级权限之前，系统要求完成所有 12 个街机节点（分数 ≥ 10）。<br><br>缺失的模拟: <span style="color:#fff">${missingCount}</span>`
+};
     $("lock-text").innerHTML = tLock[lang] || tLock['en'];
     $("lock-overlay").style.display = "flex";
   } else {

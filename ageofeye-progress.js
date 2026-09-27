@@ -48,7 +48,7 @@ const AOE_PROGRESS = {
         try {
             for (let node of this.HUB_NODES) {
                 let score = parseInt(localStorage.getItem('sa-hi-' + node) || '0', 10);
-                if (isNaN(score) || score <= 0) return false;
+                if (isNaN(score) || score < 10) return false;
             }
             return true;
         } catch (e) {

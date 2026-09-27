@@ -191,7 +191,12 @@
             #act-btn { width: 75px; height: 75px; bottom: 20px; right: 20px; font-size: 22px; }
             .hud { margin-top: 5px; }
         }
-
+/* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
+            .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+        }
     </style>
 <script src="ageofeye-progress.js"></script>
 <script>

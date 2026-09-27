@@ -248,6 +248,12 @@
         .alert-box { border: 3px solid var(--alert-color); padding: clamp(30px, 6vw, 60px); box-shadow: 0 0 80px rgba(255, 0, 68, 0.4); max-width: 800px; width: 100%; background: #010000; transform: translateZ(100px); animation: pulse-alert-anim 2s infinite alternate; }
         @keyframes pulse-alert-anim { to { box-shadow: 0 0 120px rgba(255, 0, 68, 0.6); border-color: #ff3366; transform: translateZ(120px) scale(1.02);} }
         .alert-box h2 { font-size: clamp(2rem, 7vw, 3.5rem); margin-bottom: 25px; color: var(--alert-color); text-shadow: 0 0 20px var(--alert-color); letter-spacing: 2px; }
+/* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
+            .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+        }
     </style>
 <script src="ageofeye-progress.js"></script>
 </head>

@@ -127,6 +127,12 @@
         #boot2-text { font-size: clamp(1.1rem, 3.2vw, 1.8rem); line-height: 1.3; text-shadow: 0 0 10px var(--ph-main); }
         .cursor-blink { display: inline-block; width: clamp(10px, 2.5vw, 15px); height: 1em; background: var(--ph-main); animation: blink 1s step-end infinite; margin-left: 5px; vertical-align: bottom; }
         @keyframes blink { 50% { opacity: 0; } }
+/* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
+            .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+        }
     </style>
 <script src="ageofeye-progress.js"></script>
 </head>
@@ -253,7 +259,11 @@
         bootOverlay.style.justifyContent = 'center';
         bootOverlay.style.alignItems = 'center';
         bootOverlay.style.cursor = 'pointer';
-        bootOverlay.innerHTML = '<div style="font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 20px var(--ph-main); animation: blink 1.5s infinite; text-align: center;">> TAP TO BOOT SYSTEM <</div>';
+        bootOverlay.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <div style="font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 20px var(--ph-main); animation: blink 1.5s infinite; text-align: center;">> TAP TO BOOT SYSTEM <</div>
+                <div style="font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--ph-bright); text-align: center; opacity: 0.9; font-family: monospace;">[ Obiettivo: Completa i 12 nodi (HI ≥ 10). Poi le porte. ]</div>
+            </div>`;
         document.body.appendChild(bootOverlay);
 
         bootOverlay.addEventListener('pointerdown', () => {

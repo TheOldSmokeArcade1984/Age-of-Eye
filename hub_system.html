@@ -228,6 +228,12 @@
     .action-disc .action{ width:54px; height:54px; border-radius:999px; background:rgba(0,255,102,.14); color:var(--green); font-weight:700; display:flex; align-items:center; justify-content:center; border:1px solid rgba(0,255,102,.22);}
     #touchControls{ position:absolute; inset:0; display:none; pointer-events:none; } #touchControls .touch-grid{ position:absolute; inset:0; display:block; pointer-events:none; }
     .control-disc, .action-disc { pointer-events:auto; }
+/* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
+            .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+        }
   </style>
 <script src="ageofeye-progress.js"></script>
 </head>
@@ -253,7 +259,7 @@
               <button class="btn secondary" id="goNeonSpecter">Neon Specter</button>
               <button class="btn secondary" id="goKnightsTour">Knight's Tour</button>
 	     <button class="btn hidden" id="goCore" style="border-color: #ffff00; color: #ffff00; box-shadow: 0 0 15px rgba(255,255,0,0.3);">THE CORE</button>
-              <button class="btn secondary" id="goPrivacy" style="border-color: #ff0044; color: #ff0044;">Privacy Wipe</button>
+              <button class="btn secondary" id="goPrivacy" aria-label="Epurazione Dati e Privacy Wipe" style="border-color: #ff0044; color: #ff0044;">Privacy Wipe</button>
             </div>
             <div class="status" id="systemStatus">Connessione Stabilita</div>
 	    <div class="status" id="progressStatus" style="color: var(--soft); margin-top: 4px;">NODI 0/12 - TATTICI 0/3 - CORE LOCKED</div>

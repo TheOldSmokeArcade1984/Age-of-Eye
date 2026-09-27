@@ -166,6 +166,12 @@
         #fin_credits-text { font-size: clamp(1.1rem, 3vw, 1.8rem); line-height: 1.4; text-align: left; text-shadow: 0 0 10px var(--ph-main); }
         #fin_cursor { display: none; width: clamp(10px, 2.5vw, 15px); height: 1em; background: var(--ph-main); margin-left: 5px; vertical-align: bottom; }
         
+/* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
+            .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+        }
     </style>
 <script src="ageofeye-progress.js"></script>
 </head>

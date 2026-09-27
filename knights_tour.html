@@ -196,6 +196,12 @@
         .is-undo #flying-knight { color: #ff0041; text-shadow: 0 0 50px #ff0041; }
         .is-undo .prism-face { border-color: #ff0041; box-shadow: inset 0 0 10px rgba(255,0,65,0.3), 0 0 10px rgba(255,0,65,0.4); background: rgba(20, 0, 0, 0.6); }
         .is-undo #projected-number { text-shadow: 0 0 20px #ff0041, 0 0 40px #fff; }
+/* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
+            .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+        }
     </style>
 <script src="ageofeye-progress.js"></script>
 <script>

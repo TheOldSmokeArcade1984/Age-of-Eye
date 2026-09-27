@@ -219,6 +219,12 @@
             .console { font-size: 0.9rem; }
             .grid.is-3d { transform: rotateX(55deg) rotateZ(-45deg) scale(0.9) translateZ(10px); }
         }
+/* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, #rain, #matrix, .matrix-bg, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
+            .blink-text, .cursor-blink, .tap-text { animation: none !important; opacity: 1 !important; }
+        }
     </style>
 <script src="ageofeye-progress.js"></script>
 <script>
@@ -256,10 +262,10 @@
 
 <div class="header">
     <div class="top-controls">
-        <button id="btn-hub" onclick="window.location.href='hub_system.html'">◄ HUB</button>
-        <button id="btn-lang" onclick="toggleLang()">◄ IT ►</button>
-        <button id="btn-diff" onclick="toggleDiff()">◄ EVAL: STANDARD ►</button>
-        <button id="btn-audio" onclick="toggleAudio()">[SND: OFF]</button>
+        <button id="btn-hub" aria-label="Torna all'Hub Centrale" onclick="window.location.href='hub_system.html'">◄ HUB</button>
+	<button id="btn-lang" aria-label="Cambia Lingua" onclick="toggleLang()">◄ IT ►</button>
+	<button id="btn-diff" onclick="toggleDiff()">◄ EVAL: STANDARD ►</button>
+	<button id="btn-audio" aria-label="Attiva o disattiva audio" onclick="toggleAudio()">[SND: OFF]</button>
     </div>
     <h1 id="title-text">SECTOR ZERO <span style="opacity: 0.5;">•</span> THOUGHT POLICE</h1>
     <div id="mode-text" class="mode-indicator">[ 2D SUPERVISION ]</div>

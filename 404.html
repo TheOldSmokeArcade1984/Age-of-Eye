@@ -1,126 +1,89 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>404 - NODO INESISTENTE | Age of Eye</title>
+    <title>404 — Node Not Found | Age of Eye</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#00ff41">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
         :root {
-            --ph-main: #00ff41;
-            --bg-color: #000500;
+            --ph-main: #00ff41;   
+            --ph-bright: #aaffaa; 
+            --alert-color: #ff0044;
+            --bg-color: #000200;  
         }
 
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg-color); color: var(--ph-main); 
+            font-family: 'VT323', monospace; height: 100vh; overflow: hidden; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 20px;
         }
 
-        body {
-            background: var(--bg-color);
-            color: var(--ph-main);
-            font-family: 'VT323', monospace;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            overflow: hidden;
-        }
+        .scanline { position: fixed; inset: 0; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent); height: 25px; animation: scanline-move 8s linear infinite; z-index: 9998; }
+        @keyframes scanline-move { 0% { top: -100px; } 100% { top: 100vh; } }
+        .crt-layer { position: fixed; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%); z-index: 9997; }
+        .glitch-anim { animation: glitch 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite; }
+        @keyframes glitch { 0%, 100% { transform: translate(0) } 20% { transform: translate(-2px, 2px) } 40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) } 80% { transform: translate(2px, -2px) } }
 
-        .crt-layer {
-            position: fixed; inset: 0; pointer-events: none;
-            background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.85) 100%);
-            z-index: 9997;
-        }
+        h1 { font-size: clamp(4rem, 15vw, 10rem); color: var(--alert-color); text-shadow: 0 0 30px var(--alert-color); margin-bottom: 10px; line-height: 1; }
+        p { font-size: clamp(1.2rem, 4vw, 2rem); color: var(--ph-bright); margin-bottom: 40px; opacity: 0.9; max-width: 600px; }
 
-        .scanline {
-            position: fixed; inset: 0; pointer-events: none;
-            background: linear-gradient(to bottom, transparent, rgba(0, 255, 65, 0.08) 50%, transparent);
-            height: 25px; 
-            animation: scanline-move 8s linear infinite; 
-            z-index: 9998;
+        .btn {
+            background: rgba(0, 255, 65, 0.05); border: 2px solid var(--ph-main); color: var(--ph-main); 
+            padding: 15px 30px; font-size: clamp(1.2rem, 4vw, 1.8rem); font-family: inherit; font-weight: bold; 
+            text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2); transition: 0.3s; z-index: 10; position: relative;
         }
+        .btn:hover { background: rgba(0, 255, 65, 0.2); box-shadow: 0 0 25px var(--ph-main); }
+        .btn:active { background: var(--ph-main); color: #000; transform: scale(0.95); }
 
-        @keyframes scanline-move { 
-            0% { top: -100px; } 
-            100% { top: 100vh; } 
-        }
-
-        h1 {
-            font-size: clamp(6rem, 15vw, 12rem);
-            text-shadow: 0 0 30px var(--ph-main), 0 0 60px var(--ph-main);
-            margin-bottom: 10px;
-            letter-spacing: 5px;
-        }
-
-        p {
-            font-size: clamp(1.2rem, 4vw, 2rem);
-            margin-bottom: 40px;
-            opacity: 0.9;
-            text-shadow: 0 0 10px var(--ph-main);
-            line-height: 1.4;
-        }
-
-        .btn-container {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .sys-btn {
-            padding: 12px 24px;
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            background: rgba(0, 255, 65, 0.05);
-            border: 2px solid var(--ph-main);
-            color: var(--ph-main);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
-            transition: 0.3s;
-        }
-
-        .sys-btn:hover {
-            background: rgba(0, 255, 65, 0.2);
-            box-shadow: 0 0 20px var(--ph-main);
-        }
-
-        .sys-btn:active {
-            background: var(--ph-main);
-            color: #000;
-            box-shadow: 0 0 30px var(--ph-main);
-            transform: scale(0.95);
-        }
-
-        .glitch {
-            animation: glitch-anim 2s infinite;
-        }
-
-        @keyframes glitch-anim {
-            0%, 92%, 100% { transform: translate(0, 0); opacity: 1; }
-            93% { transform: translate(-3px, 3px); opacity: 0.8; }
-            95% { transform: translate(3px, -3px); opacity: 0.9; }
-            97% { transform: translate(-3px, -3px); opacity: 0.8; }
-            99% { transform: translate(3px, 3px); opacity: 1; }
+        /* Accessibilità: Riduzione del Movimento */
+        @media (prefers-reduced-motion: reduce) {
+            .scanline, .crt-layer { display: none !important; animation: none !important; }
+            .glitch-anim { animation: none !important; transform: none !important; filter: none !important; }
         }
     </style>
+    <!-- Script di progressione per recuperare la lingua -->
+    <script src="ageofeye-progress.js"></script>
 </head>
 <body>
     <div class="crt-layer"></div>
     <div class="scanline"></div>
 
-    <h1 class="glitch">404</h1>
-    <p>ERRORE DI SISTEMA: NODO INESISTENTE<br>Il Ministero non ha memoria di questo percorso.</p>
+    <h1 class="glitch-anim">404</h1>
+    <p id="error-desc">MEMORIA CORROTTA. NODO NON TROVATO.</p>
+    <a href="hub_system.html" class="btn" id="return-btn">RITORNA ALL'HUB</a>
 
-    <div class="btn-container">
-        <a href="index.html" class="sys-btn">Riavvia Terminale</a>
-        <a href="hub_system.html" class="sys-btn">Ritorna all'Hub</a>
-    </div>
+    <script>
+        const texts404 = {
+            it: { desc: "IL COLLEGAMENTO NEURALE È INTERROTTO. NODO NON TROVATO.", btn: "RITORNA ALL'HUB" },
+            en: { desc: "THE NEURAL LINK HAS BEEN SEVERED. NODE NOT FOUND.", btn: "RETURN TO HUB" },
+            es: { desc: "EL ENLACE NEURONAL HA SIDO CORTADO. NODO NO ENCONTRADO.", btn: "VOLVER AL HUB" },
+            fr: { desc: "LE LIEN NEURONAL A ÉTÉ ROMPU. NŒUD INTROUVABLE.", btn: "RETOUR AU HUB" },
+            de: { desc: "DIE NEURONALE VERBINDUNG WURDE GETRENNT. KNOTEN NICHT GEFUNDEN.", btn: "ZURÜCK ZUM HUB" },
+            ja: { desc: "ニューラルリンクが切断されました。ノードが見つかりません。", btn: "ハブに戻る" },
+            zh: { desc: "神经链接已断开。未找到节点。", btn: "返回中心" }
+        };
+
+        // Usa AOE_PROGRESS se disponibile, altrimenti fallback alla lingua del browser
+        let currentLang = 'en';
+        if (typeof AOE_PROGRESS !== 'undefined') {
+            currentLang = AOE_PROGRESS.getLang(Object.keys(texts404));
+        } else {
+            const sys = String(navigator.language || 'en').substring(0, 2).toLowerCase();
+            currentLang = texts404[sys] ? sys : 'en';
+        }
+
+        const t = texts404[currentLang];
+        document.getElementById('error-desc').textContent = t.desc;
+        document.getElementById('return-btn').textContent = t.btn;
+    </script>
 </body>
 </html>

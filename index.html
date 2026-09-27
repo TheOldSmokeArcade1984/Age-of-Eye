@@ -259,10 +259,24 @@
         bootOverlay.style.justifyContent = 'center';
         bootOverlay.style.alignItems = 'center';
         bootOverlay.style.cursor = 'pointer';
+
+        // Intercettazione dinamica a 7 lingue
+        const bootLang = typeof AOE_PROGRESS !== 'undefined' ? AOE_PROGRESS.getLang(['it', 'en', 'es', 'fr', 'de', 'ja', 'zh']) : 'en';
+        const bootTexts = {
+            it: "[ Obiettivo: Completa i 12 nodi (HI ≥ 10). Poi le porte. ]",
+            en: "[ Objective: Complete the 12 nodes (HI ≥ 10). Then the doors. ]",
+            es: "[ Objetivo: Completa los 12 nodos (HI ≥ 10). Luego las puertas. ]",
+            fr: "[ Objectif : Terminez les 12 nœuds (HI ≥ 10). Puis les portes. ]",
+            de: "[ Ziel: Schließe die 12 Knoten ab (HI ≥ 10). Dann die Türen. ]",
+            ja: "[ 目標：12のノードを完了せよ（HI ≥ 10）。その後に扉。 ]",
+            zh: "[ 目标：完成12个节点（HI ≥ 10）。然后是门。 ]"
+        };
+        const objText = bootTexts[bootLang] || bootTexts['en'];
+
         bootOverlay.innerHTML = `
             <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                <div style="font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 20px var(--ph-main); animation: blink 1.5s infinite; text-align: center;">> TAP TO BOOT SYSTEM <</div>
-                <div style="font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--ph-bright); text-align: center; opacity: 0.9; font-family: monospace;">[ Obiettivo: Completa i 12 nodi (HI ≥ 10). Poi le porte. ]</div>
+                <div class="tap-text" style="font-size: clamp(2rem, 5vw, 4rem); text-shadow: 0 0 20px var(--ph-main); animation: blink 1.5s infinite; text-align: center;">> TAP TO BOOT SYSTEM <</div>
+                <div style="font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--ph-bright); text-align: center; opacity: 0.9; font-family: monospace;">${objText}</div>
             </div>`;
         document.body.appendChild(bootOverlay);
 

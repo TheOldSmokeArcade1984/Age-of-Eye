@@ -262,16 +262,31 @@
             <canvas id="introCanvas" width="1200" height="260" aria-hidden="true"></canvas>
             <h1>AGE OF EYE</h1>
             <div class="muted" id="homeDesc">Central Neural Hub v6.21. Attenzione: attività di rete monitorata. Tracce di algoritmi Orwelliani rilevate.</div>
-            <div class="btnrow">
-              <button class="btn" id="goMenu">Archivio Base</button>
-              <button class="btn secondary" id="goNullSector">Protocollo Zero</button>
-              <button class="btn secondary" id="goNeonSpecter">Neon Specter</button>
-              <button class="btn secondary" id="goKnightsTour">Knight's Tour</button>
-	     <button class="btn hidden" id="goCore" style="border-color: #ffff00; color: #ffff00; box-shadow: 0 0 15px rgba(255,255,0,0.3);">THE CORE</button>
-              <button class="btn secondary" id="goPrivacy" aria-label="Epurazione Dati e Privacy Wipe" style="border-color: #ff0044; color: #ff0044;">Privacy Wipe</button>
+
+        <div style="margin-top: 15px; border-left: 2px solid var(--line); padding-left: 10px; display: flex; flex-direction: column; gap: 12px;">
+            <div>
+                <div id="lblPhase1" style="font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase;">FASE 1: 12 NODI</div>
+                <div class="btnrow" style="margin-top: 0;"><button class="btn" id="goMenu">Archivio Base</button></div>
             </div>
-            <div class="status" id="systemStatus">Connessione Stabilita</div>
-	    <div class="status" id="progressStatus" style="color: var(--soft); margin-top: 4px;">NODI 0/12 - TATTICI 0/3 - CORE LOCKED</div>
+            <div>
+                <div id="lblPhase2" style="font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase;">FASE 2: 3 PROTOCOLLI</div>
+                <div class="btnrow" style="margin-top: 0;">
+                    <button class="btn secondary" id="goKnightsTour">Knight's Tour</button>
+                    <button class="btn secondary" id="goNeonSpecter">Neon Specter</button>
+                    <button class="btn secondary" id="goNullSector">Sector Zero</button>
+                </div>
+            </div>
+            <div>
+                <div id="lblPhase3" style="font-size: 0.8rem; color: var(--muted); margin-bottom: 4px; text-transform: uppercase;">FASE 3: ACCESSO FINALE</div>
+                <div class="btnrow" style="margin-top: 0;">
+                    <button class="btn hidden" id="goCore" style="border-color: #ffff00; color: #ffff00; box-shadow: 0 0 15px rgba(255,255,0,0.3);">THE CORE</button>
+                    <button class="btn secondary" id="goPrivacy" aria-label="Privacy Wipe" style="border-color: #ff0044; color: #ff0044; padding: 6px 12px; min-width: auto; margin-left: auto;">Privacy Wipe</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="status" id="systemStatus" style="margin-top: 12px;">Connessione Stabilita</div>
+    <div class="status" id="progressStatus" style="color: var(--soft); margin-top: 4px;">NODI 0/12 - TATTICI 0/3 - CORE LOCKED</div>
           </div>
           
           <div class="panel">
@@ -525,13 +540,13 @@ $("restartGame").onclick = () => { state.analog={x:0,y:0}; if(typeof clearTouchK
 
 // --- LINGUE E DIZIONARIO ---
 const I18N = {
-  it:{langLabel:"Lingua Sistema",openArcade:"Avvia Simulazioni",privacy:"Epurazione",quickGames:"Esplora Nodi",backHome:"Torna all'Hub",backMenu:"Indietro",restart:"Reboot",controls:"Controlli",hintMobile:"Modalità Mobile. Usa joypad a schermo.",hintPc:"Modalità PC. Usa tastiera.", memShow:"MEMORIZZA", memRep:"RIPETI"},
-  en:{langLabel:"System Language",openArcade:"Boot Simulations",privacy:"Purge",quickGames:"Explore Nodes",backHome:"Back to Hub",backMenu:"Back",restart:"Reboot",controls:"Controls",hintMobile:"Mobile mode. Use on-screen joypad.",hintPc:"PC mode. Use keyboard.", memShow:"MEMORIZE", memRep:"REPEAT"},
-  es:{langLabel:"Idioma Sistema",openArcade:"Iniciar Simulaciones",privacy:"Purgar",quickGames:"Explorar Nodos",backHome:"Volver al Hub",backMenu:"Atrás",restart:"Reboot",controls:"Controles",hintMobile:"Modo Móvil. Usa joypad en pantalla.",hintPc:"Modo PC. Usa teclado.", memShow:"MEMORIZA", memRep:"REPITE"},
-  fr:{langLabel:"Langue Système",openArcade:"Démarrer Simulations",privacy:"Purger",quickGames:"Explorer Nœuds",backHome:"Retour au Hub",backMenu:"Retour",restart:"Reboot",controls:"Contrôles",hintMobile:"Mode Mobile. Utilisez le joypad virtuel.",hintPc:"Mode PC. Utilisez le clavier.", memShow:"MÉMORISEZ", memRep:"RÉPÉTEZ"},
-  de:{langLabel:"Systemsprache",openArcade:"Simulationen Starten",privacy:"Säuberung",quickGames:"Knoten Erkunden",backHome:"Zurück zum Hub",backMenu:"Zurück",restart:"Reboot",controls:"Steuerung",hintMobile:"Mobilmodus. Nutze das On-Screen-Joypad.",hintPc:"PC-Modus. Nutze die Tastatur.", memShow:"MERKEN", memRep:"WIEDERHOLEN"},
-  ja:{langLabel:"システム言語",openArcade:"シミュレーション起動",privacy:"パージ",quickGames:"ノードを探索",backHome:"ハブに戻る",backMenu:"戻る",restart:"再起動",controls:"コントロール",hintMobile:"モバイルモード。画面のジョイパッドを使用。",hintPc:"PCモード。キーボードを使用。", memShow:"記憶", memRep:"反復"},
-  zh:{langLabel:"系统语言",openArcade:"启动模拟",privacy:"清除",quickGames:"探索节点",backHome:"返回中心",backMenu:"返回",restart:"重启",controls:"控制",hintMobile:"移动模式。使用屏幕手柄。",hintPc:"PC模式。使用键盘。", memShow:"记忆", memRep:"重复"}
+  it:{langLabel:"Lingua Sistema",openArcade:"Archivio Base",privacy:"Epurazione",quickGames:"Esplora Moduli",backHome:"Torna all'Hub",backMenu:"Indietro",restart:"Restart",controls:"Controlli",hintMobile:"Modalità Mobile. Usa joypad a schermo.",hintPc:"Modalità PC. Usa tastiera.", memShow:"MEMORIZZA", memRep:"RIPETI", ph1:"FASE 1: 12 NODI", ph2:"FASE 2: 3 PROTOCOLLI", ph3:"FASE 3: ACCESSO FINALE", hd:"Central Neural Hub v6.21. Attenzione: attività monitorata. Tracce Orwelliane rilevate.", stOk:"Connessione Stabilita", stCore:"CRITICO: THE CORE SBLOCCATO"},
+  en:{langLabel:"System Language",openArcade:"Base Archive",privacy:"Purge",quickGames:"Explore Modules",backHome:"Back to Hub",backMenu:"Back",restart:"Restart",controls:"Controls",hintMobile:"Mobile mode. Use on-screen joypad.",hintPc:"PC mode. Use keyboard.", memShow:"MEMORIZE", memRep:"REPEAT", ph1:"PHASE 1: 12 NODES", ph2:"PHASE 2: 3 PROTOCOLS", ph3:"PHASE 3: FINAL ACCESS", hd:"Central Neural Hub v6.21. Warning: network activity monitored. Orwellian traces detected.", stOk:"Connection Established", stCore:"CRITICAL: THE CORE UNLOCKED"},
+  es:{langLabel:"Idioma Sistema",openArcade:"Archivo Base",privacy:"Purgar",quickGames:"Explorar Módulos",backHome:"Volver al Hub",backMenu:"Atrás",restart:"Reinicio",controls:"Controles",hintMobile:"Modo Móvil. Usa joypad en pantalla.",hintPc:"Modo PC. Usa teclado.", memShow:"MEMORIZA", memRep:"REPITE", ph1:"FASE 1: 12 NODOS", ph2:"FASE 2: 3 PROTOCOLOS", ph3:"FASE 3: ACCESO FINAL", hd:"Central Neural Hub v6.21. Advertencia: actividad monitoreada. Rastros Orwellianos detectados.", stOk:"Conexión Establecida", stCore:"CRÍTICO: THE CORE DESBLOQUEADO"},
+  fr:{langLabel:"Langue Système",openArcade:"Archive de Base",privacy:"Purger",quickGames:"Explorer Modules",backHome:"Retour au Hub",backMenu:"Retour",restart:"Recommencer",controls:"Contrôles",hintMobile:"Mode Mobile. Utilisez le joypad virtuel.",hintPc:"Mode PC. Utilisez le clavier.", memShow:"MÉMORISEZ", memRep:"RÉPÉTEZ", ph1:"PHASE 1: 12 NŒUDS", ph2:"PHASE 2: 3 PROTOCOLES", ph3:"PHASE 3: ACCÈS FINAL", hd:"Central Neural Hub v6.21. Avertissement : activité surveillée. Traces Orwelliennes détectées.", stOk:"Connexion Établie", stCore:"CRITIQUE: THE CORE DÉVERROUILLÉ"},
+  de:{langLabel:"Systemsprache",openArcade:"Basisarchiv",privacy:"Säuberung",quickGames:"Module Erkunden",backHome:"Zurück zum Hub",backMenu:"Zurück",restart:"Neustart",controls:"Steuerung",hintMobile:"Mobilmodus. Nutze das On-Screen-Joypad.",hintPc:"PC-Modus. Nutze die Tastatur.", memShow:"MERKEN", memRep:"WIEDERHOLEN", ph1:"PHASE 1: 12 KNOTEN", ph2:"PHASE 2: 3 PROTOKOLLE", ph3:"PHASE 3: LETZTER ZUGRIFF", hd:"Central Neural Hub v6.21. Warnung: Netzwerkaktivität überwacht. Orwellsche Spuren entdeckt.", stOk:"Verbindung Hergestellt", stCore:"KRITISCH: THE CORE ENTSPERRT"},
+  ja:{langLabel:"システム言語",openArcade:"ベースアーカイブ",privacy:"パージ",quickGames:"モジュール探索",backHome:"ハブに戻る",backMenu:"戻る",restart:"再起動",controls:"操作",hintMobile:"モバイルモード。ジョイパッドを使用。",hintPc:"PCモード。キーボードを使用。", memShow:"記憶", memRep:"反復", ph1:"フェーズ 1: 12ノード", ph2:"フェーズ 2: 3プロトコル", ph3:"フェーズ 3: 最終アクセス", hd:"Central Neural Hub v6.21。警告: ネットワークアクティビティ監視中。オーウェル的痕跡を検出。", stOk:"接続確立", stCore:"警告: THE CORE ロック解除"},
+  zh:{langLabel:"系统语言",openArcade:"基础档案",privacy:"清除",quickGames:"探索模块",backHome:"返回中心",backMenu:"返回",restart:"重启",controls:"控制",hintMobile:"移动模式。使用屏幕手柄。",hintPc:"PC模式。使用键盘。", memShow:"记忆", memRep:"重复", ph1:"阶段 1：12 节点", ph2:"阶段 2：3 协议", ph3:"阶段 3：最终访问", hd:"Central Neural Hub v6.21。警告：网络活动受到监控。检测到奥威尔式痕迹。", stOk:"连接已建立", stCore:"严重：THE CORE 已解锁"}
 };
 
 let lang = AOE_PROGRESS.getLang(Object.keys(I18N));
@@ -568,14 +583,17 @@ function updateProgressStatus() {
     Object.keys(hi).forEach(k => { if (hi[k] >= 10) nodesDone++; });
 
     let modulesDone = 0;
-    const data = AOE_PROGRESS.get(); // Estrazione corretta dei dati
+    const data = AOE_PROGRESS.get();
     ['knight', 'memory', 'sector'].forEach(m => { if (data[m]) modulesDone++; });
 
-    const coreStatus = AOE_PROGRESS.isCoreUnlocked() ? "CORE UNLOCKED" : "CORE LOCKED";
+    const isUnlocked = AOE_PROGRESS.isCoreUnlocked();
+    const coreStatus = isUnlocked ? "CORE UNLOCKED" : "CORE LOCKED";
     const el = $("progressStatus");
     if (el) {
-        el.textContent = `NODI ${nodesDone}/12 - TATTICI ${modulesDone}/3 - ${coreStatus}`;
-        if (AOE_PROGRESS.isCoreUnlocked()) el.style.color = '#ffff00';
+        const ntxt = {it:"NODI",en:"NODES",es:"NODOS",fr:"NŒUDS",de:"KNOTEN",ja:"ノード",zh:"节点"}[lang] || "NODES";
+        const ttxt = {it:"TATTICI",en:"TACTICAL",es:"TÁCTICOS",fr:"TACTIQUES",de:"TAKTISCH",ja:"戦術",zh:"战术"}[lang] || "TACTICAL";
+        el.textContent = `${ntxt} ${nodesDone}/12 - ${ttxt} ${modulesDone}/3 - ${coreStatus}`;
+        if (isUnlocked) el.style.color = '#ffff00';
     }
 }
 function renderGrid(){
@@ -602,7 +620,10 @@ function applyLanguage(){
   const set = (id, key) => { const el = $(id); if(el) el.textContent = t(key); };
   set("langLabel","langLabel"); set("goMenu","openArcade"); set("quickGames","quickGames"); 
   set("backHome1","backHome"); set("backHome2","backHome"); set("backMenu","backMenu"); set("restartGame","restart"); 
-  renderGrid(); renderQuickList(); applyMode();
+  set("lblPhase1","ph1"); set("lblPhase2","ph2"); set("lblPhase3","ph3"); set("homeDesc","hd");
+  set("goPrivacy","privacy"); set("privacyTitleScreen","privacy");
+  const sys = $("systemStatus"); if(sys) sys.textContent = (typeof AOE_PROGRESS !== 'undefined' && AOE_PROGRESS.isCoreUnlocked()) ? t("stCore") : t("stOk");
+  renderGrid(); renderQuickList(); applyMode(); updateProgressStatus();
 }
 
 const isTouchDevice = matchMedia("(pointer: coarse)").matches || /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
@@ -1015,9 +1036,8 @@ if (typeof AOE_PROGRESS !== 'undefined' && AOE_PROGRESS.isCoreUnlocked()) {
         
         const sysStatus = $("systemStatus");
         if (sysStatus) {
-            sysStatus.textContent = "CRITICAL: THE CORE IS NOW UNLOCKED";
+            sysStatus.textContent = t("stCore");
             sysStatus.style.color = "#ffff00";
-            sysStatus.style.textShadow = "0 0 10px #ffff00";
         }
     }
 }

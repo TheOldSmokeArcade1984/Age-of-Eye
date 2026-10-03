@@ -184,6 +184,12 @@
     }
     </style>
 <script src="ageofeye-progress.js"></script>
+<script>
+    // GATE DI SICUREZZA: Blocco prima del rendering
+    if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.isCoreUnlocked()) {
+        window.location.href = 'hub_system.html';
+    }
+</script>
 </head>
 <body>
 
@@ -251,11 +257,7 @@
     </div>
 
     <script>
-        "use strict";
-	if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.isCoreUnlocked()) {
-            window.location.href = 'hub_system.html';
-           
-        }
+        
         // ==========================================
         // AUDIO ENGINE
         // ==========================================

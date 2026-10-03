@@ -397,7 +397,7 @@
             if(!audioCtx || audioCtx.state === 'suspended') initGlobalAudio();
         }, { once: true });
 
-        const validLangs = ['it', 'en'];
+        const validLangs = ['it', 'en', 'es', 'fr', 'de', 'ja', 'zh'];
         let globalLang = AOE_PROGRESS.getLang(validLangs);
 
         var coreMaster = {
@@ -442,7 +442,12 @@
                 }
             },
 
-            init() {
+	    init() {
+                this.i18n.es = this.i18n.en;
+                this.i18n.fr = this.i18n.en;
+                this.i18n.de = this.i18n.en;
+                this.i18n.ja = this.i18n.en;
+                this.i18n.zh = this.i18n.en;
                 this.bindEvents();
                 this.applyLanguage();
             },

@@ -111,7 +111,7 @@
         #tv-turn-on { position: absolute; inset: 0; background: #000; z-index: 85; display: flex; justify-content: center; align-items: center; }
         .tv-line { width: 0; height: 2px; background: #fff; box-shadow: 0 0 20px #fff, 0 0 40px var(--ph-main); animation: tv-line-anim 0.4s ease-out forwards, tv-expand-anim 0.4s 0.6s ease-in forwards; }
         @keyframes tv-line-anim { 0% { width: 0; } 100% { width: 100vw; } }
-        @keyframes tv-expand-anim { 0% { height: 2px; } 100% { height: 100vh; background: transparent; box-shadow: none; opacity: 0; } }
+        @keyframes tv-expand-anim { 0% { height: 2px; } 100% { height: 100dvh; background: transparent; box-shadow: none; opacity: 0; } }
 
         #eye-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 82; }
         .eye-outer { width: clamp(120px, 20vw, 250px); height: clamp(120px, 20vw, 250px); border-radius: 100% 0; transform: rotate(45deg); border: clamp(4px, 1vw, 8px) solid var(--ph-main); box-shadow: 0 0 40px var(--ph-main), inset 0 0 40px var(--ph-main); position: relative; overflow: hidden; }

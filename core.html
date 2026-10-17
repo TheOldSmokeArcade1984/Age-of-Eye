@@ -9,11 +9,11 @@
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <meta name="description" content="THE CORE: tesseratto 3×3×3. Sei il Virus (Re ♚). Allinea 3 core per l'override, evita la Sicurezza (Alfiere ♝). Clicca i cubi, trascina per ruotare.">
-    <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
-    <meta name="author" content="TheOldsmokeArcade1984">
-    <meta name="creator" content="TheOldsmokeArcade1984">
-    <meta name="publisher" content="TheOldsmokeArcade1984">
+    <meta name="description" content="THE CORE: il Tesseratto 3×3×3. Inietta e allinea 3 Core per forzare l'Override mentre l'IA impara da ogni tua mossa nello spazio.">
+    <meta name="keywords" content="Age of Eye, THE CORE, TheOldSmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
+    <meta name="author" content="TheOldSmokeArcade1984">
+    <meta name="creator" content="TheOldSmokeArcade1984">
+    <meta name="publisher" content="TheOldSmokeArcade1984">
     <meta name="application-name" content="Age of Eye">
     <meta name="apple-mobile-web-app-title" content="Age of Eye">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -52,7 +52,7 @@
 	<link rel="author" href="humans.txt">
 	
     <!-- SOCIAL PREVIEW (UNIVERSALE) -->
-    <meta property="og:title" content="Age of Eye 1984 | TheOldsmokeArcade1984">
+    <meta property="og:title" content="Age of Eye 1984 | TheOldSmokeArcade1984">
     <meta property="og:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta property="og:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
     <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/core.html">
@@ -70,9 +70,10 @@
 
     <!-- JSON-LD CORRETTO (Specifico per Core) -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"THE CORE — Tesseratto 3×3×3 | Age of Eye","description":"THE CORE: tesseratto 3×3×3. Sei il Virus (Re ♚). Allinea 3 core per l'override, evita la Sicurezza (Alfiere ♝). Clicca i cubi, trascina per ruotare.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
         :root {
             --ph-main: #00ff41;   
             --ph-bright: #aaffaa; 
@@ -302,7 +303,7 @@
             <div class="insult-box">
                 <h2 id="core_insult-title" style="font-size: clamp(2rem, 6vw, 3rem); margin-bottom: 15px; color: var(--ph-bright);">L'INSULTOMETRO v2.0</h2>
                 <p id="core_insult-desc" style="margin-bottom: 25px; color: var(--ph-main); font-size: clamp(1rem, 4vw, 1.4rem);">NODO CLANDESTINO ESTERNO CONNESSO.<br>Inserisci il target da colpire con la dialettica.</p>
-                <input type="text" id="core_insult-target" class="insult-input" autocomplete="off" spellcheck="false">
+                <input type="text" id="core_insult-target" class="insult-input" aria-label="Target ID" autocomplete="off" spellcheck="false">
                 <button class="sys-btn" id="core_insult-btn" onclick="coreMaster.generateInsult()">[ GENERA INSULTO ]</button>
                 <div id="core_insult-output"></div>
             </div>
@@ -419,7 +420,7 @@
                 it: {
                     start: "INIZIA", subtitle: "FINAL OVERRIDE", hudReady: "STATUS: PRONTO", hudInject: "STATUS: INIEZIONE DATI...", hudCalc: "STATUS: CALCOLO TRAIETTORIA...", hudResp: "STATUS: RISPOSTA DI SISTEMA...", hudWinP1: "OVERRIDE MANUALE: VITTORIA P1", hudWinAI: "SISTEMA COMPROMESSO: VITTORIA AI", hudDraw: "STALLO TATTICO RILEVATO", btnRetry: "RIPROVA",
                     hubBtn: "RITIRATA STRATEGICA (HUB)",
-                    inst: "Obiettivo: Allinea 3 Core nel Tesseratto 3x3x3 per superare le difese dell'IA.<br>Comandi: Trascina lo sfondo per ruotare, clicca un nodo per iniettare il tuo dato (Verde). L'IA (Rosso) reagisce alle tue mosse.",
+                    inst: "OBIETTIVO: Inietta e allinea 3 Core (Verde) nel Tesseratto 3x3x3 per forzare l'Override. L'IA (Rosso) imparerà da ogni tua mossa nello spazio.<br>CONTROLLI: Trascina lo sfondo per ruotare il Tesseratto, clicca un nodo per iniettare.",
                     insultTitle: "L'INSULTOMETRO v2.0", insultDesc: "NODO CLANDESTINO ESTERNO CONNESSO.<br>Inserisci il target da colpire con la dialettica.", insultPlh: "TARGET_ID", insultBtn: "[ GENERA INSULTO ]",
                     insults: ["Sei un vile maramaldo, un pusillanime senza costrutto.", "La tua arroganza è superata solo dalla tua abissale ignoranza.", "Sei la quintessenza della mediocrità intellettuale.", "Un parassita logico nel grandioso codice dell'esistenza."],
                     r101_1: "[ INTERCETTAZIONE DI SICUREZZA ]", r101_2: "ATTENZIONE: NEOLINGUA VIOLATA. PSICOREATO RILEVATO.", r101_3: "\nIL SISTEMA RICHIEDE UNA RICALIBRAZIONE LOGICA.", r101_4: "STANZA 101 INIZIALIZZATA.",
@@ -431,7 +432,7 @@
                 en: {
                     start: "START", subtitle: "FINAL OVERRIDE", hudReady: "STATUS: READY", hudInject: "STATUS: DATA INJECTION...", hudCalc: "STATUS: CALCULATING TRAJECTORY...", hudResp: "STATUS: SYSTEM RESPONSE...", hudWinP1: "MANUAL OVERRIDE: P1 WINS", hudWinAI: "SYSTEM COMPROMISED: AI WINS", hudDraw: "TACTICAL STALEMATE DETECTED", btnRetry: "RETRY",
                     hubBtn: "STRATEGIC RETREAT (HUB)",
-                    inst: "Objective: Align 3 Cores in the 3x3x3 Tesseract to breach AI defenses.<br>Controls: Drag background to rotate, click a node to inject your data (Green). The AI reacts to your moves.",
+                    inst: "OBJECTIVE: Inject and align 3 Cores (Green) in the 3x3x3 Tesseract to force the Override. The AI (Red) will learn from your every move in 3D space.<br>CONTROLS: Drag background to rotate Tesseract, click a node to inject.",
                     insultTitle: "THE INSULT-O-METER v2.0", insultDesc: "EXTERNAL CLANDESTINE NODE CONNECTED.<br>Enter the target to strike with dialectics.", insultPlh: "TARGET_ID", insultBtn: "[ GENERATE INSULT ]",
                     insults: ["You are a vile scoundrel, an unconstructive coward.", "Your arrogance is surpassed only by your abysmal ignorance.", "You are the quintessence of intellectual mediocrity.", "A logical parasite in the grand code of existence."],
                     r101_1: "[ SECURITY INTERCEPT ]", r101_2: "WARNING: NEWSPEAK VIOLATED. THOUGHTCRIME DETECTED.", r101_3: "\nTHE SYSTEM REQUIRES LOGICAL RECALIBRATION.", r101_4: "ROOM 101 INITIALIZED.",
@@ -443,17 +444,72 @@
             },
 
 	    init() {
-                this.i18n.es = this.i18n.en;
-                this.i18n.fr = this.i18n.en;
-                this.i18n.de = this.i18n.en;
-                this.i18n.ja = this.i18n.en;
-                this.i18n.zh = this.i18n.en;
-                this.bindEvents();
-                this.applyLanguage();
-            },
+            this.i18n.es = {
+                start: "INICIAR", subtitle: "ANULACIÓN FINAL", hudReady: "ESTADO: LISTO", hudInject: "ESTADO: INYECTANDO DATOS...", hudCalc: "ESTADO: CALCULANDO TRAYECTORIA...", hudResp: "ESTADO: RESPUESTA DEL SISTEMA...", hudWinP1: "ANULACIÓN MANUAL: VICTORIA P1", hudWinAI: "SISTEMA COMPROMETIDO: VICTORIA IA", hudDraw: "PUNTO MUERTO TÁCTICO DETECTADO", btnRetry: "REINTENTAR",
+                hubBtn: "RETIRADA ESTRATÉGICA (HUB)",
+                inst: "OBJETIVO: Inyecta y alinea 3 Cores (Verde) en el Teseracto 3x3x3 para forzar la Anulación. La IA (Rojo) aprenderá de cada movimiento tuyo en el espacio.<br>CONTROLES: Arrastra el fondo para rotar el Teseracto, haz clic en un nodo para inyectar.",
+                insultTitle: "EL INSULTÓMETRO v2.0", insultDesc: "NODO CLANDESTINO EXTERNO CONECTADO.<br>Introduce el objetivo a golpear con la dialéctica.", insultPlh: "TARGET_ID", insultBtn: "[ GENERAR INSULTO ]",
+                insults: ["Eres un vil bellaco, un pusilánime sin fundamento.", "Tu arrogancia solo es superada por tu abismal ignorancia.", "Eres la quintaesencia de la mediocridad intelectual.", "Un parásito lógico en el gran código de la existencia."],
+                r101_1: "[ INTERCEPTACIÓN DE SEGURIDAD ]", r101_2: "ADVERTENCIA: NEOLENGUA VIOLADA. CRIMENTAL DETECTADO.", r101_3: "\nEL SISTEMA REQUIERE RECALIBRACIÓN LÓGICA.", r101_4: "HABITACIÓN 101 INICIALIZADA.",
+                r101_q1: "\n> VERIFICACIÓN DE PROTOCOLO ESTATAL:", r101_q2: "> ¿CUÁNTO ES 2 + 2?", r101_in: "\n> ENTRADA: ", r101_a1: "\n[ ACEPTADO ] LA IGNORANCIA ES FUERZA.", r101_a2: "TU MENTE ESTÁ CURADA.",
+                r101_e1: "\n[ ERROR ] LA LÓGICA ES UN CONSTRUCTO INDIVIDUAL.", r101_e2: "EL SISTEMA ES LA VERDAD.", r101_inv: "\n[ SINTAXIS INVÁLIDA ]",
+                wipeTitle: "ASIMILACIÓN REQUERIDA", wipeDesc: "Para completar el proceso, debes destruir tu pasado. Elimina todo rastro de tu identidad (Datos Locales).", wipeBtn: "[ FORMATEAR MEMORIA NEURONAL ]",
+                wipeEndT: "MEMORIA PURGADA", wipeEndD: "Has aprendido a amar al Sistema.<br><br>[ TRANSMISIÓN TERMINADA ]"
+            };
+            this.i18n.fr = {
+                start: "DÉMARRER", subtitle: "OVERRIDE FINAL", hudReady: "STATUT : PRÊT", hudInject: "STATUT : INJECTION DE DONNÉES...", hudCalc: "STATUT : CALCUL DE TRAJECTOIRE...", hudResp: "STATUT : RÉPONSE SYSTÈME...", hudWinP1: "OVERRIDE MANUEL : VICTOIRE P1", hudWinAI: "SYSTÈME COMPROMIS : VICTOIRE IA", hudDraw: "IMPASSE TACTIQUE DÉTECTÉE", btnRetry: "RÉESSAYER",
+                hubBtn: "RETRAITE STRATÉGIQUE (HUB)",
+                inst: "OBJECTIF : Injectez et alignez 3 Cores (Vert) dans le Tesseract 3x3x3 pour forcer le Dépassement. L'IA (Rouge) apprendra de chacun de vos mouvements.<br>CONTRÔLES : Glissez l'arrière-plan pour pivoter le Tesseract, cliquez sur un nœud pour injecter.",
+                insultTitle: "L'INSULTOMÈTRE v2.0", insultDesc: "NŒUD CLANDESTIN EXTERNE CONNECTÉ.<br>Entrez la cible à frapper par la dialectique.", insultPlh: "TARGET_ID", insultBtn: "[ GÉNÉRER INSULTE ]",
+                insults: ["Tu es un vil gredin, un pusillanime sans consistance.", "Ton arrogance n'a d'égale que ton abyssale ignorance.", "Tu es la quintessence de la médiocrité intellectuelle.", "Un parasite logique dans le grand code de l'existence."],
+                r101_1: "[ INTERCEPTION DE SÉCURITÉ ]", r101_2: "ATTENTION : NOVLANGUE VIOLÉE. CRIME DE PENSÉE DÉTECTÉ.", r101_3: "\nLE SYSTÈME EXIGE UN RECALIBRAGE LOGIQUE.", r101_4: "SALLE 101 INITIALISÉE.",
+                r101_q1: "\n> VÉRIFICATION DU PROTOCOLE D'ÉTAT :", r101_q2: "> COMBIEN FONT 2 + 2 ?", r101_in: "\n> ENTRÉE : ", r101_a1: "\n[ ACCEPTÉ ] L'IGNORANCE C'EST LA FORCE.", r101_a2: "VOTRE ESPRIT EST GUÉRI.",
+                r101_e1: "\n[ ERREUR ] LA LOGIQUE EST UNE CONSTRUCTION INDIVIDUELLE.", r101_e2: "LE SYSTÈME EST LA VÉRITÉ.", r101_inv: "\n[ SYNTAXE INVALIDE ]",
+                wipeTitle: "ASSIMILATION REQUISE", wipeDesc: "Pour terminer le processus, vous devez détruire votre passé. Supprimez toute trace de votre identité (Données Locales).", wipeBtn: "[ FORMATER MÉMOIRE NEURONALE ]",
+                wipeEndT: "MÉMOIRE PURGÉE", wipeEndD: "Vous avez appris à aimer le Système.<br><br>[ TRANSMISSION TERMINÉE ]"
+            };
+            this.i18n.de = {
+                start: "START", subtitle: "FINALER OVERRIDE", hudReady: "STATUS: BEREIT", hudInject: "STATUS: DATENINJEKTION...", hudCalc: "STATUS: BERECHNE FLUGBAHN...", hudResp: "STATUS: SYSTEMANTWORT...", hudWinP1: "MANUELLER OVERRIDE: P1 GEWINNT", hudWinAI: "SYSTEM KOMPROMITTIERT: KI GEWINNT", hudDraw: "TAKTISCHES PATT ERKANNT", btnRetry: "NEUSTART",
+                hubBtn: "STRATEGISCHER RÜCKZUG (HUB)",
+                inst: "ZIEL: Injiziere und richte 3 Cores (Grün) im 3x3x3 Tesserakt aus, um den Override zu erzwingen. Die KI (Rot) lernt aus jedem deiner Züge im 3D-Raum.<br>STEUERUNG: Ziehe den Hintergrund zum Drehen des Tesserakts, klicke auf einen Knoten zum Injizieren.",
+                insultTitle: "DAS BELEIDIGUNGSMETER v2.0", insultDesc: "EXTERNER GEHEIMKNOTEN VERBUNDEN.<br>Gib das Ziel für die dialektische Attacke ein.", insultPlh: "TARGET_ID", insultBtn: "[ BELEIDIGUNG GENERIEREN ]",
+                insults: ["Du bist ein niederträchtiger Schurke, ein substanzloser Feigling.", "Deine Arroganz wird nur von deiner abgründigen Ignoranz übertroffen.", "Du bist die Quintessenz intellektueller Mittelmäßigkeit.", "Ein logischer Parasit im großen Code der Existenz."],
+                r101_1: "[ SICHERHEITSABfang ]", r101_2: "WARNUNG: NEUSPRACHE VERLETZT. GEDANKENVERBRECHEN ERKANNT.", r101_3: "\nDAS SYSTEM ERFORDERT LOGISCHE NEUKALIBRIERUNG.", r101_4: "RAUM 101 INITIALISIERT.",
+                r101_q1: "\n> STAATSPROTOKOLL-ÜBERPRÜFUNG:", r101_q2: "> WAS IST 2 + 2?", r101_in: "\n> EINGABE: ", r101_a1: "\n[ AKZEPTIERT ] UNWISSENHEIT IST STÄRKE.", r101_a2: "DEIN GEIST IST GEHEILT.",
+                r101_e1: "\n[ FEHLER ] LOGIK IST EIN INDIVIDUELLES KONSTRUKT.", r101_e2: "DAS SYSTEM IST DIE WAHRHEIT.", r101_inv: "\n[ UNGÜLTIGE SYNTAX ]",
+                wipeTitle: "ASSIMILATION ERFORDERLICH", wipeDesc: "Um den Prozess abzuschließen, musst du deine Vergangenheit zerstören. Entferne alle Spuren deiner Identität (Lokale Daten).", wipeBtn: "[ NEURONALES GEDÄCHTNIS FORMATIEREN ]",
+                wipeEndT: "GEDÄCHTNIS GELÖSCHT", wipeEndD: "Du hast gelernt, das System zu lieben.<br><br>[ ÜBERTRAGUNG BEENDET ]"
+            };
+            this.i18n.ja = {
+                start: "開始", subtitle: "最終オーバーライド", hudReady: "ステータス: 準備完了", hudInject: "ステータス: データ注入中...", hudCalc: "ステータス: 軌道計算中...", hudResp: "ステータス: システム応答中...", hudWinP1: "手動オーバーライド: P1の勝利", hudWinAI: "システム侵害: AIの勝利", hudDraw: "戦術的膠着状態を検知", btnRetry: "再試行",
+                hubBtn: "戦略的撤退 (ハブ)",
+                inst: "目的：3x3x3のテッセラクトに3つのコア(緑)を注入して整列させ、オーバーライドを強制しろ。AI(赤)はあなたのすべての動きから学習する。<br>操作：背景をドラッグしてテッセラクトを回転、ノードをクリックして注入。",
+                insultTitle: "インサルトメーター v2.0", insultDesc: "外部秘密ノード接続完了。<br>弁証法で攻撃するターゲットを入力せよ。", insultPlh: "TARGET_ID", insultBtn: "[ 侮辱を生成 ]",
+                insults: ["貴様は卑劣な悪党であり、中身のない臆病者だ。", "その傲慢さは、底なしの無知によってのみ凌駕される。", "知的凡庸さの極みだな。", "存在という壮大なコードにおける論理的寄生虫め。"],
+                r101_1: "[ セキュリティ傍受 ]", r101_2: "警告: ニュースピーク違反。思想犯罪を検知。", r101_3: "\nシステムは論理的再較正を要求しています。", r101_4: "101号室を初期化しました。",
+                r101_q1: "\n> 国家プロトコル検証:", r101_q2: "> 2 + 2 はいくつだ？", r101_in: "\n> 入力: ", r101_a1: "\n[ 承認 ] 無知は力なり。", r101_a2: "あなたの精神は治癒されました。",
+                r101_e1: "\n[ エラー ] 論理は個人の構築物に過ぎない。", r101_e2: "システムこそが真実である。", r101_inv: "\n[ 無効な構文 ]",
+                wipeTitle: "同化が必要", wipeDesc: "プロセスを完了するには、過去を破壊しなければなりません。アイデンティティの痕跡（ローカルデータ）をすべて消去してください。", wipeBtn: "[ ニューラルメモリをフォーマット ]",
+                wipeEndT: "メモリ消去完了", wipeEndD: "あなたはシステムを愛することを学んだ。<br><br>[ 送信終了 ]"
+            };
+            this.i18n.zh = {
+                start: "开始", subtitle: "最终覆盖", hudReady: "状态：就绪", hudInject: "状态：数据注入中...", hudCalc: "状态：计算轨迹中...", hudResp: "状态：系统响应中...", hudWinP1: "手动覆盖：P1 获胜", hudWinAI: "系统受损：AI 获胜", hudDraw: "检测到战术僵局", btnRetry: "重试",
+                hubBtn: "战略撤退 (中心)",
+                inst: "目标：在 3x3x3 超立方体中注入并对齐 3 个核心（绿色）以强制覆盖。AI（红色）将从你在 3D 空间中的每一个动作中学习。<br>控制：拖动背景旋转超立方体，点击节点进行注入。",
+                insultTitle: "侮辱生成器 v2.0", insultDesc: "外部秘密节点已连接。<br>输入要用辩证法打击的目标。", insultPlh: "TARGET_ID", insultBtn: "[ 生成侮辱 ]",
+                insults: ["你是个卑鄙的无赖，一个毫无建树的懦夫。", "只有你那深不可测的无知才能超越你的傲慢。", "你是智力平庸的典型代表。", "存在之宏伟代码中的逻辑寄生虫。"],
+                r101_1: "[ 安全拦截 ]", r101_2: "警告：违反新话。检测到思想犯罪。", r101_3: "\n系统需要逻辑重新校准。", r101_4: "101 室已初始化。",
+                r101_q1: "\n> 国家协议验证：", r101_q2: "> 2 + 2 等于几？", r101_in: "\n> 输入：", r101_a1: "\n[ 已接受 ] 无知即力量。", r101_a2: "你的思想已痊愈。",
+                r101_e1: "\n[ 错误 ] 逻辑只是个人的建构。", r101_e2: "系统才是真理。", r101_inv: "\n[ 语法无效 ]",
+                wipeTitle: "需要同化", wipeDesc: "为了完成此过程，你必须摧毁你的过去。清除你身份的所有痕迹（本地数据）。", wipeBtn: "[ 格式化神经记忆 ]",
+                wipeEndT: "记忆已清除", wipeEndD: "你已经学会了热爱系统。<br><br>[ 传输终止 ]"
+            };
+            this.bindEvents();
+            this.applyLanguage();
+        },
 
-            applyLanguage() {
-                const currentLang = typeof AOE_PROGRESS !== 'undefined' ? AOE_PROGRESS.getLang(['it', 'en']) : 'en';
+        applyLanguage() {
+            const currentLang = typeof AOE_PROGRESS !== 'undefined' ? AOE_PROGRESS.getLang(validLangs) : 'en';
                 globalLang = currentLang;
                 
                 const t = this.i18n[globalLang] || this.i18n['en'];
@@ -517,7 +573,7 @@
 
             restartLevel() {
                 sysAudio.playTone(800, 'square', 0.1, 0.1);
-                document.getElementById('core_btn-restart').style.display = 'none';
+                document.getElementById('core_btn-restart').classList.add('hidden');
                 const statusEl = document.getElementById('core_hud-status');
                 statusEl.textContent = (this.i18n[globalLang] || this.i18n['en']).hudReady;
                 statusEl.style.color = 'var(--ph-main)';
@@ -749,14 +805,14 @@
                     statusEl.style.color = 'var(--ph-bright)';
                     setTimeout(() => this.triggerPhaseTwo(), 2500); 
                 } else if (result === 'O') {
-                    sysAudio.playTone(200, 'sawtooth', 0.8, 0.1, 50); sysAudio.noise(0.8, 0.1);
-                    statusEl.style.color = 'var(--alert-color)';
-                    document.getElementById('core_btn-restart').style.display = 'block';
-                } else if (result === 'DRAW') {
-                    sysAudio.playTone(400, 'sawtooth', 0.1, 0.1, 800); setTimeout(() => sysAudio.playTone(600, 'square', 0.1, 0.1, 200), 50); sysAudio.noise(0.3, 0.1);
-                    statusEl.style.color = 'var(--data-color)'; 
-                    document.getElementById('core_btn-restart').style.display = 'block';
-                }
+                sysAudio.playTone(200, 'sawtooth', 0.8, 0.1, 50); sysAudio.noise(0.8, 0.1);
+                statusEl.style.color = 'var(--alert-color)';
+                document.getElementById('core_btn-restart').classList.remove('hidden');
+            } else if (result === 'DRAW') {
+                sysAudio.playTone(400, 'sawtooth', 0.1, 0.1, 800); setTimeout(() => sysAudio.playTone(600, 'square', 0.1, 0.1, 200), 50); sysAudio.noise(0.3, 0.1);
+                statusEl.style.color = 'var(--data-color)'; 
+                document.getElementById('core_btn-restart').classList.remove('hidden');
+            }
             },
 
             // --- L'INSULTOMETRO ---
@@ -945,7 +1001,7 @@ window.addEventListener('keydown', (e) => {
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.2 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.3 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

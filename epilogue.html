@@ -8,11 +8,11 @@
     <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <meta name="description" content="Epilogo di Age of Eye. Override completato. TheOldsmokeArcade1984 — CRT, fosforo verde, occhio nel vuoto.">
-    <meta name="keywords" content="Age of Eye, THE CORE, TheOldsmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
-    <meta name="author" content="TheOldsmokeArcade1984">
-    <meta name="creator" content="TheOldsmokeArcade1984">
-    <meta name="publisher" content="TheOldsmokeArcade1984">
+    <meta name="description" content="Epilogo di Age of Eye. Override completato. TheOldSmokeArcade1984 — CRT, fosforo verde, occhio nel vuoto.">
+    <meta name="keywords" content="Age of Eye, THE CORE, TheOldSmokeArcade1984, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
+    <meta name="author" content="TheOldSmokeArcade1984">
+    <meta name="creator" content="TheOldSmokeArcade1984">
+    <meta name="publisher" content="TheOldSmokeArcade1984">
     <meta name="application-name" content="Age of Eye">
     <meta name="apple-mobile-web-app-title" content="Age of Eye">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,7 +50,7 @@
 	<link rel="alternate" type="text/plain" href="llms.txt" title="LLM instructions">
 	<link rel="author" href="humans.txt">
 <!-- SOCIAL PREVIEW (UNIVERSALE) -->
-    <meta property="og:title" content="Age of Eye 1984 | TheOldsmokeArcade1984">
+    <meta property="og:title" content="Age of Eye 1984 | TheOldSmokeArcade1984">
     <meta property="og:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta property="og:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
     <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/epilogue.html">
@@ -67,9 +67,10 @@
 
     <!-- JSON-LD CORRETTO (Specifico per Epilogue) -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Epilogue — Age of Eye","description":"Epilogo di Age of Eye. Override completato. The Oldsmoke Arcade 1984 — CRT, fosforo verde, occhio nel vuoto.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
         :root {
             --ph-main: #00ff41;   
             --ph-bright: #aaffaa; 
@@ -186,9 +187,9 @@
 <script src="ageofeye-progress.js"></script>
 <script>
     // GATE DI SICUREZZA: Blocco prima del rendering
-    if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.isCoreUnlocked()) {
-        window.location.href = 'hub_system.html';
-    }
+    if (typeof AOE_PROGRESS !== 'undefined' && !AOE_PROGRESS.isCoreUnlocked() && localStorage.getItem('ageOfEye_wiped') !== 'true') {
+    window.location.href = 'hub_system.html';
+}
 </script>
 </head>
 <body>
@@ -441,7 +442,7 @@ const I18N = {
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.2 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.3 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

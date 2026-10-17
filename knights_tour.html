@@ -67,9 +67,10 @@
 
     <!-- JSON-LD CORRETTO (Specifico per Knight's Tour) -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Knight's Tour — Age of Eye","description":"Knight's Tour in Age of Eye: percorri la scacchiera fosforosa con il cavallo. Completa il tour per sbloccare THE CORE.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
         :root {
             --ph-bright: #aaffaa; 
             --ph-main: #00ff41;   
@@ -232,8 +233,8 @@
     <div class="top-bar">
         <button class="top-btn" id="btn-home" onclick="exitToHome()">← HUB</button>
         <div class="lang-container" id="lang-container"></div>
-        <button class="top-btn" id="diff-btn" onclick="toggleDiff()">HARD (100)</button>
-        <button class="top-btn" id="audio-btn" onclick="toggleAudio()">🔊 ON</button>
+        <button class="top-btn" id="diff-btn" aria-label="Difficoltà" onclick="toggleDiff()">HARD (100)</button>
+    <button class="top-btn" id="audio-btn" aria-label="Audio" onclick="toggleAudio()">🔊 ON</button>
     </div>
 
     <div id="home-screen" class="screen active">
@@ -645,7 +646,7 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.2 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.3 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

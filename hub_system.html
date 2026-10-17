@@ -10,9 +10,9 @@
     <link rel="apple-touch-icon" href="icon-192.png">
     <meta name="description" content="Hub neurale di Age of Eye: 12 mini-giochi arcade, Knight's Tour, Neon Specter e Sector Zero. Completa i nodi per sbloccare THE CORE.">
     <meta name="keywords" content="Age of Eye, THE CORE, OldsmokeArcade1984, arcade, 1984, arcade cyberpunk, CRT phosphor, gioco browser, puzzle, knight's tour, tesseratto, tesseract, Memory Hole, Sector Zero, Orwell, retro arcade, neon green, virus, re, alfiere, free game">
-    <meta name="author" content="TheOldsmokeArcade1984">
-    <meta name="creator" content="TheOldsmokeArcade1984">
-    <meta name="publisher" content="TheOldsmokeArcade1984">
+    <meta name="author" content="TheOldSmokeArcade1984">
+    <meta name="creator" content="TheOldSmokeArcade1984">
+    <meta name="publisher" content="TheOldSmokeArcade1984">
     <meta name="application-name" content="Age of Eye">
     <meta name="apple-mobile-web-app-title" content="Age of Eye">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,7 +51,7 @@
     <link rel="author" href="humans.txt">
 
     <!-- SOCIAL PREVIEW (UNIVERSALE) -->
-    <meta property="og:title" content="Age of Eye 1984 | TheOldsmokeArcade1984">
+    <meta property="og:title" content="Age of Eye 1984 | TheOldSmokeArcade1984">
     <meta property="og:description" content="Arcade cyberpunk CRT. Supera i 12 nodi, eludi l'IA e sblocca THE CORE. Gioca gratis nel browser.">
     <meta property="og:image" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg">
     <meta property="og:url" content="https://theoldsmokearcade1984.github.io/Age-of-Eye/hub_system.html">
@@ -69,12 +69,16 @@
 
     <!-- JSON-LD CORRETTO -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Age of Eye — Neural Hub | 12 Nodi Arcade","description":"Hub neurale di Age of Eye: 12 mini-giochi arcade, Knight's Tour, Neon Specter e Sector Zero. Completa i nodi per sbloccare THE CORE.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
+<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+<link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+<link href="[https://fonts.googleapis.com/css2?family=VT323&display=swap](https://fonts.googleapis.com/css2?family=VT323&display=swap)" rel="stylesheet">
 <style>
     :root{
-      --bg:#020802; --bg2:#061106; --panel:rgba(3,18,3,.93); --line:rgba(0,255,102,.28);
-      --green:#00ff66; --soft:#a4ffd0; --muted:#8bcba5; --text:#dcffe9; --shadow:0 0 24px rgba(0,255,102,.12);
-      --font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --bg:#000200; --bg2:#000500; --panel:rgba(0,12,0,.93); --line:rgba(0,255,65,.35);
+      --green:#00ff41; --soft:#aaffaa; --muted:#77ff99; --text:#00ff41; --shadow:0 0 24px rgba(0,255,65,.18);
+      --font: 'VT323', monospace;
     }
+
     
     ::-webkit-scrollbar { display: none; width: 0; height: 0; }
     * { 
@@ -258,10 +262,10 @@
       <div class="content">
         <div class="home-grid">
           <div class="panel">
-            <div class="badge" id="homeBadge">● OS Terminal / 12 Nodes</div>
+            <div class="badge" id="homeBadge">● THE OLDSMOKE ARCADE 1984</div>
             <canvas id="introCanvas" width="1200" height="260" aria-hidden="true"></canvas>
             <h1>AGE OF EYE</h1>
-            <div class="muted" id="homeDesc">Central Neural Hub v6.21. Attenzione: attività di rete monitorata. Tracce di algoritmi Orwelliani rilevate.</div>
+            <div class="muted" id="homeDesc">Central Neural Hub v3.3. Attenzione: attività di rete monitorata. Tracce di algoritmi Orwelliani rilevate.</div>
 
         <div style="margin-top: 15px; border-left: 2px solid var(--line); padding-left: 10px; display: flex; flex-direction: column; gap: 12px;">
             <div>
@@ -470,10 +474,14 @@ window.addEventListener("keyup", (e) => {
 const canvas = $("gameCanvas"), ctx = canvas.getContext("2d");
 const state = { game:null, gameKey:null, running:false, score:0, last:0, keys:new Set(), analog:{x:0, y:0} };
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let audioCtx = null;
+function initAudio() {
+if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+if (audioCtx.state === 'suspended') audioCtx.resume();
+}
 function playSfx(type) {
-  if (!state.running && type !== 'blip' && type !== 'crash') return; 
-  if (audioCtx.state === 'suspended') audioCtx.resume();
+if (!state.running && type !== 'blip' && type !== 'crash') return;
+initAudio();
   const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
   osc.connect(gain); gain.connect(audioCtx.destination);
   const now = audioCtx.currentTime;
@@ -522,7 +530,7 @@ function setActionLabel(k){
 }
 
 function startGame(k){
-  if(audioCtx.state === 'suspended') audioCtx.resume();
+  initAudio();
   state.keys.clear(); state.analog = {x:0, y:0}; if(typeof clearTouchKeys==="function") clearTouchKeys();
   state.gameKey = k; state.game = games[k]; state.running = true; state.score = 0; state.last = performance.now();
   $("gameTitle").textContent = meta[k].title.default; $("modeTag").textContent = "MODE: " + games[k].name; $("scoreTag").textContent = "SCORE: 0";
@@ -540,13 +548,13 @@ $("restartGame").onclick = () => { state.analog={x:0,y:0}; if(typeof clearTouchK
 
 // --- LINGUE E DIZIONARIO ---
 const I18N = {
-  it:{langLabel:"Lingua Sistema",openArcade:"Archivio Base",privacy:"Epurazione",quickGames:"Esplora Moduli",backHome:"Torna all'Hub",backMenu:"Indietro",restart:"Restart",controls:"Controlli",hintMobile:"Modalità Mobile. Usa joypad a schermo.",hintPc:"Modalità PC. Usa tastiera.", memShow:"MEMORIZZA", memRep:"RIPETI", ph1:"FASE 1: 12 NODI", ph2:"FASE 2: 3 PROTOCOLLI", ph3:"FASE 3: ACCESSO FINALE", hd:"Central Neural Hub v6.21. Attenzione: attività monitorata. Tracce Orwelliane rilevate.", stOk:"Connessione Stabilita", stCore:"CRITICO: THE CORE SBLOCCATO"},
-  en:{langLabel:"System Language",openArcade:"Base Archive",privacy:"Purge",quickGames:"Explore Modules",backHome:"Back to Hub",backMenu:"Back",restart:"Restart",controls:"Controls",hintMobile:"Mobile mode. Use on-screen joypad.",hintPc:"PC mode. Use keyboard.", memShow:"MEMORIZE", memRep:"REPEAT", ph1:"PHASE 1: 12 NODES", ph2:"PHASE 2: 3 PROTOCOLS", ph3:"PHASE 3: FINAL ACCESS", hd:"Central Neural Hub v6.21. Warning: network activity monitored. Orwellian traces detected.", stOk:"Connection Established", stCore:"CRITICAL: THE CORE UNLOCKED"},
-  es:{langLabel:"Idioma Sistema",openArcade:"Archivo Base",privacy:"Purgar",quickGames:"Explorar Módulos",backHome:"Volver al Hub",backMenu:"Atrás",restart:"Reinicio",controls:"Controles",hintMobile:"Modo Móvil. Usa joypad en pantalla.",hintPc:"Modo PC. Usa teclado.", memShow:"MEMORIZA", memRep:"REPITE", ph1:"FASE 1: 12 NODOS", ph2:"FASE 2: 3 PROTOCOLOS", ph3:"FASE 3: ACCESO FINAL", hd:"Central Neural Hub v6.21. Advertencia: actividad monitoreada. Rastros Orwellianos detectados.", stOk:"Conexión Establecida", stCore:"CRÍTICO: THE CORE DESBLOQUEADO"},
-  fr:{langLabel:"Langue Système",openArcade:"Archive de Base",privacy:"Purger",quickGames:"Explorer Modules",backHome:"Retour au Hub",backMenu:"Retour",restart:"Recommencer",controls:"Contrôles",hintMobile:"Mode Mobile. Utilisez le joypad virtuel.",hintPc:"Mode PC. Utilisez le clavier.", memShow:"MÉMORISEZ", memRep:"RÉPÉTEZ", ph1:"PHASE 1: 12 NŒUDS", ph2:"PHASE 2: 3 PROTOCOLES", ph3:"PHASE 3: ACCÈS FINAL", hd:"Central Neural Hub v6.21. Avertissement : activité surveillée. Traces Orwelliennes détectées.", stOk:"Connexion Établie", stCore:"CRITIQUE: THE CORE DÉVERROUILLÉ"},
-  de:{langLabel:"Systemsprache",openArcade:"Basisarchiv",privacy:"Säuberung",quickGames:"Module Erkunden",backHome:"Zurück zum Hub",backMenu:"Zurück",restart:"Neustart",controls:"Steuerung",hintMobile:"Mobilmodus. Nutze das On-Screen-Joypad.",hintPc:"PC-Modus. Nutze die Tastatur.", memShow:"MERKEN", memRep:"WIEDERHOLEN", ph1:"PHASE 1: 12 KNOTEN", ph2:"PHASE 2: 3 PROTOKOLLE", ph3:"PHASE 3: LETZTER ZUGRIFF", hd:"Central Neural Hub v6.21. Warnung: Netzwerkaktivität überwacht. Orwellsche Spuren entdeckt.", stOk:"Verbindung Hergestellt", stCore:"KRITISCH: THE CORE ENTSPERRT"},
-  ja:{langLabel:"システム言語",openArcade:"ベースアーカイブ",privacy:"パージ",quickGames:"モジュール探索",backHome:"ハブに戻る",backMenu:"戻る",restart:"再起動",controls:"操作",hintMobile:"モバイルモード。ジョイパッドを使用。",hintPc:"PCモード。キーボードを使用。", memShow:"記憶", memRep:"反復", ph1:"フェーズ 1: 12ノード", ph2:"フェーズ 2: 3プロトコル", ph3:"フェーズ 3: 最終アクセス", hd:"Central Neural Hub v6.21。警告: ネットワークアクティビティ監視中。オーウェル的痕跡を検出。", stOk:"接続確立", stCore:"警告: THE CORE ロック解除"},
-  zh:{langLabel:"系统语言",openArcade:"基础档案",privacy:"清除",quickGames:"探索模块",backHome:"返回中心",backMenu:"返回",restart:"重启",controls:"控制",hintMobile:"移动模式。使用屏幕手柄。",hintPc:"PC模式。使用键盘。", memShow:"记忆", memRep:"重复", ph1:"阶段 1：12 节点", ph2:"阶段 2：3 协议", ph3:"阶段 3：最终访问", hd:"Central Neural Hub v6.21。警告：网络活动受到监控。检测到奥威尔式痕迹。", stOk:"连接已建立", stCore:"严重：THE CORE 已解锁"}
+  it:{langLabel:"Lingua Sistema",openArcade:"Archivio Base",privacy:"Epurazione",quickGames:"Esplora Moduli",backHome:"Torna all'Hub",backMenu:"Indietro",restart:"Restart",controls:"Controlli",hintMobile:"Modalità Mobile. Usa joypad a schermo.",hintPc:"Modalità PC. Usa tastiera.", memShow:"MEMORIZZA", memRep:"RIPETI", ph1:"FASE 1: 12 NODI", ph2:"FASE 2: 3 PROTOCOLLI", ph3:"FASE 3: ACCESSO FINALE", hd:"Central Neural Hub v3.3. Attenzione: attività monitorata. Tracce Orwelliane rilevate.", stOk:"Connessione Stabilita", stCore:"CRITICO: THE CORE SBLOCCATO"},
+  en:{langLabel:"System Language",openArcade:"Base Archive",privacy:"Purge",quickGames:"Explore Modules",backHome:"Back to Hub",backMenu:"Back",restart:"Restart",controls:"Controls",hintMobile:"Mobile mode. Use on-screen joypad.",hintPc:"PC mode. Use keyboard.", memShow:"MEMORIZE", memRep:"REPEAT", ph1:"PHASE 1: 12 NODES", ph2:"PHASE 2: 3 PROTOCOLS", ph3:"PHASE 3: FINAL ACCESS", hd:"Central Neural Hub v3.3. Warning: network activity monitored. Orwellian traces detected.", stOk:"Connection Established", stCore:"CRITICAL: THE CORE UNLOCKED"},
+  es:{langLabel:"Idioma Sistema",openArcade:"Archivo Base",privacy:"Purgar",quickGames:"Explorar Módulos",backHome:"Volver al Hub",backMenu:"Atrás",restart:"Reinicio",controls:"Controles",hintMobile:"Modo Móvil. Usa joypad en pantalla.",hintPc:"Modo PC. Usa teclado.", memShow:"MEMORIZA", memRep:"REPITE", ph1:"FASE 1: 12 NODOS", ph2:"FASE 2: 3 PROTOCOLOS", ph3:"FASE 3: ACCESO FINAL", hd:"Central Neural Hub v3.3. Advertencia: actividad monitoreada. Rastros Orwellianos detectados.", stOk:"Conexión Establecida", stCore:"CRÍTICO: THE CORE DESBLOQUEADO"},
+  fr:{langLabel:"Langue Système",openArcade:"Archive de Base",privacy:"Purger",quickGames:"Explorer Modules",backHome:"Retour au Hub",backMenu:"Retour",restart:"Recommencer",controls:"Contrôles",hintMobile:"Mode Mobile. Utilisez le joypad virtuel.",hintPc:"Mode PC. Utilisez le clavier.", memShow:"MÉMORISEZ", memRep:"RÉPÉTEZ", ph1:"PHASE 1: 12 NŒUDS", ph2:"PHASE 2: 3 PROTOCOLES", ph3:"PHASE 3: ACCÈS FINAL", hd:"Central Neural Hub v3.3. Avertissement : activité surveillée. Traces Orwelliennes détectées.", stOk:"Connexion Établie", stCore:"CRITIQUE: THE CORE DÉVERROUILLÉ"},
+  de:{langLabel:"Systemsprache",openArcade:"Basisarchiv",privacy:"Säuberung",quickGames:"Module Erkunden",backHome:"Zurück zum Hub",backMenu:"Zurück",restart:"Neustart",controls:"Steuerung",hintMobile:"Mobilmodus. Nutze das On-Screen-Joypad.",hintPc:"PC-Modus. Nutze die Tastatur.", memShow:"MERKEN", memRep:"WIEDERHOLEN", ph1:"PHASE 1: 12 KNOTEN", ph2:"PHASE 2: 3 PROTOKOLLE", ph3:"PHASE 3: LETZTER ZUGRIFF", hd:"Central Neural Hub v3.3. Warnung: Netzwerkaktivität überwacht. Orwellsche Spuren entdeckt.", stOk:"Verbindung Hergestellt", stCore:"KRITISCH: THE CORE ENTSPERRT"},
+  ja:{langLabel:"システム言語",openArcade:"ベースアーカイブ",privacy:"パージ",quickGames:"モジュール探索",backHome:"ハブに戻る",backMenu:"戻る",restart:"再起動",controls:"操作",hintMobile:"モバイルモード。ジョイパッドを使用。",hintPc:"PCモード。キーボードを使用。", memShow:"記憶", memRep:"反復", ph1:"フェーズ 1: 12ノード", ph2:"フェーズ 2: 3プロトコル", ph3:"フェーズ 3: 最終アクセス", hd:"Central Neural Hub v3.3。警告: ネットワークアクティビティ監視中。オーウェル的痕跡を検出。", stOk:"接続確立", stCore:"警告: THE CORE ロック解除"},
+  zh:{langLabel:"系统语言",openArcade:"基础档案",privacy:"清除",quickGames:"探索模块",backHome:"返回中心",backMenu:"返回",restart:"重启",controls:"控制",hintMobile:"移动模式。使用屏幕手柄。",hintPc:"PC模式。使用键盘。", memShow:"记忆", memRep:"重复", ph1:"阶段 1：12 节点", ph2:"阶段 2：3 协议", ph3:"阶段 3：最终访问", hd:"Central Neural Hub v3.3。警告：网络活动受到监控。检测到奥威尔式痕迹。", stOk:"连接已建立", stCore:"严重：THE CORE 已解锁"}
 };
 
 let lang = AOE_PROGRESS.getLang(Object.keys(I18N));
@@ -621,6 +629,8 @@ function applyLanguage(){
   set("langLabel","langLabel"); set("goMenu","openArcade"); set("quickGames","quickGames"); 
   set("backHome1","backHome"); set("backHome2","backHome"); set("backMenu","backMenu"); set("restartGame","restart"); 
   set("lblPhase1","ph1"); set("lblPhase2","ph2"); set("lblPhase3","ph3"); set("homeDesc","hd");
+const pN = {it:["Percorso del Cavaliere","Spettro Neon","Settore Zero"],en:["Knight's Tour","Neon Specter","Sector Zero"],es:["Tour del Caballo","Espectro Neón","Sector Cero"],fr:["Tour du Cavalier","Spectre Néon","Secteur Zéro"],de:["Springer-Tour","Neon-Gespenst","Sektor Null"],ja:["騎士の巡回","ネオンスペクター","セクターゼロ"],zh:["骑士巡游","霓虹幽灵","零扇区"]}[lang] || ["Knight's Tour","Neon Specter","Sector Zero"];
+$("goKnightsTour").textContent = pN[0]; $("goNeonSpecter").textContent = pN[1]; $("goNullSector").textContent = pN[2];
   set("goPrivacy","privacy"); set("privacyTitleScreen","privacy");
   const sys = $("systemStatus"); if(sys) sys.textContent = (typeof AOE_PROGRESS !== 'undefined' && AOE_PROGRESS.isCoreUnlocked()) ? t("stCore") : t("stOk");
   renderGrid(); renderQuickList(); applyMode(); updateProgressStatus();
@@ -700,7 +710,7 @@ function simpleCanvas(canvas, speed){
 simpleCanvas($("introCanvas"), 1.6);
 
 // --- UI EVENT LISTENERS ---
-$("goMenu").onclick = () => { show("menu"); if(audioCtx.state === 'suspended') audioCtx.resume(); };
+$("goMenu").onclick = () => { show("menu"); initAudio(); };
 $("quickGames").onclick = () => show("menu");
 $("goPrivacy").onclick = () => show("privacy");
 $("backHome1").onclick = () => show("home");
@@ -711,9 +721,10 @@ function attemptModuleAccess(url) {
   let missingCount = 0;
   Object.keys(hi).forEach(k => { if (hi[k] < 10) missingCount++; });
   
-  if (missingCount > 0) {
-    if(audioCtx.state === 'suspended') audioCtx.resume();
-    playSfx('crash');
+  
+if (missingCount > 0) {
+initAudio();
+playSfx('crash');
     
     const tLock = {
     it: `ANOMALIA COMPORTAMENTALE RILEVATA.<br>Il Ministero richiede il completamento di tutti i 12 Nodi Arcade (Punteggio ≥ 10) prima di concedere l'autorizzazione di livello superiore.<br><br>Simulazioni mancanti: <span style="color:#fff">${missingCount}</span>`,
@@ -727,7 +738,7 @@ function attemptModuleAccess(url) {
     $("lock-text").innerHTML = tLock[lang] || tLock['en'];
     $("lock-overlay").style.display = "flex";
   } else {
-    if(audioCtx.state === 'suspended') audioCtx.resume();
+    initAudio();
     playSfx('blip');
     setTimeout(() => window.location.href = url, 300);
   }
@@ -1066,9 +1077,10 @@ updateProgressStatus();
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.2 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.3 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }
     </script>
 </body>
+</html>

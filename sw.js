@@ -1,4 +1,4 @@
-const CACHE_NAME = 'age-of-eye-v3.2';
+const CACHE_NAME = 'age-of-eye-v3.3';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -9,7 +9,6 @@ const ASSETS_TO_CACHE = [
     './core.html',
     './epilogue.html',
     './ageofeye-progress.js',
-    './SocialPre.jpg',
     './icon-192.png',
     './icon-512.png',
     './manifest.json',

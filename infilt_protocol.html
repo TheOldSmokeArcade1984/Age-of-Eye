@@ -67,9 +67,10 @@
 
     <!-- JSON-LD CORRETTO (Specifico per Memory Hole) -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Memory Hole — Neon Specter | Age of Eye","description":"Infiltrati nella rete come spettro neon. Memory Hole: cancella i ricordi proibiti e supera il protocollo di infiltrazione in Age of Eye.","inLanguage":["it","en","es","fr","de","ja","zh"],"isPartOf":{"@type":"VideoGame","name":"Age of Eye","alternateName":["THE CORE","Age of Eye 1984","The Oldsmoke Arcade"],"url":"https://theoldsmokearcade1984.github.io/Age-of-Eye/","genre":["Arcade","Puzzle","Adventure","Cyberpunk"],"playMode":"SinglePlayer","gamePlatform":"Web Browser","applicationCategory":"GameApplication","operatingSystem":"Any","isAccessibleForFree":true,"inLanguage":["it","en","es","fr","de","ja","zh"]},"about":{"@type":"VideoGame","name":"Age of Eye"},"primaryImageOfPage":"https://theoldsmokearcade1984.github.io/Age-of-Eye/SocialPre.jpg"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
         :root {
             --ph-bright: #aaffaa; 
             --ph-main: #00ff41;   
@@ -230,8 +231,8 @@
     <div id="home" class="crt">
         <canvas id="matrix-bg" class="matrix-bg"></canvas>
         <div class="content">
-            <h1>MEMORY HOLE</h1>
-            <div id="subtitle" class="subtitle">THOUGHTCRIME PROTOCOL v1.2</div>
+            <h1>NEON SPECTER</h1>
+	<div id="subtitle" class="subtitle">MEMORY HOLE — INFILTRATION PROTOCOL</div>
             <div class="lang-select" id="lang-container"></div>
             <button class="sys-btn" id="start-btn" onpointerenter="playSFX('hover')" onclick="proceedToGame()">→ INFILTRATI NEL SISTEMA</button>
         </div>
@@ -1132,7 +1133,7 @@
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('Service Worker v3.2 registrato.', reg))
+            .then(reg => console.log('Service Worker v3.3 registrato.', reg))
             .catch(err => console.warn('Errore SW:', err));
         });
       }

@@ -14,15 +14,22 @@ const AOE_PROGRESS = {
         'miner', 'orbit', 'stacker', 'memory'
     ],
 
-    get: function() {
-        try {
-            const data = localStorage.getItem(this.STORAGE_KEY);
-            if (data) return JSON.parse(data);
-        } catch (e) {
-            console.warn("Errore di lettura storage:", e);
-        }
-        return { version: 1, knight: false, memory: false, sector: false, coreUnlocked: false, epilogueSeen: false };
-    },
+    // Nota architetturale: 'memory' in STORAGE_KEY traccia il Protocollo 2 (Neon Specter),
+  // mentre 'sa-hi-memory' in HUB_NODES traccia il Nodo Arcade 12 (Simon Memory).
+  SCHEMA_VERSION: 2,
+  get: function() {
+      const defaults = { version: this.SCHEMA_VERSION, knight: false, memory: false, sector: false, coreUnlocked: false, epilogueSeen: false };
+      try {
+          const data = localStorage.getItem(this.STORAGE_KEY);
+          if (data) {
+              const parsed = JSON.parse(data);
+              return Object.assign({}, defaults, parsed, { version: this.SCHEMA_VERSION });
+          }
+      } catch (e) {
+          console.warn("Errore di lettura storage:", e);
+      }
+      return defaults;
+  },
 
     save: function(data) {
         try {

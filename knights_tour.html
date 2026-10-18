@@ -233,7 +233,7 @@
     <div class="top-bar">
         <button class="top-btn" id="btn-home" onclick="exitToHome()">← HUB</button>
         <div class="lang-container" id="lang-container"></div>
-        <button class="top-btn" id="diff-btn" aria-label="Difficoltà" onclick="toggleDiff()">HARD (100)</button>
+        <button class="top-btn" id="diff-btn" aria-label="Difficoltà" onclick="toggleDiff()">EASY (40)</button>
     <button class="top-btn" id="audio-btn" aria-label="Audio" onclick="toggleAudio()">🔊 ON</button>
     </div>
 
@@ -325,7 +325,7 @@
         let currentCameraZRot = 45;
 	const diffTargets = [40, 75, 100];
         const diffLabels = ["EASY (40)", "NORMAL (75)", "HARD (100)"];
-        let diffIndex = 2; // Default a Hard (100)
+        let diffIndex = 0; // Default a Easy (40)
 
         function toggleDiff() {
             if (moveNumber > 0) return; // Impedisce il cambio a partita iniziata

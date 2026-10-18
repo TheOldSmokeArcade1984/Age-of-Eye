@@ -533,7 +533,7 @@ function startGame(k){
   state.keys.clear(); state.analog = {x:0, y:0}; if(typeof clearTouchKeys==="function") clearTouchKeys();
   state.gameKey = k; state.game = games[k]; state.running = true; state.score = 0; state.last = performance.now();
   $("gameTitle").textContent = meta[k].title.default; $("modeTag").textContent = "MODE: " + games[k].name; $("scoreTag").textContent = "SCORE: 0";
-  setActionLabel(k); games[k].setup(); show("game"); requestAnimationFrame(loop);
+  setActionLabel(k); const instEl = $("instructionText"); if(instEl && meta[k]) instEl.textContent = meta[k].desc.default + " [Target HI >= 10]"; games[k].setup(); show("game"); requestAnimationFrame(loop);
 }
 function loop(ts){
   if(!state.running || !state.game) return;
@@ -560,18 +560,18 @@ let lang = AOE_PROGRESS.getLang(Object.keys(I18N));
 function t(key){ return (I18N[lang] && I18N[lang][key]) || I18N.en?.[key] || key; }
 
 const meta = {
-  snake:{key:"sa-hi-snake",title:{default:"Snake 01"},desc:{default:"Modulo classico fosfori."}},
-  pong:{key:"sa-hi-pong",title:{default:"Pong 02"},desc:{default:"Vettori riflessi."}},
-  runner:{key:"sa-hi-runner",title:{default:"Runner 03"},desc:{default:"Calcolo ostacoli dinamico."}},
-  dodge:{key:"sa-hi-dodge",title:{default:"Dodge 04"},desc:{default:"Evitamento a sciame."}},
-  breakout:{key:"sa-hi-breakout",title:{default:"Breakout 05"},desc:{default:"Distruzione firewall."}},
-  racer:{key:"sa-hi-racer",title:{default:"Racer 06"},desc:{default:"Intercettazione flussi."}},
-  shooter:{key:"sa-hi-shooter",title:{default:"Shooter 07"},desc:{default:"Ingaggio bersagli."}},
-  flappy:{key:"sa-hi-flappy",title:{default:"Flappy 08"},desc:{default:"Manovre in spazi stretti."}},
-  miner:{key:"sa-hi-miner",title:{default:"Miner 09"},desc:{default:"Acquisizione frammenti."}},
-  orbit:{key:"sa-hi-orbit",title:{default:"Orbit 10"},desc:{default:"Traiettorie ellittiche."}},
-  stacker:{key:"sa-hi-stacker",title:{default:"Stacker 11"},desc:{default:"Allineamento blocchi."}},
-  memory:{key:"sa-hi-memory",title:{default:"Memory 12"},desc:{default:"Ritenzione di sequenza."}}
+  snake:{key:"sa-hi-snake",title:{default:"Snake 01"},desc:{default:"Frecce/WASD o Joypad: raccogli i dati senza scontrarti."}},
+  pong:{key:"sa-hi-pong",title:{default:"Pong 02"},desc:{default:"Su/Giù o Touch: respingi il vettore oltre la difesa CPU."}},
+  runner:{key:"sa-hi-runner",title:{default:"Runner 03"},desc:{default:"Spazio/Su o JUMP: salta gli ostacoli di rete."}},
+  dodge:{key:"sa-hi-dodge",title:{default:"Dodge 04"},desc:{default:"Frecce/WASD o Joypad: schiva lo sciame ostile."}},
+  breakout:{key:"sa-hi-breakout",title:{default:"Breakout 05"},desc:{default:"Sinistra/Destra o Touch: demolisci i blocchi del firewall."}},
+  racer:{key:"sa-hi-racer",title:{default:"Racer 06"},desc:{default:"Sinistra/Destra: cambia corsia ed evita le collisioni."}},
+  shooter:{key:"sa-hi-shooter",title:{default:"Shooter 07"},desc:{default:"Sinistra/Destra + Spazio/FIRE: abbatti i bersagli."}},
+  flappy:{key:"sa-hi-flappy",title:{default:"Flappy 08"},desc:{default:"Spazio/Su o JUMP: mantieni la quota tra i varchi."}},
+  miner:{key:"sa-hi-miner",title:{default:"Miner 09"},desc:{default:"Sinistra/Destra: raccogli i dati chiari, evita quelli scuri."}},
+  orbit:{key:"sa-hi-orbit",title:{default:"Orbit 10"},desc:{default:"Spazio/Invio o TURN: inverti l'orbita per evitare gli impatti."}},
+  stacker:{key:"sa-hi-stacker",title:{default:"Stacker 11"},desc:{default:"Spazio/Su o DROP: impila i blocchi a tempo."}},
+  memory:{key:"sa-hi-memory",title:{default:"Memory 12"},desc:{default:"Osserva la sequenza e ripetila con Touch o Frecce/WASD."}}
 };
 
 const hi = {};
@@ -608,7 +608,7 @@ function renderGrid(){
     <button class="card focusable" data-game="${k}">
       <h3>${v.title.default}</h3>
       <p>${v.desc.default}</p>
-      <div class="hi">HI: ${hi[k] || 0}</div>
+      <div class="hi">HI: ${hi[k] || 0} ${(hi[k] || 0) >= 10 ? '✔' : ''}</div>
     </button>`).join("");
   document.querySelectorAll(".card").forEach(b => b.onclick = () => startGame(b.dataset.game));
 }
@@ -618,7 +618,7 @@ function renderQuickList(){
   box.innerHTML = Object.entries(meta).map(([k,v]) => `
     <button class="quick-item focusable" type="button" data-game="${k}">
       <span class="quick-item-name">${v.title.default}</span>
-      <span class="quick-item-score">HI: ${hi[k] || 0}</span>
+      <span class="quick-item-score">HI: ${hi[k] || 0} ${(hi[k] || 0) >= 10 ? '✔' : ''}</span>
     </button>`).join("");
   box.querySelectorAll(".quick-item").forEach(btn => btn.onclick = () => startGame(btn.dataset.game));
 }
